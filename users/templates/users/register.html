@@ -1,0 +1,21 @@
+{% extends "users/base.html" %}
+
+{% block content %}
+    <h3>Đăng ký tài khoản</h3>
+    <form method="POST" action="{% url 'users:register' %}">
+        {% csrf_token %}        
+        {% if form.non_field_errors %}
+        <div>
+            {{ form.non_field_errors|striptags }}
+        </div>
+        {% endif %}
+        {% for field in form.visible_fields %}
+        <div>
+            {{ field }}
+        </div>
+        {% endfor %}
+        <button type="submit">Đăng ký</button>
+        <hr>
+        <a href="{% url 'users:login' %}">Đã có tài khoản? Đăng nhập</a> 
+    </form>
+{% endblock content %}

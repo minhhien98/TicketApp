@@ -1,0 +1,27 @@
+{% extends "ticket/base.html" %}
+{% block content %}
+<label>Workshop: </label>
+<p>{{ workshop.name }}</p>
+<label>ngày diễn ra: </label>
+<p id ="datetime"> {{ workshop.date|date:"d M Y H:i:s O" }}</p>
+<label>Số lượng vé: </label>
+<p>{{ workshop.count }}/{{ workshop.slot }}</p>
+<label>Vé đã mua: </label>
+<p>{{ workshop.bought }}</p>
+<h1>{{ error_message }}</h1>
+<form action="{% url 'ticket:join_workshop' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="workshop_id" value="{{ workshop.id }}">
+    <label>Số lượng vé mua:</label>
+    <input type="number" value="0" name="quantity">
+    <button type="submit">Tham gia</button>
+</form>
+
+<script>
+    var workshops_date = document.querySelectorAll('#datetime');
+    for( i =0; i< workshops_date.length; i++){
+        utc = moment.utc(workshops_date[i].textContent);
+        workshops_date[i].textContent = moment(utc).local().format("DD/MM/YYYY HH:mm:ss");
+    }   
+</script>
+{% endblock %}

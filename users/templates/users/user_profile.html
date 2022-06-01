@@ -1,0 +1,25 @@
+{% extends "users/base.html" %}
+{% block content %}
+<h3>Thông tin cá nhân</h3>
+    <form method="POST" action="{% url 'users:user_profile' %}">
+        {% csrf_token %}        
+        {% if form.non_field_errors %}
+        <div>
+            {{ form.non_field_errors|striptags }}           
+        </div>
+        {% endif %}
+        {% if error_message %}
+        <div>
+            {{ error_message }}
+        </div>   
+        {% endif %}
+
+        {% for field in form.visible_fields %}
+        {{ field.label }}
+        <div>
+            {{ field }}
+        </div>
+        {% endfor %}
+        <button type="submit">Lưu</button>
+    </form>
+{% endblock content %}
