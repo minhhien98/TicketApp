@@ -10,4 +10,4 @@ class Workshop(models.Model):
 class Participant(models.Model):
     workshop_id = models.ForeignKey(Workshop, on_delete= models.CASCADE)
     user_id = models.ForeignKey(User, on_delete= models.CASCADE)
-    join_date = models.DateTimeField(default= datetime.utcnow())
+    join_date = models.DateTimeField(default= datetime.utcnow)
