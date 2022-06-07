@@ -59,3 +59,18 @@ class UserProfileForm(forms.Form):
     #         raise forms.ValidationError('Bạn không được đổi tên tài khoản!')
 
     #     return data
+
+class ChangePasswordForm(forms.Form):
+    old_password = forms.CharField()
+    new_password = forms.CharField(label ='Mật khẩu Mới:',required=True, min_length=5, widget=forms.TextInput(attrs={ 'type':'password', 'class':"form-control form-control-lg", 
+                                    'placeholder':"Mật khẩu Mới"}))
+    confirm_password = forms.CharField(label='Xác nhận mật khẩu:',required=True, min_length=5, widget=forms.TextInput(attrs={ 'type':'password', 'class':"form-control form-control-lg", 
+                                    'placeholder':"Xác nhận mật khẩu"}))
+
+    def clean(self):
+        data = super().clean()
+        #check new password and confirm new password
+        new_password = data.get('new_password')
+        confirm_password = data.get('confirm_password')
+        if new_password != confirm_password:
+            raise forms.ValidationError('Mật khẩu xác nhận không đúng!')

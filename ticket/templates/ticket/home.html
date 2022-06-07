@@ -1,40 +1,56 @@
 {% extends "ticket/base.html" %}
 {% load tz %}
 {% block content %}
+<form method="POST" action="{% url 'ticket:home' %}">
+    {% csrf_token %}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <p  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>
+        {% endfor %}
+    </ul>
+    {% endif %}
 <table>
     <thead>
         <tr>
             <th>Workshop</th>
-            <th>Ngày diễn ra</th>
-            <th>Số lượng</th>
-            <th>Đã mua</th>
+            <th>Số vé đăng ký</th>
+            <th>Số lượng vé tối đa có thể đăng ký</th>
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody>  
         {% for workshop in workshops %}
         <tr>
             <td>{{ workshop.name }}</td>
-            <td id ="datetime"> {{ workshop.date|date:"d M Y H:i:s O" }} </td>
-            <td>{{ workshop.count }}/{{ workshop.slot }}</td>
-            <td>{{ workshop.bought }}</td>
+            <td id="{{ workshop.id }}" class="td_number">
+                <input type="number" id="ninput{{ workshop.id}}" value="0" hidden="true">
+            </td>
+            <td>{{ workshop.available }}</td>
             <td>
-                <a type="button" href="{% url 'ticket:ticket_detail' workshop.id %}">
-                    <button>Tham Gia</button>
-                </a>             
+                <input type="checkbox" name="cinput" id="{{ workshop.id }}" value="{{ workshop.id }}" onchange="ShowInput(this.id,this.checked)"><label for="checkbox_id">Chọn</label>        
             </td>
         </tr>
-        {% endfor %}
-    </tbody>
+        {% endfor %} 
+    </tbody>  
 </table>
+<button type="submit">Đăng ký</button>
+</form>
 
 <script>
-    var workshops_date = document.querySelectorAll('#datetime');
-    for( i =0; i< workshops_date.length; i++){
-        utc = moment.utc(workshops_date[i].textContent);
-        workshops_date[i].textContent = moment(utc).local().format("DD/MM/YYYY HH:mm:ss");
-    }
-    
+    function ShowInput(id,checked){
+        var input = document.getElementById('ninput'+id);
+        if(checked == true){
+            input.hidden = false;
+            input.value = 1;
+            input.name = 'ninput';
+        }
+        else{
+            input.hidden = true;
+            input.value = 0;
+            input.name = '';
+        }     
+    }    
 </script>
 {% endblock %}
 

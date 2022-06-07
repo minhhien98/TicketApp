@@ -50,6 +50,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #Custom middleware
+    'TicketApp.middlewares.RequestLoggerMiddleware'
 ]
 
 ROOT_URLCONF = 'TicketApp.urls'
@@ -126,7 +128,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT= os.path.join(BASE_DIR,'static')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "staticfile"), 
+    os.path.join(BASE_DIR, 'staticfile'),
 ]
 
 MEDIA_URL = '/media/'
@@ -136,6 +138,46 @@ MEDIA_ROOT= os.path.join(BASE_DIR,'media')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#Logging Config
+LOGGING = {
+    'version': 1,
+    # Version of logging
+    'disable_existing_loggers': False,
+ 
+    'formatters': {
+        'default': {
+            'format': '{levelname} {asctime} {message}',
+            'style': '{',
+            'datefmt':'%d/%b/%Y %H:%M:%S %z'
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'request_logger.log',
+            'formatter':'default'
+        },
+ 
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter':'default'
+        },
+    },
+    # 'root': {
+    #     'handlers': ['file','console'],
+    #     'level': 'INFO',
+    # },
+
+    'loggers': {
+        '': {
+            'handlers': ['file','console'],
+            'level': 'INFO',
+            'propagate': False,           
+        },
+    }
+}
 
 try:
     from .local_settings import *

@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.models  import User
 from django.urls import reverse
-from users.forms import RegisterForm, UserProfileForm
+from users.forms import ChangePasswordForm, RegisterForm, UserProfileForm
 from users.models import UserExtend
 
 # Create your views here.
@@ -58,6 +58,27 @@ def user_profile(request):
                                 'parish':user.userextend.parish})
 
         return render(request,'users/user_profile.html',{'form':form})
+
+def change_password(request):
+    if not request.user.is_authenticated:
+        return render(request,'users/login.html',{'error_message':'Xin vui lòng đăng nhập.'})
+    if request.method == 'POST':
+        form = ChangePasswordForm(request.POST)
+        if form.is_valid:
+            old_password = form.cleaned_data.get('old_password')
+            user = User.objects.filter(username = request.user.username,password = old_password).first()
+            if not user:
+                return render(request,'users/change_password.html',{'form':form,'error_message':'Mật khẩu cũ không chính xác.'})
+            user.set_password(form.new_password)
+            user.save()
+            return render(request,'users/change_password.html',{'form':form,'error_message':'Thay đổi mật khẩu thành công.'})
+
+
+        else:
+            return render(request,'users/change_password.html',{'form':form})
+    else:
+        form = ChangePasswordForm()
+        return render(request,'users/change_password.html',{'form':form})
 
 def login(request):
     if request.user.is_authenticated:

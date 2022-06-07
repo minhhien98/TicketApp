@@ -6,14 +6,14 @@
     <!-- Bootstrap -->
     <!-- <link href="{% static 'bootstrap-5.1.3/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> -->
-    <script src="{% static 'js/moment.js' %}"></script>
 </head>
 <header>
     {% block header %}
     {% if user.is_authenticated %}
         <a href="{% url 'ticket:home' %}">Trang chủ</a>
-        <p>Welcome, {{ user.get_username }}</p>
+        <p>Xin chào, {{ user.get_username }}</p>
         <a href="{% url 'users:user_profile' %}">Thông tin cá nhân</a>
+        <a href="{% url 'users:change_password' %}">Đổi mật khẩu</a>
         <form method="post" action="{% url 'users:logout' %}">
             {% csrf_token %}
             <button type="submit">Đăng xuất</a>
