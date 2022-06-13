@@ -11,3 +11,6 @@ class UserExtend(models.Model):
     address = models.CharField(max_length=254)   
     parish = models.CharField(max_length=100)
     ticket = models.IntegerField(default=0)
+    is_email_verified = models.BooleanField(default= False)
+    activation_key = models.CharField(blank=True, max_length=40)
+    key_expires = models.DateTimeField(null=True)

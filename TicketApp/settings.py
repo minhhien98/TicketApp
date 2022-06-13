@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'TicketApp.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
+#Config in Local Settings
 DATABASES = {
     'default': {
         'ENGINE'  : 'django.db.backends.mysql',
@@ -114,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE= "UTC"
 
 USE_I18N = True
 
@@ -138,6 +138,13 @@ MEDIA_ROOT= os.path.join(BASE_DIR,'media')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#Email Sender Config: Config in Local Settings
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER =''
+EMAIL_HOST_PASSWORD = ''
 
 #Logging Config
 LOGGING = {
@@ -179,6 +186,8 @@ LOGGING = {
     }
 }
 
+#Date Formats
+DATE_INPUT_FORMATS =['%d/%m/%Y']
 try:
     from .local_settings import *
 except ImportError:

@@ -14,21 +14,23 @@
     <thead>
         <tr>
             <th>Workshop</th>
-            <th>Số vé đăng ký</th>
+            <th>Số vé đã đăng ký</th>
             <th>Số lượng vé tối đa có thể đăng ký</th>
-            <th></th>
+            <th>Số vé đăng ký</th>
+            
         </tr>
     </thead>
     <tbody>  
         {% for workshop in workshops %}
         <tr>
             <td>{{ workshop.name }}</td>
-            <td id="{{ workshop.id }}" class="td_number">
-                <input type="number" id="ninput{{ workshop.id}}" value="0" hidden="true">
-            </td>
+            <td>{{ workshop.registered }}</td>
             <td>{{ workshop.available }}</td>
+            <td id="{{ workshop.id }}">
+                <input type="number" name = 'quantity' value="0" min="0">
+            </td>
             <td>
-                <input type="checkbox" name="cinput" id="{{ workshop.id }}" value="{{ workshop.id }}" onchange="ShowInput(this.id,this.checked)"><label for="checkbox_id">Chọn</label>        
+                <input type="text" name ="id" value="{{ workshop.id }}" readonly hidden>      
             </td>
         </tr>
         {% endfor %} 
@@ -38,19 +40,19 @@
 </form>
 
 <script>
-    function ShowInput(id,checked){
-        var input = document.getElementById('ninput'+id);
-        if(checked == true){
-            input.hidden = false;
-            input.value = 1;
-            input.name = 'ninput';
-        }
-        else{
-            input.hidden = true;
-            input.value = 0;
-            input.name = '';
-        }     
-    }    
+    // function ShowInput(id,checked){
+    //     var input = document.getElementById('ninput'+id);
+    //     if(checked == true){
+    //         input.hidden = false;
+    //         input.value = 1;
+    //         input.name = 'ninput';
+    //     }
+    //     else{
+    //         input.hidden = true;
+    //         input.value = 0;
+    //         input.name = '';
+    //     }     
+    // }    
 </script>
 {% endblock %}
 
