@@ -7,7 +7,14 @@ class Workshop(models.Model):
     date = models.DateTimeField()
     slot = models.IntegerField()
 
+    def __str__(self):
+        return self.name
+
 class Participant(models.Model):
     workshop_id = models.ForeignKey(Workshop, on_delete= models.CASCADE)
     user_id = models.ForeignKey(User, on_delete= models.CASCADE)
-    join_date = models.DateTimeField(default= datetime.utcnow)
+    date = models.DateTimeField(default= datetime.utcnow)
+    quantity = models.IntegerField(default= 1)
+
+    def __str__(self):
+        return ' '

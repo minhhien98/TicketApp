@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from datetime import datetime, timedelta, timezone
 import os
 from pathlib import Path
 
@@ -59,7 +60,7 @@ ROOT_URLCONF = 'TicketApp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -163,8 +164,14 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': 'request_logger.log',
+            'filename': './Log/request_log/'+ datetime.now(timezone(timedelta(hours=+7))).strftime('%d_%m_%Y.log'),
             'formatter':'default'
+        },
+        'admin_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': './Log/admin_log/'+ datetime.now(timezone(timedelta(hours=+7))).strftime('%d_%m_%Y.log'),
+            'formatter':'default',
         },
  
         'console': {
@@ -172,17 +179,16 @@ LOGGING = {
             'formatter':'default'
         },
     },
-    # 'root': {
-    #     'handlers': ['file','console'],
-    #     'level': 'INFO',
-    # },
-
     'loggers': {
         '': {
             'handlers': ['file','console'],
             'level': 'INFO',
             'propagate': False,           
         },
+        'django.db.backends': {
+            'level': 'DEBUG',
+            'handlers': ['admin_file']
+        }
     }
 }
 

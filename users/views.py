@@ -26,8 +26,8 @@ def register(request):
             user.save()
             userextend.save()
             #Send email function
-            title ='Xác thực email'
-            content = 'Link xác thực email:'
+            title ='Xác nhận email!'
+            content = 'Link xác nhận email( Thời hạn 1 ngày):'
             link = request.scheme + '://' + request.get_host() +'/u/confirm-email/' + user.userextend.activation_key
             merge_data = {
                 'tittle':title,
@@ -138,13 +138,13 @@ def verify_email(request):
             email = form.cleaned_data.get('email') 
             user.email = email
             user.userextend.activation_key = random_string_generator(length=15)
-            user.userextend.key_expires = datetime.now()  + timedelta(minutes= 30)            
+            user.userextend.key_expires = datetime.now()  + timedelta(days=1)            
             user.save()
             user.userextend.save()
 
             #Send email function
-            title ='Xác thực email'
-            content = 'Link xác thực email:'
+            title ='Xác nhận email!'
+            content = 'Link xác nhận email( Thời hạn 1 ngày):'
             link = request.scheme + '://' + request.get_host() +'/u/confirm-email/' + user.userextend.activation_key
             print(request.META)
             merge_data = {
@@ -156,7 +156,7 @@ def verify_email(request):
             }
             subject ='Xác thực email!'
             send_email(subject,user.email,merge_data)
-            messages.success(request,'Xin vui lòng kiểm tra email để xác nhận email.')
+            messages.success(request,'Đã gửi email xác nhận. Xin vui lòng kiểm tra email.')
             return HttpResponseRedirect(reverse('users:verify_email'))
         else:
             return render(request,'users/verify_email.html',{'form':form})       
@@ -167,11 +167,10 @@ def verify_email(request):
 #activate email
 def confirm_email(request,key):
     user_extend = get_object_or_404(UserExtend, activation_key = key)
-    print(datetime.utcnow() + timedelta(minutes= 30))
     #if activation key expires, request user to login for verify email
     if user_extend.key_expires.replace(tzinfo=None) < datetime.utcnow():
         #Link đã hết hạn xin vui lòng đăng nhập để xác minh email
-        messages.warning(request,'Link đã hết hạn, xin vui lòng đăng nhập để xác thực lại email.')
+        messages.warning(request,'Link đã hết hạn, xin vui lòng đăng nhập để xác nhận lại email.')
         return render(request,'users/confirm_email.html')
     user_extend.is_email_verified = True
     user_extend.save()
