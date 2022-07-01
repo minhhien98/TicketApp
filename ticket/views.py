@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta,timezone
-from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.db.models import Q,F,Sum
@@ -14,10 +13,10 @@ from ticket.models import Participant, Workshop
 def home(request):
     if request.user.is_authenticated:
         user = User.objects.get(username = request.user.username)
-        workshops = Workshop.objects.filter(date__gte = datetime.utcnow()).annotate(registered = Coalesce(Sum('participant__quantity', filter=Q(participant__user_id = request.user)),0),available = Coalesce(F('slot') - Sum('participant__quantity'),'slot'))
+        workshops = Workshop.objects.filter(date__gte = datetime.now(timezone(timedelta(hours=+7))) - timedelta(days=1),slot__gt = Coalesce(Sum('participant__quantity'),0)).annotate(registered = Coalesce(Sum('participant__quantity', filter=Q(participant__user_id = request.user)),0),available = Coalesce(F('slot') - Sum('participant__quantity'),'slot'))
     else:
         return redirect('users:login')
-
+    #if email is not verified
     if user.userextend.is_email_verified == False:
         return redirect('users:verify_email')
 
@@ -42,16 +41,17 @@ def home(request):
                 quantity = int(input_number)
                 if quantity > 0:
                     #if workshop not exist refresh page
-                    workshop_exist = Workshop.objects.filter(id = id).first()
+                    workshop_exist = Workshop.objects.filter(id = id).annotate(available = Coalesce(F('slot') - Sum('participant__quantity'),'slot')).first()
                     if not workshop_exist:
+                        return render(request,'ticket/home.html',{'workshops':workshops})
+                    #if workshop out of slot                    
+                    if workshop_exist.available == 0:
+                        messages.warning(request,workshop_exist.name + ' đã hết vé, xin vui lòng chọn Workshop khác!')
                         return render(request,'ticket/home.html',{'workshops':workshops})
                     dict['id'] = id
                     dict['quantity'] = quantity
                     total_ticket = total_ticket + quantity
                     result.append(dict)
-                # else:
-                #     messages.warning(request,'Xin vui lòng nhập số vé đăng ký.')
-                #     return render(request,'ticket/home.html',{'workshops':workshops})
             except:
                 return render(request,'ticket/home.html',{'workshops':workshops})
         if len(result) == 0:
@@ -80,7 +80,6 @@ def home(request):
         user.userextend.ticket = user.userextend.ticket - total_ticket
         user.userextend.save()
         messages.success(request,'Đăng ký vé thành công.')
-        #return HttpResponseRedirect(reverse(request.path_info))
         return HttpResponseRedirect(request.path_info)
     else:    
         return render(request, 'ticket/home.html', {'workshops' : workshops})
