@@ -13,24 +13,30 @@ class CustomModelAdmin(admin.ModelAdmin):
 class UserExtendInline(admin.StackedInline):
     model = UserExtend
     can_delete = False   
+
 class ParticipantInline(admin.TabularInline):
     model = Participant
     readonly_fields =['workshop_id','date','quantity']
     ordering = ['-date',]
     extra = 0
     can_delete = False
-    verbose_name = 'Workshop History'
-    verbose_name_plural = 'Workshop History'
+    verbose_name = 'Lịch sử đăng ký workshop'
+    verbose_name_plural = 'Lịch sử đăng ký workshop'
 
 #Model Class
+class CustomUser(User):
+    class Meta:
+        proxy = True
+        verbose_name = 'Người dùng'
+        verbose_name_plural = 'Người dùng'
 class CustomUserAdmin(BaseUserAdmin):
-    inlines = (UserExtendInline,ParticipantInline)
+    inlines = [UserExtendInline,ParticipantInline,]
     save_on_top = True
-class CustomUserExtendAdmin(CustomModelAdmin):
-    list_editable=['ticket']
-    verbose_name = 'user profile'
-    verbose_name_plural = 'user profiles'
+class CustomUserExtendAdmin(admin.ModelAdmin):
+    list_display=['user_id','phone_number','birth_date','ticket','address','parish']
+    list_editable=['ticket']   
+    
 # Register your models
 admin.site.unregister(User)
-admin.site.register(User,CustomUserAdmin)
+admin.site.register(CustomUser,CustomUserAdmin)
 admin.site.register(UserExtend,CustomUserExtendAdmin)

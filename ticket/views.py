@@ -21,9 +21,6 @@ def home(request):
         return redirect('users:verify_email')
 
     if request.method == 'POST':
-        if not request.user.is_authenticated:
-            return render(request,'users/login/html',{'error_message':'Xin vui lòng đăng nhập.'})
-
         id_inputs = request.POST.getlist('id')
         quantity_inputs = request.POST.getlist('quantity')
               
@@ -34,11 +31,11 @@ def home(request):
         #get workshop id and ticket quantity
         result = []  
         total_ticket = 0
-        for id,input_number in zip(id_inputs,quantity_inputs):
+        for id,quantity_input in zip(id_inputs,quantity_inputs):
             dict = {}
             #if input number is not int, refresh page
             try:
-                quantity = int(input_number)
+                quantity = int(quantity_input)
                 if quantity > 0:
                     #if workshop not exist refresh page
                     workshop_exist = Workshop.objects.filter(id = id).annotate(available = Coalesce(F('slot') - Sum('participant__quantity'),'slot')).first()
