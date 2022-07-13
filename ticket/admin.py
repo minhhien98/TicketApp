@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.db.models import Sum
+from django.db.models.functions import Coalesce
 from .models import Participant, Workshop
 
 #universal Model Admin
@@ -11,9 +13,9 @@ class CustomWorkshopAdmin(admin.ModelAdmin):
     list_display = ['name','date','slot','participant_count']
     list_editable= ['slot']
 
-    def participant_count(self, obj):
-        return obj.participant_set.count()
-    participant_count.short_description = ' Participants'
+    def participant_count(self, obj):       
+        return obj.participant_set.aggregate(sum =Coalesce(Sum('quantity'),0))['sum']    
+    participant_count.short_description = ' Số lượng vé đã đăng ký'
 
 # Register your models here.
 admin.site.register(Workshop,CustomWorkshopAdmin)

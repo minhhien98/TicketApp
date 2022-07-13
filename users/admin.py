@@ -3,6 +3,8 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from ticket.models import Participant
 from users.models import UserExtend
+from django.db.models.functions import Coalesce
+from django.db.models import Sum, Count,OuterRef
 
 #universal Model Admin
 class CustomModelAdmin(admin.ModelAdmin):  
@@ -13,15 +15,16 @@ class CustomModelAdmin(admin.ModelAdmin):
 class UserExtendInline(admin.StackedInline):
     model = UserExtend
     can_delete = False   
-
+    
 class ParticipantInline(admin.TabularInline):
     model = Participant
-    readonly_fields =['workshop_id','date','quantity']
-    ordering = ['-date',]
+    fields = ['workshop_id','quantity','date']
+    readonly_fields =['workshop_id','quantity','date']
+    ordering=['-date']
     extra = 0
     can_delete = False
-    verbose_name = 'Lịch sử đăng ký workshop'
-    verbose_name_plural = 'Lịch sử đăng ký workshop'
+    verbose_name = 'Workshop đã đăng ký'
+    verbose_name_plural = 'Workshop đã đăng ký'
 
 #Model Class
 class CustomUser(User):
@@ -33,8 +36,12 @@ class CustomUserAdmin(BaseUserAdmin):
     inlines = [UserExtendInline,ParticipantInline,]
     save_on_top = True
 class CustomUserExtendAdmin(admin.ModelAdmin):
-    list_display=['user_id','phone_number','birth_date','ticket','address','parish']
+    list_display=['user_id','phone_number','birthdate','ticket','address','parish']
     list_editable=['ticket']   
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = {'title': 'Nhập vé cho người dùng.'}
+        return super(CustomUserExtendAdmin, self).changelist_view(request, extra_context=extra_context)
     
 # Register your models
 admin.site.unregister(User)

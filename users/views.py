@@ -19,13 +19,15 @@ def register(request):
             user.set_password(str(form.cleaned_data.get('password')))            
             
             userextend =UserExtend(user_id = user,phone_number = form.cleaned_data.get('phone_number'),
-                                   birth_date = form.cleaned_data.get('birth_date'),
+                                   birthdate = form.cleaned_data.get('birthdate'),
                                    address= form.cleaned_data.get('address'), parish = form.cleaned_data.get('parish'),
                                    activation_key = random_string_generator(length=15),
                                    key_expires = datetime.now() + timedelta(minutes=30))
             user.save()
             userextend.save()
             #Send email function
+            subject ='Xác thực email!'
+            template ='users/email_template.html'
             title ='Xác nhận email!'
             content = 'Link xác nhận email( Thời hạn 1 ngày):'
             link = request.scheme + '://' + request.get_host() +'/u/confirm-email/' + user.userextend.activation_key
@@ -36,8 +38,7 @@ def register(request):
                 'key': user.userextend.activation_key,
                 'username': user.username,
             }
-            subject ='Xác thực email!'
-            send_email(subject,user.email,merge_data)
+            send_email(template,subject,user.email,merge_data)
             return HttpResponseRedirect(reverse('users:register_success'))
         else:
             return render(request,'users/register.html',{'form':form})
@@ -58,7 +59,7 @@ def user_profile(request):
             user.last_name = form.cleaned_data.get('last_name')
             user.first_name = form.cleaned_data.get('first_name')
             user.userextend.phone_number = form.cleaned_data.get('phone_number')
-            user.userextend.birth_date = form.cleaned_data.get('birth_date')
+            user.userextend.birthdate = form.cleaned_data.get('birthdate')
             user.userextend.address = form.cleaned_data.get('address')
             user.userextend.parish = form.cleaned_data.get('parish')
             user.save()
@@ -73,7 +74,7 @@ def user_profile(request):
                                 'last_name':user.last_name,
                                 'email':user.email,
                                 'phone_number':user.userextend.phone_number,
-                                'birth_date':user.userextend.birth_date,
+                                'birthdate':user.userextend.birthdate,
                                 'address':user.userextend.address,
                                 'parish':user.userextend.parish})
         return render(request,'users/user_profile.html',{'form':form})
@@ -143,10 +144,11 @@ def verify_email(request):
             user.userextend.save()
 
             #Send email function
+            subject ='Xác thực email!'
+            template ='users/email_template.html'
             title ='Xác nhận email!'
             content = 'Link xác nhận email( Thời hạn 1 ngày):'
             link = request.scheme + '://' + request.get_host() +'/u/confirm-email/' + user.userextend.activation_key
-            print(request.META)
             merge_data = {
                 'tittle':title,
                 'content':content,
@@ -154,8 +156,7 @@ def verify_email(request):
                 'key': user.userextend.activation_key,
                 'username': user.username,
             }
-            subject ='Xác thực email!'
-            send_email(subject,user.email,merge_data)
+            send_email(template,subject,user.email,merge_data)
             messages.success(request,'Đã gửi email xác nhận. Xin vui lòng kiểm tra email.')
             return HttpResponseRedirect(reverse('users:verify_email'))
         else:
@@ -164,16 +165,26 @@ def verify_email(request):
         form = VerifyEmailForm()
         return render(request,'users/verify_email.html',{'form':form})
 
-#activate email
+#verify email
 def confirm_email(request,key):
     user_extend = get_object_or_404(UserExtend, activation_key = key)
     #if activation key expires, request user to login for verify email
     if user_extend.key_expires.replace(tzinfo=None) < datetime.utcnow():
-        #Link đã hết hạn xin vui lòng đăng nhập để xác minh email
         messages.warning(request,'Link đã hết hạn, xin vui lòng đăng nhập để xác nhận lại email.')
         return render(request,'users/confirm_email.html')
     user_extend.is_email_verified = True
     user_extend.save()
+    #Send email function
+    subject ='Hướng dẫn chuyển khoản mua vé.'
+    template ='users/email_template.html'
+    title ='Hướng dẫn chuyển khoản mua vé.'
+    content = 'Hướng dẫn chuyển khoản mua vé.'
+    merge_data = {
+        'tittle':title,
+        'content':content,
+        'username': user_extend.user_id.username,
+    }  
+    send_email(template, subject, user_extend.user_id.email, merge_data)
     #Xác nhận thành công
     messages.success(request,'Xác nhận Email Thành công.')
     return render(request,'users/confirm_email.html')

@@ -1,14 +1,17 @@
 from datetime import datetime, timedelta,timezone
+import logging
+import secrets
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.db.models import Q,F,Sum
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db.models.functions import Coalesce
-
-from django.urls import reverse
+from ticket.methods import generate_ticket
 from ticket.models import Participant, Workshop
+from users.methods import send_email
 
+Logger = logging.getLogger("workshop_log")
 # Create your views here.
 def home(request):
     if request.user.is_authenticated:
@@ -71,15 +74,47 @@ def home(request):
         #register workshop     
         for item in result:
             for workshop in workshops:
-                 if str(workshop.id) == item.get('id'):
-                    participant = Participant(workshop_id = workshop,user_id = request.user,quantity = item.get('quantity'))
-                    participant.save()
+                if str(workshop.id) == item.get('id'):
+                    participant = Participant.objects.filter(workshop_id = workshop,user_id = request.user).first()
+                    if participant:
+                        participant.quantity = participant.quantity + item.get('quantity')
+                        participant.save()
+                        Logger.info(f'{request.user.username} updated {workshop.name} ticket. Quantity: {participant.quantity}')
+                    else:
+                        # Regenerate qrcode if qrcode exist
+                        while True:
+                            qrcode = secrets.token_urlsafe(16)
+                            qrcode_exist = Participant.objects.filter(qrcode = qrcode).exists()
+                            if qrcode_exist == False:
+                                break
+                        participant = Participant(workshop_id = workshop,user_id = request.user,quantity = item.get('quantity'),qrcode = qrcode)
+                        participant.save()
+                        Logger.info(f'{request.user.username} registered {workshop.name} ticket. Quantity: {participant.quantity}')
+                    # Send Ticket to Email
+                    fullname = user.last_name + ' ' + user.first_name
+                    shortcode = user.last_name + ' ' + user.first_name + ' ' +participant.workshop_id.name + ' ' + str(participant.quantity)
+                    fullcode = fullname + ' ' + str(participant.workshop_id.id) + '\n' + user.userextend.phone_number + '\n' + participant.qrcode + '\n' + 'ĐHGT 2021'
+                    byte_ticket_img = generate_ticket(fullcode,shortcode,workshop.id)
+                    #Send email function                   
+                    subject ='VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ '+ str(datetime.utcnow().year) +' của ' + user.last_name + ' ' + user.first_name
+                    template ='ticket/send_ticket_template.html'
+                    merge_data = {
+                        'fullname': user.last_name + ' ' + user.first_name,
+                        'workshop': workshop.name,  
+                        'date':workshop.date                
+                    }
+                    send_email(template,subject,user.email,merge_data,byte_ticket_img)
+
         user.userextend.ticket = user.userextend.ticket - total_ticket
         user.userextend.save()
+       
+
         messages.success(request,'Đăng ký vé thành công.')
         return HttpResponseRedirect(request.path_info)
     else:    
         return render(request, 'ticket/home.html', {'workshops' : workshops})
 
+def guide(request):
+    return render(request,'ticket/guide.html')
 
     

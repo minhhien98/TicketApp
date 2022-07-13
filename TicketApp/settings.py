@@ -140,14 +140,18 @@ MEDIA_ROOT= os.path.join(BASE_DIR,'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#Email Sender Config: Config in Local Settings
+# Email Sender Config: Config in Local Settings
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER =''
 EMAIL_HOST_PASSWORD = ''
 
-#Logging Config
+# Google API Key
+GOOGLE_API_KEY = ''
+SPREADSHEET_ID = ''
+JSON_KEY = {}
+# Logging Config
 LOGGING = {
     'version': 1,
     # Version of logging
@@ -161,13 +165,19 @@ LOGGING = {
         },
     },
     'handlers': {
-        'file': {
+        'request_log_file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
             'filename': './Log/request_log/'+ datetime.now(timezone(timedelta(hours=+7))).strftime('%d_%m_%Y.log'),
             'formatter':'default'
         },
-        'admin_file': {
+        'workshop_log_file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': './Log/workshop_log/'+ datetime.now(timezone(timedelta(hours=+7))).strftime('%d_%m_%Y.log'),
+            'formatter':'default'
+        },
+        'backends_file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': './Log/admin_log/'+ datetime.now(timezone(timedelta(hours=+7))).strftime('%d_%m_%Y.log'),
@@ -180,14 +190,19 @@ LOGGING = {
         },
     },
     'loggers': {
-        '': {
-            'handlers': ['file','console'],
+        'request_log': {
+            'handlers': ['request_log_file','console'],
+            'level': 'INFO',
+            'propagate': False,           
+        },
+        'workshop_log': {
+            'handlers': ['workshop_log_file','console'],
             'level': 'INFO',
             'propagate': False,           
         },
         'django.db.backends': {
             'level': 'DEBUG',
-            'handlers': ['admin_file']
+            'handlers': ['backends_file']
         }
     }
 }

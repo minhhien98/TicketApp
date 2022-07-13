@@ -1,5 +1,5 @@
 import logging
-Logger = logging.getLogger(__name__)
+Logger = logging.getLogger('request_log')
 
 class RequestLoggerMiddleware:
     def __init__(self, get_response):

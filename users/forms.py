@@ -17,7 +17,7 @@ class RegisterForm(forms.Form):
                                     'placeholder':"Email"}))
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Xin vui lòng nhập đúng số điện thoại!")
     phone_number = forms.CharField(label="Số điện thoại:",min_length=9,max_length=15,widget=forms.TextInput(attrs={ 'class':"form-control form-control-lg",'placeholder':"Số điện thoại"}),validators= [phone_regex])
-    birth_date = forms.DateField(label ='Ngày sinh: ',required= True, widget=forms.TextInput(attrs={'class': 'form-control', 'type':'date'}))
+    birthdate = forms.DateField(label ='Ngày sinh: ',required= True, widget=forms.TextInput(attrs={'class': 'form-control', 'type':'date'}))
     address = forms.CharField(label="Địa chỉ:",widget = forms.TextInput(attrs={'placeholder':'Địa chỉ'}))
     parish = forms.CharField(label="Giáo xứ:",max_length= 100, widget=forms.TextInput(attrs={'placeholder':'Giáo xứ'}))
 
@@ -41,7 +41,7 @@ class UserProfileForm(forms.Form):
                                     'placeholder':"Tên"}))
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Xin vui lòng nhập đúng số điện thoại!")
     phone_number = forms.CharField(label ='Số điện thoại: ',min_length=9,max_length=15,widget=forms.TextInput(attrs={ 'class':"form-control form-control-lg",'placeholder':"Số điện thoại"}),validators= [phone_regex])
-    birth_date = forms.DateField(label ='Ngày sinh: ',required= True, widget=forms.TextInput(attrs={'class': 'form-control', 'type':'date'}))
+    birthdate = forms.DateField(label ='Ngày sinh: ',required= True, widget=forms.TextInput(attrs={'class': 'form-control', 'type':'date'}))
     address = forms.CharField(label ='Địa chỉ: ',widget = forms.TextInput(attrs={'placeholder':'Địa chỉ'}))
     parish = forms.CharField(label ='Giáo xứ: ',max_length= 100, widget=forms.TextInput(attrs={'placeholder':'Giáo xứ'}))
 

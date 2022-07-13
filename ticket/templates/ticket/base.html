@@ -15,6 +15,7 @@
         <p>Số vé đã mua: {{ user.userextend.ticket }}</p>
         <a href="{% url 'users:user_profile' %}">Thông tin cá nhân</a>
         <a href="{% url 'users:change_password' %}">Đổi mật khẩu</a>
+        <a href="{% url 'ticket:guide' %}">Hướng dẫn mua vé</a>
         <form method="post" action="{% url 'users:logout' %}">
             {% csrf_token %}
             <button type="submit">Đăng xuất</a>
