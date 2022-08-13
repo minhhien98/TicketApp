@@ -9,7 +9,8 @@ from django.contrib.auth.models import User
 from django.db.models.functions import Coalesce
 from ticket.methods import generate_ticket
 from ticket.models import Participant, Workshop
-from users.methods import send_email
+from users.methods import send_email_img
+from django.utils.translation import gettext as _
 
 Logger = logging.getLogger("workshop_log")
 # Create your views here.
@@ -29,7 +30,7 @@ def home(request):
               
         if len(id_inputs) == 0:
             #user didnt choose workshop
-            messages.warning(request,'Xin vui lòng chọn workshop.')
+            messages.warning(request,_('Xin vui lòng chọn workshop.'))
             return render(request,'ticket/home.html',{'workshops':workshops})
         #get workshop id and ticket quantity
         result = []  
@@ -46,7 +47,7 @@ def home(request):
                         return render(request,'ticket/home.html',{'workshops':workshops})
                     #if workshop out of slot                    
                     if workshop_exist.available == 0:
-                        messages.warning(request,workshop_exist.name + ' đã hết vé, xin vui lòng chọn Workshop khác!')
+                        messages.warning(request,_('{worshop_name} đã hết vé, xin vui lòng chọn Workshop khác!').format(workshop_name = workshop_exist.name))
                         return render(request,'ticket/home.html',{'workshops':workshops})
                     dict['id'] = id
                     dict['quantity'] = quantity
@@ -55,12 +56,12 @@ def home(request):
             except:
                 return render(request,'ticket/home.html',{'workshops':workshops})
         if len(result) == 0:
-            messages.warning(request,'Xin vui lòng nhập số vé đăng ký.')
+            messages.warning(request,_('Xin vui lòng nhập số vé đăng ký.'))
             return render(request,'ticket/home.html',{'workshops':workshops})
 
         #if total tickets excess current available user's ticket
         if user.userextend.ticket < total_ticket:
-            messages.warning(request,'Bạn không có đủ vé để đăng ký, xin vui lòng mua thêm vé.')
+            messages.warning(request,_('Bạn không có đủ vé để đăng ký, xin vui lòng mua thêm vé.'))
             return render(request,'ticket/home.html',{'workshops':workshops})
 
         #if workshops slot excess
@@ -68,7 +69,7 @@ def home(request):
             for workshop in workshops:               
                 if str(workshop.id) == item.get('id'):
                     if workshop.available < item.get('quantity'):
-                        messages.warning(request,'Bạn chỉ có thể đăng ký '+ str(workshop.available) + ' vé '+ workshop.name)
+                        messages.warning(request,_('Bạn chỉ có thể đăng ký {workshop_available} vé {workshop_name}').format({'workshop_available':str(workshop.available),'workshop_name':workshop.name}))
                         return render(request,'ticket/home.html',{'workshops':workshops})
 
         #register workshop     
@@ -93,23 +94,23 @@ def home(request):
                     # Send Ticket to Email
                     fullname = user.last_name + ' ' + user.first_name
                     shortcode = user.last_name + ' ' + user.first_name + ' ' +participant.workshop_id.name + ' ' + str(participant.quantity)
-                    fullcode = fullname + ' ' + str(participant.workshop_id.id) + '\n' + user.userextend.phone_number + '\n' + participant.qrcode + '\n' + 'ĐHGT 2021'
+                    fullcode = fullname + ' ' + str(participant.workshop_id.id) + '\n' + user.userextend.phone_number + '\n' + participant.qrcode + '\n' + 'ĐHGT ' + str(datetime.utcnow().year)
                     byte_ticket_img = generate_ticket(fullcode,shortcode,workshop.id)
                     #Send email function                   
-                    subject ='VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ '+ str(datetime.utcnow().year) +' của ' + user.last_name + ' ' + user.first_name
+                    subject =_('VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}').format({'year':str(datetime.utcnow().year),'last_name':user.last_name,'first_name':user.first_name})
                     template ='ticket/send_ticket_template.html'
                     merge_data = {
                         'fullname': user.last_name + ' ' + user.first_name,
                         'workshop': workshop.name,  
                         'date':workshop.date                
                     }
-                    send_email(template,subject,user.email,merge_data,byte_ticket_img)
+                    send_email_img(template,subject,user.email,merge_data,byte_ticket_img)
 
         user.userextend.ticket = user.userextend.ticket - total_ticket
         user.userextend.save()
        
 
-        messages.success(request,'Đăng ký vé thành công.')
+        messages.success(request,_('Đăng ký vé thành công.'))
         return HttpResponseRedirect(request.path_info)
     else:    
         return render(request, 'ticket/home.html', {'workshops' : workshops})

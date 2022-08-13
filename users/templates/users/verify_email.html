@@ -1,6 +1,7 @@
 {% extends "users/base.html" %}
+{% load i18n %}
 {% block content %}
-<h3>Xác nhận Email:</h3>
+<h3>{% trans 'Xác nhận Email' %}</h3>
     <form method="POST" action="{% url 'users:verify_email' %}">
         {% csrf_token %}        
         {% if form.non_field_errors %}
@@ -27,6 +28,6 @@
             {{ field }}
         </div>
         {% endfor %}
-        <button type="submit">Xác thực email</button>
+        <button type="submit">{% trans 'Xác nhận' %}</button>
     </form>
 {% endblock content %}

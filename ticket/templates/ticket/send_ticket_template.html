@@ -1,8 +1,9 @@
-<p style="text-align: left;"><span style="font-size: large;">Xin chào {{ fullname }} </span></p>
-<p style="text-align: left;"><span style="font-size: large;">Chúc mừng bạn đã đăng ký thành công Đại hội Giới trẻ Mùa Chay Tổng giáo phận Sài Gòn<strong> CHO TIỀM NĂNG TRỖI DẬY</strong> với Workshop {{ workshop }}.</span></p>
-<p style="text-align: left;"><span style="font-size: large;">Vé tham dự Đại hội của bạn được đính kèm bên dưới. Bạn vui lòng lưu lại ảnh này để check-in tại cổng.</span></p>
+{% load i18n %}
+<p style="text-align: left;"><span style="font-size: large;">{% trans Xin chào %}{{ fullname }}</span></p>
+{% blocktrans with workshop=workshop %}<p style="text-align: left;"><span style="font-size: large;">Chúc mừng bạn đã đăng ký thành công Đại hội Giới trẻ Mùa Chay Tổng giáo phận Sài Gòn<strong> CHO TIỀM NĂNG TRỖI DẬY</strong> với Workshop {{ workshop }}.</span></p>{% endblocktrans %}
+<p style="text-align: left;"><span style="font-size: large;">{% trans Vé tham dự Đại hội của bạn được đính kèm bên dưới. Bạn vui lòng lưu lại ảnh này để check-in tại cổng. %}</span></p>
 <img src="cid:image.png" width="721" height="1281"/>
-<p>Hẹn gặp lại bạn vào ngày Đại hội:</p>
-<strong>- Thời gian: Ngày {{ date|date:'d/m/Y H:i' }}</strong>
-<strong>- Địa điểm: Giáo xứ Tân Phước, 245 Nguyễn Thị Nhỏ, phường 15, quận Tân Bình.</strong>
-<p>Chúc các bạn nhiều sức khoẻ, niềm vui và bình an trong mùa Chay thánh.</p>
+<p>{% trans Hẹn gặp lại bạn vào ngày Đại hội: %}</p>
+<strong>- {% trans Thời gian: Ngày %} {{ date|date:'d/m/Y H:i' }}</strong>
+<strong>- {% trans Địa điểm: Giáo xứ Tân Phước, 245 Nguyễn Thị Nhỏ, phường 15, quận Tân Bình. %}</strong>
+<p>{% trans Chúc các bạn nhiều sức khoẻ, niềm vui và bình an trong mùa Chay thánh. %}</p>

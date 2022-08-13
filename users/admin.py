@@ -3,9 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from ticket.models import Participant
 from users.models import UserExtend
-from django.db.models.functions import Coalesce
-from django.db.models import Sum, Count,OuterRef
-
+from django.utils.translation import gettext_lazy as _
 #universal Model Admin
 class CustomModelAdmin(admin.ModelAdmin):  
     def __init__(self, model, admin_site):
@@ -23,15 +21,15 @@ class ParticipantInline(admin.TabularInline):
     ordering=['-date']
     extra = 0
     can_delete = False
-    verbose_name = 'Workshop đã đăng ký'
-    verbose_name_plural = 'Workshop đã đăng ký'
+    verbose_name = _('Workshop đã đăng ký')
+    verbose_name_plural = _('Workshop đã đăng ký')
 
 #Model Class
 class CustomUser(User):
     class Meta:
         proxy = True
-        verbose_name = 'Người dùng'
-        verbose_name_plural = 'Người dùng'
+        verbose_name = _('Người dùng')
+        verbose_name_plural = _('Người dùng')
 class CustomUserAdmin(BaseUserAdmin):
     inlines = [UserExtendInline,ParticipantInline,]
     save_on_top = True
@@ -40,7 +38,7 @@ class CustomUserExtendAdmin(admin.ModelAdmin):
     list_editable=['ticket']   
 
     def changelist_view(self, request, extra_context=None):
-        extra_context = {'title': 'Nhập vé cho người dùng.'}
+        extra_context = {'title': _('Nhập vé cho người dùng.')}
         return super(CustomUserExtendAdmin, self).changelist_view(request, extra_context=extra_context)
     
 # Register your models

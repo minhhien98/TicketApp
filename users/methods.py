@@ -1,5 +1,4 @@
 from email.mime.image import MIMEImage
-import io
 import random, string
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
@@ -11,7 +10,16 @@ def random_string_generator(length):
 
     return ''.join(random.choices(uppercase_string + lowercase_string + digit_string, k=length))
 
-def send_email(template,subject,email,merge_data,img):
+def send_email(template,subject,email,merge_data):
+    html_content = render_to_string(template, merge_data)
+    message = EmailMultiAlternatives(
+        subject= subject,  
+        to = [email],
+    )
+    message.attach_alternative(html_content,'text/html')
+    message.send(fail_silently=False)
+
+def send_email_img(template,subject,email,merge_data,img):
     html_content = render_to_string(template, merge_data)
     message = EmailMultiAlternatives(
         subject= subject,  

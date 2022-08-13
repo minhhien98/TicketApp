@@ -8,6 +8,7 @@ from django.urls import reverse
 from users.forms import ChangePasswordForm, RegisterForm, UserProfileForm, VerifyEmailForm
 from users.methods import random_string_generator, send_email
 from users.models import UserExtend
+from django.utils.translation import gettext as _
 
 # Create your views here.
 
@@ -26,10 +27,10 @@ def register(request):
             user.save()
             userextend.save()
             #Send email function
-            subject ='Xác thực email!'
+            subject =_('Xác nhận email!')
             template ='users/email_template.html'
-            title ='Xác nhận email!'
-            content = 'Link xác nhận email( Thời hạn 1 ngày):'
+            title =_('Xác nhận email!')
+            content = _('Link xác nhận email( Thời hạn 1 ngày):')
             link = request.scheme + '://' + request.get_host() +'/u/confirm-email/' + user.userextend.activation_key
             merge_data = {
                 'tittle':title,
@@ -81,18 +82,18 @@ def user_profile(request):
 
 def change_password(request):
     if not request.user.is_authenticated:
-        return render(request,'users/login.html',{'error_message':'Xin vui lòng đăng nhập.'})
+        return render(request,'users/login.html',{'error_message':_('Xin vui lòng đăng nhập.')})
     if request.method == 'POST':
         form = ChangePasswordForm(request.POST)
         if form.is_valid():
             old_password = form.cleaned_data.get('old_password')
             user = User.objects.filter(username = request.user.username).first()
             if not user.check_password(old_password):
-                return render(request,'users/change_password.html',{'form':form,'error_message':'Mật khẩu cũ không chính xác.'})
+                return render(request,'users/change_password.html',{'form':form,'error_message':_('Mật khẩu cũ không chính xác.')})
             new_password = form.cleaned_data.get('new_password')
             user.set_password(new_password)
             user.save()
-            return render(request,'users/change_password.html',{'form':form,'error_message':'Thay đổi mật khẩu thành công.'})
+            return render(request,'users/change_password.html',{'form':form,'error_message':_('Thay đổi mật khẩu thành công.')})
         else:
             return render(request,'users/change_password.html',{'form':form})
     else:
@@ -126,7 +127,7 @@ def logout(request):
 #verify email for user try to log in
 def verify_email(request):
     if not request.user.is_authenticated:
-        return render(request,'users/login.html',{'error_message':'Xin vui lòng đăng nhập.'})
+        return render(request,'users/login.html',{'error_message':_('Xin vui lòng đăng nhập.')})
         
     user = User.objects.get(username = request.user.username)
     #if user's email already verified
@@ -144,20 +145,20 @@ def verify_email(request):
             user.userextend.save()
 
             #Send email function
-            subject ='Xác thực email!'
+            subject =_('Xác nhận email!')
             template ='users/email_template.html'
-            title ='Xác nhận email!'
-            content = 'Link xác nhận email( Thời hạn 1 ngày):'
+            title =_('Xác nhận email!')
+            content = _('Link xác nhận email( Thời hạn 1 ngày):')
             link = request.scheme + '://' + request.get_host() +'/u/confirm-email/' + user.userextend.activation_key
             merge_data = {
-                'tittle':title,
+                'title':title,
                 'content':content,
                 'link':link,
                 'key': user.userextend.activation_key,
                 'username': user.username,
             }
             send_email(template,subject,user.email,merge_data)
-            messages.success(request,'Đã gửi email xác nhận. Xin vui lòng kiểm tra email.')
+            messages.success(request,_('Đã gửi mail xác nhận. Xin vui lòng kiểm tra email.'))
             return HttpResponseRedirect(reverse('users:verify_email'))
         else:
             return render(request,'users/verify_email.html',{'form':form})       
@@ -170,22 +171,21 @@ def confirm_email(request,key):
     user_extend = get_object_or_404(UserExtend, activation_key = key)
     #if activation key expires, request user to login for verify email
     if user_extend.key_expires.replace(tzinfo=None) < datetime.utcnow():
-        messages.warning(request,'Link đã hết hạn, xin vui lòng đăng nhập để xác nhận lại email.')
+        messages.warning(request,_('Link đã hết hạn, xin vui lòng đăng nhập để xác nhận lại email.'))
         return render(request,'users/confirm_email.html')
     user_extend.is_email_verified = True
     user_extend.save()
     #Send email function
-    subject ='Hướng dẫn chuyển khoản mua vé.'
+    subject =_('Hướng dẫn chuyển khoản mua vé.')
     template ='users/email_template.html'
-    title ='Hướng dẫn chuyển khoản mua vé.'
-    content = 'Hướng dẫn chuyển khoản mua vé.'
+    title =_('Hướng dẫn chuyển khoản mua vé.')
+    content = _('Hướng dẫn chuyển khoản mua vé.')
     merge_data = {
-        'tittle':title,
+        'title':title,
         'content':content,
         'username': user_extend.user_id.username,
     }  
     send_email(template, subject, user_extend.user_id.email, merge_data)
     #Xác nhận thành công
-    messages.success(request,'Xác nhận Email Thành công.')
+    messages.success(request,_('Xác nhận Email Thành công.'))
     return render(request,'users/confirm_email.html')
-

@@ -1,5 +1,5 @@
 {% extends "ticket/base.html" %}
-{% load tz %}
+{% load i18n %}
 {% block content %}
 <form method="POST" action="{% url 'ticket:home' %}">
     {% csrf_token %}
@@ -14,9 +14,9 @@
     <thead>
         <tr>
             <th>Workshop</th>
-            <th>Số vé đã đăng ký</th>
-            <th>Số lượng vé tối đa có thể đăng ký</th>
-            <th>Số vé đăng ký</th>
+            <th>{% trans 'Số vé đã đăng ký' %}</th>
+            <th>{% trans 'Số lượng vé tối đa có thể đăng ký' %}</th>
+            <th>{% trans 'Số vé đăng ký' %}</th>
             
         </tr>
     </thead>
@@ -36,7 +36,7 @@
         {% endfor %} 
     </tbody>  
 </table>
-<button type="submit">Đăng ký</button>
+<button type="submit">{% trans 'Đăng ký' %}</button>
 </form>
 {% endblock %}
 

@@ -1,31 +1,58 @@
 <!DOCTYPE html>
-<html>
-    {% load tz %}
+<html>  
 <head>
-    {% load static %}
+    {% load tz %}
+    {% load i18n %}
+    {% load static %}    
     <!-- Bootstrap -->
     <!-- <link href="{% static 'bootstrap-5.1.3/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> -->
 </head>
 <header>
     {% block header %}
+    
     {% if user.is_authenticated %}
-        <a href="{% url 'ticket:home' %}">Trang chủ</a>
-        <p>Xin chào, {{ user.get_username }}</p>
-        <p>Số vé đã mua: {{ user.userextend.ticket }}</p>
-        <a href="{% url 'users:user_profile' %}">Thông tin cá nhân</a>
-        <a href="{% url 'users:change_password' %}">Đổi mật khẩu</a>
-        <a href="{% url 'ticket:guide' %}">Hướng dẫn mua vé</a>
-        <form method="post" action="{% url 'users:logout' %}">
+    
+        <a href="{% url 'ticket:home' %}">{% trans 'Trang chủ' %}</a>
+        <a href="{% url 'users:user_profile' %}">{% trans 'Thông tin cá nhân' %}</a>
+        <a href="{% url 'users:change_password' %}">{% trans 'Đổi mật khẩu' %}</a>
+        <a href="{% url 'ticket:guide' %}">{% trans 'Hướng dẫn mua vé' %}</a>
+        <form id="change_language_form" name="change_language_form" method="post" action="/i18n/setlang/" style="text-align: right;">
             {% csrf_token %}
-            <button type="submit">Đăng xuất</a>
+            <input id="newLanguageInput" type="hidden" name="language"/>
+            <label>{% trans 'Ngôn ngữ' %}:</label>
+            <select name="language" id="language" onchange="ChangeLanguage()">
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% for language in LANGUAGES %}
+                <option value="{{ language.0 }}"{% if language.0 == LANGUAGE_CODE %} selected="selected"{% endif %}>{{ language.1 }}</option>               
+                {% endfor %}  
+            </select>
         </form>
-        
+        <p>{% trans 'Xin chào' %}, {{ user.get_username }}</p>
+        <p>{% trans 'Số vé đã mua' %}: {{ user.userextend.ticket }}</p>       
+        <form name="logout" method="post" action="{% url 'users:logout' %}">
+            {% csrf_token %}
+            <button name="logout" type="submit">{% trans 'Đăng xuất' %}</a>
+        </form>              
     {% else %}
-        <a href="{% url 'ticket:home' %}">Trang chủ</a>
-        <a href="{% url 'users:login' %}">Đăng nhập</a>
-        <a href="{% url 'users:register' %}">Đăng ký</a>      
+        <a href="{% url 'ticket:home' %}">{% trans 'Trang chủ' %}</a>
+        <a href="{% url 'users:login' %}">{% trans 'Đăng nhập' %}</a>
+        <a href="{% url 'users:register' %}">{% trans 'Đăng ký' %}</a>   
+        <form id="change_language_form" name="change_language_form" method="post" action="/i18n/setlang/" style="text-align: right;">
+            {% csrf_token %}
+            <input id="newLanguageInput" type="hidden" name="language"/>
+            <label>{% trans 'Ngôn ngữ' %}:</label>
+            <select name="language" id="language" onchange="ChangeLanguage()">
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% for language in LANGUAGES %}
+                <option value="{{ language.0 }}"{% if language.0 == LANGUAGE_CODE %} selected="selected"{% endif %}>{{ language.1 }}</option>               
+                {% endfor %}  
+            </select>
+        </form>   
     {% endif %}
+    
     {% endblock %}
 </header>
 <hr>
@@ -33,5 +60,13 @@
     {% block content %}
     {% endblock %}
 </body>
-
+<script>
+    function ChangeLanguage()
+    {
+        var select = document.getElementById('language');
+		var option = select.options[select.selectedIndex];
+        document.getElementById('newLanguageInput').value = option.value;
+        document.forms['change_language_form'].submit();
+    }
+</script>
 </html>

@@ -1,6 +1,7 @@
 {% extends "users/base.html" %}
-
+{% load i18n %}
 {% block content %}
+<h3>{% trans 'Đăng nhập' %}</h3>
     <form method="POST", action ="{% url 'users:login' %}">
         {% csrf_token %}
         {% if error_message %}
@@ -9,16 +10,16 @@
         </div>
         {% endif %}
         <div>
-            <label for="username">Tài khoản:</label>
+            <label for="username">{% trans 'Tài khoản' %}:</label>
             <input type="text" name="username" id="username">
         </div>
         <div>
-            <label for="password">Mật khẩu:</label>
+            <label for="password">{% trans 'Mật khẩu' %}:</label>
             <input type="password" name="password" id="password">
         </div>
-        <button type="submit">Đăng nhập</button>
+        <button type="submit">{% trans 'Đăng nhập' %}</button>
         <a href="{% url 'users:register' %}">
-            <button type="button">Đăng ký</button>
+            <button type="button">{% trans 'Đăng ký' %}</button>
         </a>
     </form>
 {% endblock %}
