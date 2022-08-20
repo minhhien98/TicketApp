@@ -40,8 +40,10 @@ def register(request):
                 'username': user.username,
             }
             send_email(template,subject,user.email,merge_data)
+            
             return HttpResponseRedirect(reverse('users:register_success'))
         else:
+            print(form.errors)
             return render(request,'users/register.html',{'form':form})
     else:
         form = RegisterForm()
@@ -65,7 +67,7 @@ def user_profile(request):
             user.userextend.parish = form.cleaned_data.get('parish')
             user.save()
             user.userextend.save()
-            return render(request,'users/user_profile.html',{'form':form, 'error_message':'Lưu Thành công.'})
+            return render(request,'users/user_profile.html',{'form':form, 'error_message':_('Đã Lưu')})
         else:
             return render(request,'users/user_profile.html',{'form':form})
     else:

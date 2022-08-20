@@ -3,12 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+#, py
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-13 10:48+0700\n"
+"POT-Creation-Date: 2022-08-20 15:21+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,7 +87,9 @@ msgstr "Change password"
 msgid "Hướng dẫn mua vé"
 msgstr "How to buy ticket"
 
-#: .\ticket\templates\ticket\base.html:32 .\users\templates\users\base.html:30
+#: .\ticket\templates\ticket\base.html:32
+#: .\ticket\templates\ticket\send_ticket_template.html:2
+#: .\users\templates\users\base.html:30
 #: .\users\templates\users\email_template.html:98
 msgid "Xin chào"
 msgstr "Hello"
@@ -138,6 +140,32 @@ msgstr ""
 "Gòn<strong> CHO TIỀM NĂNG TRỖI DẬY</strong> với Workshop %(workshop)s.</"
 "span></p>"
 
+#: .\ticket\templates\ticket\send_ticket_template.html:4
+msgid ""
+"Vé tham dự Đại hội của bạn được đính kèm bên dưới. Bạn vui lòng lưu lại ảnh "
+"này để check-in tại cổng."
+msgstr ""
+"Vé tham dự Đại hội của bạn được đính kèm bên dưới. Bạn vui lòng lưu lại ảnh "
+"này để check-in tại cổng."
+
+#: .\ticket\templates\ticket\send_ticket_template.html:6
+msgid "Hẹn gặp lại bạn vào ngày Đại hội:"
+msgstr "Hẹn gặp lại bạn vào ngày Đại hội:"
+
+#: .\ticket\templates\ticket\send_ticket_template.html:7
+msgid "Thời gian: Ngày"
+msgstr "Thời gian: Ngày"
+
+#: .\ticket\templates\ticket\send_ticket_template.html:8
+msgid ""
+"Địa điểm: Giáo xứ Tân Phước, 245 Nguyễn Thị Nhỏ, phường 15, quận Tân Bình."
+msgstr ""
+"Địa điểm: Giáo xứ Tân Phước, 245 Nguyễn Thị Nhỏ, phường 15, quận Tân Bình."
+
+#: .\ticket\templates\ticket\send_ticket_template.html:9
+msgid "Chúc các bạn nhiều sức khoẻ, niềm vui và bình an trong mùa Chay thánh."
+msgstr "Chúc các bạn nhiều sức khoẻ, niềm vui và bình an trong mùa Chay thánh."
+
 #: .\ticket\views.py:33
 msgid "Xin vui lòng chọn workshop."
 msgstr "Please choose workshop."
@@ -160,12 +188,12 @@ msgstr "You dont have enough ticket, please buy more tickets."
 msgid "Bạn chỉ có thể đăng ký {workshop_available} vé {workshop_name}"
 msgstr "You can only register {workshop_available} {workshop_name} ticket"
 
-#: .\ticket\views.py:100
+#: .\ticket\views.py:106
 #, python-brace-format
 msgid "VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}"
 msgstr "VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}"
 
-#: .\ticket\views.py:113
+#: .\ticket\views.py:115
 msgid "Đăng ký vé thành công."
 msgstr "Registered Successfully"
 
@@ -177,120 +205,120 @@ msgstr "Registered Workshop"
 msgid "Nhập vé cho người dùng."
 msgstr "Add ticket for user."
 
-#: .\users\forms.py:7
+#: .\users\forms.py:8
 msgid "Tài khoản:"
 msgstr "Username:"
 
-#: .\users\forms.py:8 .\users\templates\users\login.html:13
+#: .\users\forms.py:9 .\users\templates\users\login.html:13
 msgid "Tài khoản"
 msgstr "Username"
 
-#: .\users\forms.py:9
+#: .\users\forms.py:10
 msgid "Mật khẩu:"
 msgstr "Password:"
 
-#: .\users\forms.py:10 .\users\templates\users\login.html:17
+#: .\users\forms.py:11 .\users\templates\users\login.html:17
 msgid "Mật khẩu"
 msgstr "Password"
 
-#: .\users\forms.py:11 .\users\forms.py:53
+#: .\users\forms.py:12 .\users\forms.py:54
 msgid "Xác nhận mật khẩu:"
 msgstr "Confirm password:"
 
-#: .\users\forms.py:12 .\users\forms.py:54
+#: .\users\forms.py:13 .\users\forms.py:55
 msgid "Xác nhận mật khẩu"
 msgstr "Confirm password"
 
-#: .\users\forms.py:13 .\users\forms.py:38
+#: .\users\forms.py:14 .\users\forms.py:39
 msgid "Họ:"
 msgstr "Last name:"
 
-#: .\users\forms.py:14 .\users\forms.py:39
+#: .\users\forms.py:15 .\users\forms.py:40
 msgid "Họ"
 msgstr "Last name"
 
-#: .\users\forms.py:15 .\users\forms.py:40
+#: .\users\forms.py:16 .\users\forms.py:41
 msgid "Tên:"
 msgstr "First name:"
 
-#: .\users\forms.py:16 .\users\forms.py:41
+#: .\users\forms.py:17 .\users\forms.py:42
 msgid "Tên"
 msgstr "First name"
 
-#: .\users\forms.py:19 .\users\forms.py:42 .\users\models.py:13
+#: .\users\forms.py:20 .\users\forms.py:43 .\users\models.py:13
 msgid "Xin vui lòng nhập đúng số điện thoại!"
 msgstr "Please enter valid phone number!"
 
-#: .\users\forms.py:20 .\users\forms.py:43
+#: .\users\forms.py:21 .\users\forms.py:44
 msgid "Số điện thoại:"
 msgstr "Phone number:"
 
-#: .\users\forms.py:20 .\users\forms.py:43 .\users\models.py:14
+#: .\users\forms.py:21 .\users\forms.py:44 .\users\models.py:14
 msgid "Số điện thoại"
 msgstr "Phone number"
 
-#: .\users\forms.py:21 .\users\forms.py:44
+#: .\users\forms.py:22 .\users\forms.py:45
 msgid "Ngày sinh:"
 msgstr "Birthdate:"
 
-#: .\users\forms.py:22 .\users\forms.py:45
+#: .\users\forms.py:23 .\users\forms.py:46
 msgid "Địa chỉ:"
 msgstr "Address:"
 
-#: .\users\forms.py:22 .\users\forms.py:45 .\users\models.py:16
+#: .\users\forms.py:23 .\users\forms.py:46 .\users\models.py:16
 msgid "Địa chỉ"
 msgstr "Address"
 
-#: .\users\forms.py:23 .\users\forms.py:46
+#: .\users\forms.py:24 .\users\forms.py:47
 msgid "Giáo xứ:"
 msgstr "Parish:"
 
-#: .\users\forms.py:23 .\users\forms.py:46 .\users\models.py:17
+#: .\users\forms.py:24 .\users\forms.py:47 .\users\models.py:17
 msgid "Giáo xứ"
 msgstr "Parish"
 
-#: .\users\forms.py:31
+#: .\users\forms.py:32
 #, python-brace-format
 msgid "Tên tài khoản {username} đã tồn tại."
 msgstr "Username {username} already exist."
 
-#: .\users\forms.py:34 .\users\forms.py:65
+#: .\users\forms.py:35 .\users\forms.py:66
 msgid "Mật khẩu xác nhận ko trùng khớp!"
 msgstr "Confirm password doesnt match!"
 
-#: .\users\forms.py:49
+#: .\users\forms.py:50
 msgid "Mật khẩu cũ:"
 msgstr "Old Password:"
 
-#: .\users\forms.py:50
+#: .\users\forms.py:51
 msgid "Mật khẩu cũ"
 msgstr "Old Password"
 
-#: .\users\forms.py:51
+#: .\users\forms.py:52
 msgid "Mật khẩu mới:"
 msgstr "New Password:"
 
-#: .\users\forms.py:52
+#: .\users\forms.py:53
 msgid "Mật khẩu mới"
 msgstr "New Password"
 
-#: .\users\forms.py:63
+#: .\users\forms.py:64
 msgid "Xin vui lòng không dùng mật khẩu cũ!"
 msgstr "Please dont use old password!"
 
-#: .\users\forms.py:69 .\users\forms.py:70
+#: .\users\forms.py:70 .\users\forms.py:71
 msgid "Xin vui lòng nhập email."
 msgstr "Please enter your email."
 
-#: .\users\forms.py:69 .\users\forms.py:70
+#: .\users\forms.py:70 .\users\forms.py:71
 msgid "Xin vui lòng nhập đúng email của bạn."
 msgstr "Please enter your valid email."
 
-#: .\users\forms.py:70
+#: .\users\forms.py:71
 msgid "Xác nhận Email:"
 msgstr "Confirm Email:"
 
-#: .\users\forms.py:78
+#: .\users\forms.py:79
 msgid "Email không trùng khớp."
 msgstr "Email didn't match."
 
@@ -350,39 +378,43 @@ msgstr "Email Verification"
 msgid "Xác nhận"
 msgstr "Verify"
 
-#: .\users\views.py:30 .\users\views.py:32 .\users\views.py:148
-#: .\users\views.py:150
+#: .\users\views.py:30 .\users\views.py:32 .\users\views.py:150
+#: .\users\views.py:152
 msgid "Xác nhận email!"
 msgstr "Email Verification!"
 
-#: .\users\views.py:33 .\users\views.py:151
+#: .\users\views.py:33 .\users\views.py:153
 msgid "Link xác nhận email( Thời hạn 1 ngày):"
 msgstr "Verify email link(expiry in 1 day):"
 
-#: .\users\views.py:85 .\users\views.py:130
+#: .\users\views.py:70
+msgid "Đã Lưu"
+msgstr "Saved"
+
+#: .\users\views.py:87 .\users\views.py:132
 msgid "Xin vui lòng đăng nhập."
 msgstr "Please Login."
 
-#: .\users\views.py:92
+#: .\users\views.py:94
 msgid "Mật khẩu cũ không chính xác."
 msgstr "Old password is not valid."
 
-#: .\users\views.py:96
+#: .\users\views.py:98
 msgid "Thay đổi mật khẩu thành công."
 msgstr "Change password Successfully."
 
-#: .\users\views.py:161
+#: .\users\views.py:163
 msgid "Đã gửi mail xác nhận. Xin vui lòng kiểm tra email."
 msgstr "Verification mail has been sent. Please check your email."
 
-#: .\users\views.py:174
+#: .\users\views.py:176
 msgid "Link đã hết hạn, xin vui lòng đăng nhập để xác nhận lại email."
 msgstr "Link is expiried, please log in for verify email."
 
-#: .\users\views.py:179 .\users\views.py:181 .\users\views.py:182
+#: .\users\views.py:181 .\users\views.py:183 .\users\views.py:184
 msgid "Hướng dẫn chuyển khoản mua vé."
 msgstr "How to buy ticket"
 
-#: .\users\views.py:190
+#: .\users\views.py:192
 msgid "Xác nhận Email Thành công."
 msgstr "Email Verified."

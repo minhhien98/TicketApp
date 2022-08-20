@@ -40,12 +40,11 @@ def post_save_participant(sender, instance, *args, **kwargs):
         "Birthday": instance.user_id.userextend.birthdate.strftime("%d/%m/%Y"),
         "PhoneNo": instance.user_id.userextend.phone_number,
         "Email": instance.user_id.email,
-        "Gender": ' ',
         "QRCode": instance.qrcode,
-        "Object": instance.workshop_id.id,
+        "Workshop": instance.workshop_id.id,
         "CheckInStatus": "N",
         "Parish": instance.user_id.userextend.parish,
         "Address": instance.user_id.userextend.address,
-        "Group": ' '
+        "Group": instance.quantity,
     }
     add_participant_to_google_sheet(user_info)

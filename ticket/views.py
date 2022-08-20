@@ -76,11 +76,15 @@ def home(request):
         for item in result:
             for workshop in workshops:
                 if str(workshop.id) == item.get('id'):
+                    #if user already registered chosen workshop, update ticket quantity
                     participant = Participant.objects.filter(workshop_id = workshop,user_id = request.user).first()
                     if participant:
                         participant.quantity = participant.quantity + item.get('quantity')
+                        quan = item.get('quantity')
                         participant.save()
-                        Logger.info(f'{request.user.username} updated {workshop.name} ticket. Quantity: {participant.quantity}')
+                        Logger.info(f'{request.user.username} updated {workshop.name} ticket. Quantity: {quan}')
+                        user.userextend.ticket = user.userextend.ticket - int(item.get('quantity'))
+                        user.userextend.save()
                     else:
                         # Regenerate qrcode if qrcode exist
                         while True:
@@ -91,13 +95,15 @@ def home(request):
                         participant = Participant(workshop_id = workshop,user_id = request.user,quantity = item.get('quantity'),qrcode = qrcode)
                         participant.save()
                         Logger.info(f'{request.user.username} registered {workshop.name} ticket. Quantity: {participant.quantity}')
+                        user.userextend.ticket = user.userextend.ticket - item.get('quantity')
+                        user.userextend.save()
                     # Send Ticket to Email
                     fullname = user.last_name + ' ' + user.first_name
-                    shortcode = user.last_name + ' ' + user.first_name + ' ' +participant.workshop_id.name + ' ' + str(participant.quantity)
-                    fullcode = fullname + ' ' + str(participant.workshop_id.id) + '\n' + user.userextend.phone_number + '\n' + participant.qrcode + '\n' + 'ĐHGT ' + str(datetime.utcnow().year)
+                    shortcode = fullname + ' ' + participant.workshop_id.name + ' ' + str(participant.quantity)
+                    fullcode = fullname + '\n' + str(participant.workshop_id.id) + '\n' + participant.qrcode + '\n' + 'ĐHGT ' + str(datetime.utcnow().year)
                     byte_ticket_img = generate_ticket(fullcode,shortcode,workshop.id)
                     #Send email function                   
-                    subject =_('VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}').format({'year':str(datetime.utcnow().year),'last_name':user.last_name,'first_name':user.first_name})
+                    subject =_('VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}').format(year=str(datetime.utcnow().year),last_name=user.last_name,first_name=user.first_name)
                     template ='ticket/send_ticket_template.html'
                     merge_data = {
                         'fullname': user.last_name + ' ' + user.first_name,
@@ -105,10 +111,6 @@ def home(request):
                         'date':workshop.date                
                     }
                     send_email_img(template,subject,user.email,merge_data,byte_ticket_img)
-
-        user.userextend.ticket = user.userextend.ticket - total_ticket
-        user.userextend.save()
-       
 
         messages.success(request,_('Đăng ký vé thành công.'))
         return HttpResponseRedirect(request.path_info)

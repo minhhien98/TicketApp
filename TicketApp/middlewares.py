@@ -21,12 +21,12 @@ class UserLanguageMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        response = self.get_response(request)    
-        if request.user.is_authenticated:
-            current_language = request.COOKIES.get('language')
-            if current_language not in settings.LANGUAGES:
-                return response
-
+        response = self.get_response(request)   
+        current_language = request.COOKIES.get('language')
+        #if language code in cookie not found in settings ignore
+        if current_language not in settings.LANGUAGES:
+            return response 
+        if request.user.is_authenticated:            
             user = User.objects.get(username = request.user.username)
             if current_language != user.userextend.language:
                 user.userextend.language = current_language

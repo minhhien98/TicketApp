@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 
 class RegisterForm(forms.Form):
     username = forms.CharField(label=_('Tài khoản:'), required=True,min_length=5, max_length=20, widget=forms.TextInput(attrs={ 'class':'form-control form-control-lg', 
@@ -18,7 +19,7 @@ class RegisterForm(forms.Form):
                                     'placeholder':'Email'}))
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message=_('Xin vui lòng nhập đúng số điện thoại!'))
     phone_number = forms.CharField(label=_('Số điện thoại:'),min_length=9,max_length=15,widget=forms.TextInput(attrs={ 'class':'form-control form-control-lg','placeholder':_('Số điện thoại')}),validators= [phone_regex])
-    birthdate = forms.DateField(label =_('Ngày sinh:'),required= True, widget=forms.TextInput(attrs={'class': 'form-control', 'type':'date'}))
+    birthdate = forms.DateField(label =_('Ngày sinh:'),required= True, widget=forms.TextInput(attrs={'class': 'form-control', 'type':'date'}),input_formats=settings.DATE_INPUT_FORMATS)
     address = forms.CharField(label=_('Địa chỉ:'),widget = forms.TextInput(attrs={'placeholder':_('Địa chỉ')}))
     parish = forms.CharField(label=_('Giáo xứ:'),max_length= 100, widget=forms.TextInput(attrs={'placeholder':_('Giáo xứ')}))
 
