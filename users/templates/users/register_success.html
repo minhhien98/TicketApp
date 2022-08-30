@@ -1,9 +1,13 @@
 {% extends "users/base.html" %}
 {% load i18n %}
 {% block content %}
-<div>
-    <span>{% trans 'Đăng ký thành công' %}!</span>
-    <span>{% trans 'Xin vui lòng kiểm tra email để xác nhận' %}.</span>
-    <a href="{% url 'users:login' %}">{% trans 'Đăng nhập' %}</a>
+<div class="container">
+    <div class="row">
+        <span>{% trans 'Đăng ký thành công' %}!</span>
+        <span>{% trans 'Xin vui lòng kiểm tra email để xác nhận' %}.</span>
+        <a href="{% url 'users:login' %}">{% trans 'Đăng nhập' %}</a>
+    </div>   
 </div>
+    
+
 {% endblock %}

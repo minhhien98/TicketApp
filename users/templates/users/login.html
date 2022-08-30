@@ -1,25 +1,45 @@
 {% extends "users/base.html" %}
 {% load i18n %}
 {% block content %}
-<h3>{% trans 'Đăng nhập' %}</h3>
-    <form method="POST", action ="{% url 'users:login' %}">
-        {% csrf_token %}
-        {% if error_message %}
-        <div class="" role="alert">
-            {{ error_message }}
+<div class="valign-wrapper" style="width:100%;height:80%;position: absolute;">
+    <div class="valign" style="width:100%;">
+        <div class="container">
+            <div class="row">
+                <div class="col l4 push-l4">
+                    <h4 class="center">{% trans 'Đăng nhập' %}</h4>
+                    <form method="POST" , action="{% url 'users:login' %}">
+                        {% csrf_token %}
+                        <div>
+                            <label for="username">{% trans 'Tài khoản' %}:</label>
+                            <input type="text" name="username" id="username">
+                        </div>
+                        <div>
+                            <label for="password">{% trans 'Mật khẩu' %}:</label>
+                            <input type="password" name="password" id="password">
+                        </div>
+                        <div class="center">
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {% if message.tags == 'success'%}
+                                        <div class="card-panel green">
+                                            <span class="white-text">{{ message }}</span>
+                                        </div>
+                                    {% else %}
+                                        <div class="card-panel red">
+                                            <span class="white-text">{{ message }}</span>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            <button class="waves-effect waves-light btn-small red" type="submit">{% trans 'Đăng nhập' %}</button>
+                            <a class="waves-effect waves-light btn-small blue" href="{% url 'users:register' %}">{% trans 'Đăng ký' %}</a>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
         </div>
-        {% endif %}
-        <div>
-            <label for="username">{% trans 'Tài khoản' %}:</label>
-            <input type="text" name="username" id="username">
-        </div>
-        <div>
-            <label for="password">{% trans 'Mật khẩu' %}:</label>
-            <input type="password" name="password" id="password">
-        </div>
-        <button type="submit">{% trans 'Đăng nhập' %}</button>
-        <a href="{% url 'users:register' %}">
-            <button type="button">{% trans 'Đăng ký' %}</button>
-        </a>
-    </form>
+    </div>
+</div>
+
 {% endblock %}

@@ -1,42 +1,78 @@
 {% extends "ticket/base.html" %}
 {% load i18n %}
+{% load static %}
 {% block content %}
-<form method="POST" action="{% url 'ticket:home' %}">
-    {% csrf_token %}
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <p  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>
-        {% endfor %}
-    </ul>
-    {% endif %}
-<table>
-    <thead>
-        <tr>
-            <th>Workshop</th>
-            <th>{% trans 'Số vé đã đăng ký' %}</th>
-            <th>{% trans 'Số lượng vé tối đa có thể đăng ký' %}</th>
-            <th>{% trans 'Số vé đăng ký' %}</th>
-            
-        </tr>
-    </thead>
-    <tbody>  
-        {% for workshop in workshops %}
-        <tr>
-            <td>{{ workshop.name }}</td>
-            <td>{{ workshop.registered }}</td>
-            <td>{{ workshop.available }}</td>
-            <td id="{{ workshop.id }}">
-                <input type="number" name = 'quantity' value="0" min="0">
-            </td>
-            <td>
-                <input type="text" name ="id" value="{{ workshop.id }}" readonly hidden>      
-            </td>
-        </tr>
-        {% endfor %} 
-    </tbody>  
-</table>
-<button type="submit">{% trans 'Đăng ký' %}</button>
-</form>
-{% endblock %}
+<div class="container">
+    <div class="row">
+        <form id="RegisterForm" method="POST" action="{% url 'ticket:home' %}">
+            {% csrf_token %}
+            <table class="responsive-table centered">
+                <thead>
+                    <tr>
+                        <th>Workshop</th>
+                        <th>{% trans 'Số vé đã đăng ký' %}</th>
+                        <th>{% trans 'Số lượng vé tối đa có thể đăng ký' %}</th>
+                        <th>{% trans 'Số vé đăng ký' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for workshop in workshops %}
+                    <tr>
+                        <td>{{ workshop.name }}</td>
+                        <td>{{ workshop.registered }}</td>
+                        <td>{{ workshop.available }}</td>
+                        <td id="{{ workshop.id }}">
+                            <input type="number" name='quantity' value="0" min="0">
+                        </td>
+                        <td>
+                            <input type="text" name="id" value="{{ workshop.id }}" readonly hidden>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>                           
+            <div class="valign-wrapper" style="margin-top: 10px;">
+                <button id="RegisterButton" class="waves-effect waves-light btn-large red" type="submit">{% trans 'Đăng ký' %}</button>
 
+                <div class="preloader-wrapper big active" style="margin-left: 10px;display: none;">
+                    <div class="spinner-layer spinner-red-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div><div class="gap-patch">
+                            <div class="circle"></div>
+                        </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == 'success'%}
+                        <script>M.toast({ html: "{{message}}", classes: 'green rounded', displayLength: 7000 });</script>
+                    {% elif message.tags == 'info'%}
+                        <script>M.toast({ html: "{{message}}", classes: 'blue rounded', displayLength: 7000 });</script>
+                    {% elif message.tags == 'warning'%}
+                        <script>M.toast({ html: "{{message}}", classes: 'orange rounded', displayLength: 7000 });</script>
+                    {% elif message.tags == 'error'%}
+                        <script>M.toast({ html: "{{message}}", classes: 'red rounded', displayLength: 7000 });</script>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </form>
+    </div> 
+</div>
+
+<script>
+    $('#RegisterForm').submit(function(e){
+        e.preventDefault();
+        $('#RegisterButton').prop('disabled',true);
+        $('.preloader-wrapper').css('display','block');
+        //Submit
+        //this.submit();    
+        setTimeout( function () { 
+            $('#RegisterForm')[0].submit();
+        }, 2000);
+    });
+</script>
+{% endblock %}

@@ -1,11 +1,13 @@
 {% extends "users/base.html" %}
 {% load i18n %}
 {% block content %}
-    {% if messages %}
-            <ul class="messages">
+<div class="containter">
+    <div class="row">
+        {% if messages %}
             {% for message in messages %}
-                <p  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>
+                <span  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </span>
             {% endfor %}
-            </ul>
         {% endif %}
+    </div>
+</div>   
 {% endblock %}

@@ -1,22 +1,31 @@
 {% extends "users/base.html" %}
 {% load i18n %}
 {% block content %}
-    <h3>{% trans 'Đăng ký tài khoản' %}</h3>
-    <form method="POST" action="{% url 'users:register' %}">
-        {% csrf_token %}        
-        {% if form.non_field_errors %}
-        <div>
-            {{ form.non_field_errors|striptags }}
+<div class="container">
+    <div class="row">
+        <div class="col l6">
+            <h3>{% trans 'Đăng ký tài khoản' %}</h3>
+            <form method="POST" action="{% url 'users:register' %}">
+                {% csrf_token %}               
+                {% for field in form.visible_fields %}
+                    {{ field.label }}
+                    <div>
+                        {{ field }}
+                    </div>
+                {% endfor %}
+
+                {% if form.non_field_errors %}
+                    {% for err in form.non_field_errors %}
+                        <div class="card-panel red">
+                            <span class="white-text">{{ err }}</span>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <button class="waves-effect waves-light btn-small red"  type="submit">{% trans 'Đăng ký'%}</button>               
+                <a href="{% url 'users:login' %}">{% trans 'Đã có tài khoản? Đăng nhập' %}</a> 
+            </form>
         </div>
-        {% endif %}
-        {% for field in form.visible_fields %}
-        {{ field.label }}
-        <div>
-            {{ field }}
-        </div>
-        {% endfor %}
-        <button type="submit">{% trans 'Đăng ký'%}</button>
-        <hr>
-        <a href="{% url 'users:login' %}">{% trans 'Đã có tài khoản? Đăng nhập' %}</a> 
-    </form>
+    </div>
+</div>
+
 {% endblock %}

@@ -43,7 +43,6 @@ def register(request):
             
             return HttpResponseRedirect(reverse('users:register_success'))
         else:
-            print(form.errors)
             return render(request,'users/register.html',{'form':form})
     else:
         form = RegisterForm()
@@ -54,7 +53,8 @@ def register_success(request):
 
 def user_profile(request):
     if not request.user.is_authenticated:
-        return render(request,'users/login.html',{'error_message':'Xin vui lòng đăng nhập.'})
+        messages.warning(request,_('Xin vui lòng đăng nhập.'))
+        return render(request,'users/login.html')
     if request.method == 'POST':
         form = UserProfileForm(request.POST)
         if form.is_valid():
@@ -67,7 +67,8 @@ def user_profile(request):
             user.userextend.parish = form.cleaned_data.get('parish')
             user.save()
             user.userextend.save()
-            return render(request,'users/user_profile.html',{'form':form, 'error_message':_('Đã Lưu')})
+            messages.success(request,_('Đã Lưu'))
+            return render(request,'users/user_profile.html',{'form':form})
         else:
             return render(request,'users/user_profile.html',{'form':form})
     else:
@@ -84,18 +85,21 @@ def user_profile(request):
 
 def change_password(request):
     if not request.user.is_authenticated:
-        return render(request,'users/login.html',{'error_message':_('Xin vui lòng đăng nhập.')})
+        messages.warning(request,_('Xin vui lòng đăng nhập.'))
+        return render(request,'users/login.html')
     if request.method == 'POST':
         form = ChangePasswordForm(request.POST)
         if form.is_valid():
             old_password = form.cleaned_data.get('old_password')
             user = User.objects.filter(username = request.user.username).first()
             if not user.check_password(old_password):
-                return render(request,'users/change_password.html',{'form':form,'error_message':_('Mật khẩu cũ không chính xác.')})
+                messages.warning(request,_('Mật khẩu cũ không chính xác.'))
+                return render(request,'users/change_password.html',{'form':form})
             new_password = form.cleaned_data.get('new_password')
             user.set_password(new_password)
             user.save()
-            return render(request,'users/change_password.html',{'form':form,'error_message':_('Thay đổi mật khẩu thành công.')})
+            messages.success(request,_('Thay đổi mật khẩu thành công.'))
+            return render(request,'users/change_password.html',{'form':form})
         else:
             return render(request,'users/change_password.html',{'form':form})
     else:
@@ -117,7 +121,8 @@ def login(request):
 
             return HttpResponseRedirect(reverse('ticket:home'))
         else:
-            return render(request,'users/login.html',{'error_message':'Invalid username/password!'})
+            messages.warning(request,_('Tài khoản/Mật khẩu không chính xác!'))
+            return render(request,'users/login.html')
     else:
         return render(request,'users/login.html')
 
@@ -129,7 +134,8 @@ def logout(request):
 #verify email for user try to log in
 def verify_email(request):
     if not request.user.is_authenticated:
-        return render(request,'users/login.html',{'error_message':_('Xin vui lòng đăng nhập.')})
+        messages.warning(request,_('Xin vui lòng đăng nhập.'))
+        return render(request,'users/login.html')
         
     user = User.objects.get(username = request.user.username)
     #if user's email already verified

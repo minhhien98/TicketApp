@@ -1,33 +1,49 @@
 {% extends "users/base.html" %}
 {% load i18n %}
 {% block content %}
-<h3>{% trans 'Xác nhận Email' %}</h3>
-    <form method="POST" action="{% url 'users:verify_email' %}">
-        {% csrf_token %}        
-        {% if form.non_field_errors %}
-        <div>
-            {{ form.non_field_errors|striptags }}           
-        </div>
-        {% endif %}
-        {% if error_message %}
-        <div>
-            {{ error_message }}
-        </div>   
-        {% endif %}
-        {% if messages %}
-            <ul class="messages">
-            {% for message in messages %}
-                <p  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>
-            {% endfor %}
-            </ul>
-        {% endif %}
+<div class="valign-wrapper" style="width:100%;height:80%;position: absolute;">
+    <div class="valign" style="width:100%;">
+        <div class="container">
+            <div class="row">
+                <div class="col l4 push-l4">
+                    <h3>{% trans 'Xác nhận Email' %}</h3>
+                    <form method="POST" action="{% url 'users:verify_email' %}">
+                        {% csrf_token %}
 
-        {% for field in form.visible_fields %}
-        {{ field.label }}
-        <div>
-            {{ field }}
+                        {% for field in form.visible_fields %}
+                        {{ field.label }}
+                        <div>
+                            {{ field }}
+                        </div>
+                        {% endfor %}
+
+                        {% if form.non_field_errors %}
+                            {% for err in form.non_field_errors %}
+                                <div class="card-panel red">
+                                    <span class="white-text">{{ err }}</span>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        
+                        {% if messages %}
+                            {% for message in messages %}
+                                {% if message.tags == 'success'%}
+                                    <div class="card-panel green">
+                                        <span class="white-text">{{ message }}</span>
+                                    </div>
+                                {% else %}
+                                    <div class="card-panel red">
+                                        <span class="white-text">{{ message }}</span>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        <button class="waves-effect waves-light btn-small red" type="submit">{% trans 'Xác nhận'%}</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        {% endfor %}
-        <button type="submit">{% trans 'Xác nhận' %}</button>
-    </form>
+    </div>
+</div>
+
 {% endblock content %}
