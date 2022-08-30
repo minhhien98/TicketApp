@@ -7,11 +7,12 @@
             <h3>{% trans 'Đăng ký tài khoản' %}</h3>
             <form method="POST" action="{% url 'users:register' %}">
                 {% csrf_token %}               
-                {% for field in form.visible_fields %}
+                {% for field in form.visible_fields %}                                 
                     {{ field.label }}
                     <div>
                         {{ field }}
                     </div>
+                    {{ field.errors }}                
                 {% endfor %}
 
                 {% if form.non_field_errors %}

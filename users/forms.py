@@ -16,8 +16,8 @@ class RegisterForm(forms.Form):
     first_name = forms.CharField(label=_('Tên:'),required=True, widget=forms.TextInput(attrs={ 'class':'form-control form-control-lg', 
                                     'placeholder':_('Tên')}))                                
     email = forms.EmailField(label='Email:',required=True, widget=forms.TextInput(attrs={ 'class':'form-control form-control-lg', 
-                                    'placeholder':'Email'}))
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message=_('Xin vui lòng nhập đúng số điện thoại!'))
+                                    'placeholder':'Email'}),error_messages={'required':_('Xin vui lòng nhập email.'),'invalid':_('Xin vui lòng nhập email hợp lệ!')})
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message=_('Xin vui lòng nhập số điện thoại hợp lệ!'))
     phone_number = forms.CharField(label=_('Số điện thoại:'),min_length=9,max_length=15,widget=forms.TextInput(attrs={ 'class':'form-control form-control-lg','placeholder':_('Số điện thoại')}),validators= [phone_regex])
     birthdate = forms.DateField(label =_('Ngày sinh:'),required= True, widget=forms.TextInput(attrs={'class': 'form-control', 'type':'date'}),input_formats=settings.DATE_INPUT_FORMATS)
     address = forms.CharField(label=_('Địa chỉ:'),widget = forms.TextInput(attrs={'placeholder':_('Địa chỉ')}))
@@ -40,7 +40,7 @@ class UserProfileForm(forms.Form):
                                     'placeholder':_('Họ')}))
     first_name = forms.CharField(label =_('Tên:'),required=True, widget=forms.TextInput(attrs={ 'class':'form-control form-control-lg', 
                                     'placeholder':_('Tên')}))
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message=_('Xin vui lòng nhập đúng số điện thoại!'))
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message=_('Xin vui lòng nhập số điện thoại hợp lệ!'))
     phone_number = forms.CharField(label =_('Số điện thoại:'),min_length=9,max_length=15,widget=forms.TextInput(attrs={ 'class':'form-control form-control-lg','placeholder':_('Số điện thoại')}),validators= [phone_regex])
     birthdate = forms.DateField(label =_('Ngày sinh:'),required= True, widget=forms.TextInput(attrs={'class': 'form-control', 'type':'date'}))
     address = forms.CharField(label =_('Địa chỉ:'),widget = forms.TextInput(attrs={'placeholder':_('Địa chỉ')}))
@@ -67,8 +67,8 @@ class ChangePasswordForm(forms.Form):
         return data
 
 class VerifyEmailForm(forms.Form):
-    email = forms.EmailField(label = 'Email:',required=True,error_messages={'required':_('Xin vui lòng nhập email.'),'invalid':_('Xin vui lòng nhập đúng email của bạn.')})
-    confirm_email = forms.EmailField(label=_('Xác nhận Email:'),required=True,error_messages={'required':_('Xin vui lòng nhập email.'),'invalid':_('Xin vui lòng nhập đúng email của bạn.')})
+    email = forms.EmailField(label = 'Email:',required=True,error_messages={'required':_('Xin vui lòng nhập email.'),'invalid':_('Xin vui lòng nhập email hợp lệ!')})
+    confirm_email = forms.EmailField(label=_('Xác nhận Email:'),required=True,error_messages={'required':_('Xin vui lòng nhập email.'),'invalid':_('Xin vui lòng nhập email hợp lệ!')})
 
     def clean(self):
         data = super().clean()

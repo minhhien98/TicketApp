@@ -15,6 +15,7 @@
                         <div>
                             {{ field }}
                         </div>
+                        {{ field.errors }}
                         {% endfor %}
 
                         {% if form.non_field_errors %}

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-30 22:05+0700\n"
+"POT-Creation-Date: 2022-08-30 22:50+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,7 +88,7 @@ msgstr "User's profile"
 
 #: .\ticket\templates\ticket\base.html:36 .\users\templates\users\base.html:36
 #: .\users\templates\users\change_password.html:7
-#: .\users\templates\users\change_password.html:37
+#: .\users\templates\users\change_password.html:38
 msgid "Đổi mật khẩu"
 msgstr "Change password"
 
@@ -105,7 +105,7 @@ msgstr "Log in"
 #: .\ticket\templates\ticket\base.html:65
 #: .\ticket\templates\ticket\home.html:35 .\users\templates\users\base.html:65
 #: .\users\templates\users\login.html:35
-#: .\users\templates\users\register.html:24
+#: .\users\templates\users\register.html:25
 msgid "Đăng ký"
 msgstr "Register"
 
@@ -244,8 +244,16 @@ msgstr "First name:"
 msgid "Tên"
 msgstr "First name"
 
-#: .\users\forms.py:20 .\users\forms.py:43 .\users\models.py:13
-msgid "Xin vui lòng nhập đúng số điện thoại!"
+#: .\users\forms.py:19 .\users\forms.py:70 .\users\forms.py:71
+msgid "Xin vui lòng nhập email."
+msgstr "Please enter your email."
+
+#: .\users\forms.py:19 .\users\forms.py:70 .\users\forms.py:71
+msgid "Xin vui lòng nhập email hợp lệ!"
+msgstr "Please enter valid email!"
+
+#: .\users\forms.py:20 .\users\forms.py:43
+msgid "Xin vui lòng nhập số điện thoại hợp lệ!"
 msgstr "Please enter valid phone number!"
 
 #: .\users\forms.py:21 .\users\forms.py:44
@@ -305,14 +313,6 @@ msgstr "New Password"
 msgid "Xin vui lòng không dùng mật khẩu cũ!"
 msgstr "Please dont use old password!"
 
-#: .\users\forms.py:70 .\users\forms.py:71
-msgid "Xin vui lòng nhập email."
-msgstr "Please enter your email."
-
-#: .\users\forms.py:70 .\users\forms.py:71
-msgid "Xin vui lòng nhập đúng email của bạn."
-msgstr "Please enter your valid email."
-
 #: .\users\forms.py:71
 msgid "Xác nhận Email:"
 msgstr "Confirm Email:"
@@ -320,6 +320,10 @@ msgstr "Confirm Email:"
 #: .\users\forms.py:79
 msgid "Email không trùng khớp."
 msgstr "Email didn't match."
+
+#: .\users\models.py:13
+msgid "Xin vui lòng nhập đúng số điện thoại!"
+msgstr "Please enter valid phone number!"
 
 #: .\users\models.py:15
 msgid "Ngày sinh"
@@ -353,7 +357,7 @@ msgstr "Best regards"
 msgid "Đăng ký tài khoản"
 msgstr "Create Your Account"
 
-#: .\users\templates\users\register.html:25
+#: .\users\templates\users\register.html:26
 msgid "Đã có tài khoản? Đăng nhập"
 msgstr "Already have an Account? Log in"
 
@@ -365,7 +369,7 @@ msgstr "Register Successfully"
 msgid "Xin vui lòng kiểm tra email để xác nhận"
 msgstr "Please check your email for verification"
 
-#: .\users\templates\users\user_profile.html:39
+#: .\users\templates\users\user_profile.html:40
 msgid "Lưu"
 msgstr "Save"
 
@@ -421,3 +425,6 @@ msgstr "How to buy ticket"
 #: .\users\views.py:198
 msgid "Xác nhận Email Thành công."
 msgstr "Email Verified."
+
+#~ msgid "Xin vui lòng nhập đúng email của bạn."
+#~ msgstr "Please enter your valid email."
