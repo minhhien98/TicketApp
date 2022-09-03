@@ -13,7 +13,11 @@
                 <div>
                     {{ field }}
                 </div>
-                {{ field.errors }}   
+                {% if field.errors %}
+                    <div class="card-panel red">
+                        <span class="white-text">{{ field.errors }} </span>
+                    </div>    
+                {% endif%}  
                 {% endfor %}
 
                 {% if form.non_field_errors %}

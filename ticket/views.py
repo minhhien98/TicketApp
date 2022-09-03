@@ -34,27 +34,30 @@ def home(request):
             return render(request,'ticket/home.html',{'workshops':workshops})
         #get workshop id and ticket quantity
         result = []  
+        quantity = 0
         total_ticket = 0
         for id,quantity_input in zip(id_inputs,quantity_inputs):
             dict = {}
             #if input number is not int, refresh page
             try:
                 quantity = int(quantity_input)
-                if quantity > 0:
-                    #if workshop not exist refresh page
-                    workshop_exist = Workshop.objects.filter(id = id).annotate(available = Coalesce(F('slot') - Sum('participant__quantity'),'slot')).first()
-                    if not workshop_exist:
-                        return render(request,'ticket/home.html',{'workshops':workshops})
-                    #if workshop out of slot                    
-                    if workshop_exist.available == 0:
-                        messages.warning(request,_('{worshop_name} đã hết vé, xin vui lòng chọn Workshop khác!').format(workshop_name = workshop_exist.name))
-                        return render(request,'ticket/home.html',{'workshops':workshops})
-                    dict['id'] = id
-                    dict['quantity'] = quantity
-                    total_ticket = total_ticket + quantity
-                    result.append(dict)
             except:
-                return render(request,'ticket/home.html',{'workshops':workshops})
+                quantity = 0
+            if quantity > 0:
+                #if workshop not exist refresh page
+                workshop_exist = Workshop.objects.filter(id = id).annotate(available = Coalesce(F('slot') - Sum('participant__quantity'),'slot')).first()
+                if not workshop_exist:
+                    return render(request,'ticket/home.html',{'workshops':workshops})
+                #if workshop out of slot                    
+                if workshop_exist.available == 0:
+                    messages.warning(request,_('{worshop_name} đã hết vé, xin vui lòng chọn Workshop khác!').format(workshop_name = workshop_exist.name))
+                    return render(request,'ticket/home.html',{'workshops':workshops})
+                dict['id'] = id
+                dict['quantity'] = quantity
+                total_ticket = total_ticket + quantity
+                result.append(dict)
+                
+
         if len(result) == 0:
             messages.warning(request,_('Xin vui lòng nhập số vé đăng ký.'))
             return render(request,'ticket/home.html',{'workshops':workshops})

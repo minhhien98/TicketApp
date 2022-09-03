@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-30 22:50+0700\n"
+"POT-Creation-Date: 2022-09-03 17:22+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgstr "Held date"
 msgid "Số lượng chỗ trống"
 msgstr "Available slot"
 
-#: .\ticket\models.py:23 .\users\admin.py:31 .\users\admin.py:32
+#: .\ticket\models.py:23 .\users\admin.py:33 .\users\admin.py:34
 #: .\users\models.py:12
 msgid "Người dùng"
 msgstr "User"
@@ -88,7 +88,7 @@ msgstr "User's profile"
 
 #: .\ticket\templates\ticket\base.html:36 .\users\templates\users\base.html:36
 #: .\users\templates\users\change_password.html:7
-#: .\users\templates\users\change_password.html:38
+#: .\users\templates\users\change_password.html:42
 msgid "Đổi mật khẩu"
 msgstr "Change password"
 
@@ -103,23 +103,23 @@ msgid "Đăng nhập"
 msgstr "Log in"
 
 #: .\ticket\templates\ticket\base.html:65
-#: .\ticket\templates\ticket\home.html:35 .\users\templates\users\base.html:65
+#: .\ticket\templates\ticket\home.html:36 .\users\templates\users\base.html:65
 #: .\users\templates\users\login.html:35
-#: .\users\templates\users\register.html:25
+#: .\users\templates\users\register.html:29
 msgid "Đăng ký"
 msgstr "Register"
 
-#: .\ticket\templates\ticket\home.html:13
+#: .\ticket\templates\ticket\home.html:13 .\users\admin.py:50
 msgid "Số vé đã đăng ký"
 msgstr "Registered ticket Quantity"
 
 #: .\ticket\templates\ticket\home.html:14
-msgid "Số lượng vé tối đa có thể đăng ký"
-msgstr "Available slot"
-
-#: .\ticket\templates\ticket\home.html:15
 msgid "Số vé đăng ký"
 msgstr "Registration ticket Quantity"
+
+#: .\ticket\templates\ticket\home.html:15
+msgid "Số lượng vé tối đa có thể đăng ký"
+msgstr "Available slot"
 
 #: .\ticket\templates\ticket\send_ticket_template.html:2
 #: .\users\templates\users\email_template.html:98
@@ -169,38 +169,42 @@ msgstr "Chúc các bạn nhiều sức khoẻ, niềm vui và bình an trong mù
 msgid "Xin vui lòng chọn workshop."
 msgstr "Please choose workshop."
 
-#: .\ticket\views.py:50
+#: .\ticket\views.py:53
 #, python-brace-format
 msgid "{worshop_name} đã hết vé, xin vui lòng chọn Workshop khác!"
 msgstr "{worshop_name} is out of ticket, please choose another Workshop!"
 
-#: .\ticket\views.py:59
+#: .\ticket\views.py:62
 msgid "Xin vui lòng nhập số vé đăng ký."
 msgstr "Please enter number of ticket."
 
-#: .\ticket\views.py:64
+#: .\ticket\views.py:67
 msgid "Bạn không có đủ vé để đăng ký, xin vui lòng mua thêm vé."
 msgstr "You dont have enough ticket, please buy more tickets."
 
-#: .\ticket\views.py:72
+#: .\ticket\views.py:75
 #, python-brace-format
 msgid "Bạn chỉ có thể đăng ký {workshop_available} vé {workshop_name}"
 msgstr "You can only register {workshop_available} {workshop_name} ticket"
 
-#: .\ticket\views.py:106
+#: .\ticket\views.py:109
 #, python-brace-format
 msgid "VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}"
 msgstr "VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}"
 
-#: .\ticket\views.py:115
+#: .\ticket\views.py:118
 msgid "Đăng ký vé thành công."
 msgstr "Registered Successfully"
 
-#: .\users\admin.py:24 .\users\admin.py:25
+#: .\users\admin.py:26 .\users\admin.py:27
 msgid "Workshop đã đăng ký"
 msgstr "Registered Workshop"
 
-#: .\users\admin.py:41
+#: .\users\admin.py:45
+msgid "Họ tên"
+msgstr "Full name"
+
+#: .\users\admin.py:53
 msgid "Nhập vé cho người dùng."
 msgstr "Add ticket for user."
 
@@ -357,7 +361,7 @@ msgstr "Best regards"
 msgid "Đăng ký tài khoản"
 msgstr "Create Your Account"
 
-#: .\users\templates\users\register.html:26
+#: .\users\templates\users\register.html:30
 msgid "Đã có tài khoản? Đăng nhập"
 msgstr "Already have an Account? Log in"
 
@@ -369,7 +373,7 @@ msgstr "Register Successfully"
 msgid "Xin vui lòng kiểm tra email để xác nhận"
 msgstr "Please check your email for verification"
 
-#: .\users\templates\users\user_profile.html:40
+#: .\users\templates\users\user_profile.html:44
 msgid "Lưu"
 msgstr "Save"
 
@@ -377,7 +381,7 @@ msgstr "Save"
 msgid "Xác nhận Email"
 msgstr "Email Verification"
 
-#: .\users\templates\users\verify_email.html:41
+#: .\users\templates\users\verify_email.html:46
 msgid "Xác nhận"
 msgstr "Verify"
 
@@ -425,6 +429,3 @@ msgstr "How to buy ticket"
 #: .\users\views.py:198
 msgid "Xác nhận Email Thành công."
 msgstr "Email Verified."
-
-#~ msgid "Xin vui lòng nhập đúng email của bạn."
-#~ msgstr "Please enter your valid email."

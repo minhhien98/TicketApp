@@ -10,23 +10,24 @@
                 <thead>
                     <tr>
                         <th>Workshop</th>
-                        <th>{% trans 'Số vé đã đăng ký' %}</th>
-                        <th>{% trans 'Số lượng vé tối đa có thể đăng ký' %}</th>
+                        <th>{% trans 'Số vé đã đăng ký' %}</th>                
                         <th>{% trans 'Số vé đăng ký' %}</th>
+                        <th>{% trans 'Số lượng vé tối đa có thể đăng ký' %}</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for workshop in workshops %}
                     <tr>
                         <td>{{ workshop.name }}</td>
-                        <td>{{ workshop.registered }}</td>
-                        <td>{{ workshop.available }}</td>
+                        <td>{{ workshop.registered }}</td>                    
                         <td id="{{ workshop.id }}">
-                            <input type="number" name='quantity' value="0" min="0">
+                            <input class="centered" type="number" name='quantity' value="0" min="0" style="text-align: center;">
                         </td>
+                        <td>{{ workshop.available }}</td>
                         <td>
                             <input type="text" name="id" value="{{ workshop.id }}" readonly hidden>
                         </td>
+                        
                     </tr>
                     {% endfor %}
                 </tbody>

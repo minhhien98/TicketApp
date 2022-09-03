@@ -3,6 +3,8 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from ticket.models import Participant
 from users.models import UserExtend
+from django.db.models import Sum
+from django.db.models.functions import Coalesce
 from django.utils.translation import gettext_lazy as _
 #universal Model Admin
 class CustomModelAdmin(admin.ModelAdmin):  
@@ -34,8 +36,18 @@ class CustomUserAdmin(BaseUserAdmin):
     inlines = [UserExtendInline,ParticipantInline,]
     save_on_top = True
 class CustomUserExtendAdmin(admin.ModelAdmin):
-    list_display=['user_id','phone_number','birthdate','ticket','address','parish']
+    list_display=['user_id','get_fullname','ticket','get_registered_ticket']
     list_editable=['ticket']   
+
+    def get_fullname(self, obj):
+        fullname = obj.user_id.last_name + obj.user_id.first_name
+        return fullname
+    get_fullname.short_description = _('Họ tên')
+
+    def get_registered_ticket(self, obj):
+        quantity = obj.user_id.participant_set.aggregate(sum =Coalesce(Sum('quantity'),0))['sum']   
+        return quantity
+    get_registered_ticket.short_description = _('Số vé đã đăng ký')
 
     def changelist_view(self, request, extra_context=None):
         extra_context = {'title': _('Nhập vé cho người dùng.')}
