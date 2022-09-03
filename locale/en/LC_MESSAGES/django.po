@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-03 17:22+0700\n"
+"POT-Creation-Date: 2022-09-03 17:55+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -169,30 +169,35 @@ msgstr "Chúc các bạn nhiều sức khoẻ, niềm vui và bình an trong mù
 msgid "Xin vui lòng chọn workshop."
 msgstr "Please choose workshop."
 
-#: .\ticket\views.py:53
+#: .\ticket\views.py:50
 #, python-brace-format
-msgid "{worshop_name} đã hết vé, xin vui lòng chọn Workshop khác!"
-msgstr "{worshop_name} is out of ticket, please choose another Workshop!"
+msgid "{workshop_name} không tồn tại, xin vui lòng chọn Workshop khác!"
+msgstr "{workshop_name} does not exist, please choose another Workshop!"
 
-#: .\ticket\views.py:62
-msgid "Xin vui lòng nhập số vé đăng ký."
-msgstr "Please enter number of ticket."
+#: .\ticket\views.py:54
+#, python-brace-format
+msgid "{workshop_name} đã hết vé, xin vui lòng chọn Workshop khác!"
+msgstr "{workshop_name} is out of ticket, please choose another Workshop!"
 
-#: .\ticket\views.py:67
+#: .\ticket\views.py:63
+msgid "Xin vui lòng nhập số vé để đăng ký."
+msgstr "Please enter number of ticket to register."
+
+#: .\ticket\views.py:68
 msgid "Bạn không có đủ vé để đăng ký, xin vui lòng mua thêm vé."
 msgstr "You dont have enough ticket, please buy more tickets."
 
-#: .\ticket\views.py:75
+#: .\ticket\views.py:76
 #, python-brace-format
 msgid "Bạn chỉ có thể đăng ký {workshop_available} vé {workshop_name}"
 msgstr "You can only register {workshop_available} {workshop_name} ticket"
 
-#: .\ticket\views.py:109
+#: .\ticket\views.py:110
 #, python-brace-format
 msgid "VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}"
 msgstr "VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}"
 
-#: .\ticket\views.py:118
+#: .\ticket\views.py:119
 msgid "Đăng ký vé thành công."
 msgstr "Registered Successfully"
 

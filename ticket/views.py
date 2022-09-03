@@ -38,7 +38,7 @@ def home(request):
         total_ticket = 0
         for id,quantity_input in zip(id_inputs,quantity_inputs):
             dict = {}
-            #if input number is not int, refresh page
+            #if input number is not int, set quantity is 0
             try:
                 quantity = int(quantity_input)
             except:
@@ -47,19 +47,20 @@ def home(request):
                 #if workshop not exist refresh page
                 workshop_exist = Workshop.objects.filter(id = id).annotate(available = Coalesce(F('slot') - Sum('participant__quantity'),'slot')).first()
                 if not workshop_exist:
+                    messages.warning(request,_('{workshop_name} không tồn tại, xin vui lòng chọn Workshop khác!').format(workshop_name = workshop_exist.name))
                     return render(request,'ticket/home.html',{'workshops':workshops})
                 #if workshop out of slot                    
                 if workshop_exist.available == 0:
-                    messages.warning(request,_('{worshop_name} đã hết vé, xin vui lòng chọn Workshop khác!').format(workshop_name = workshop_exist.name))
+                    messages.warning(request,_('{workshop_name} đã hết vé, xin vui lòng chọn Workshop khác!').format(workshop_name = workshop_exist.name))
                     return render(request,'ticket/home.html',{'workshops':workshops})
+                #add id and quantity to a dict list    
                 dict['id'] = id
                 dict['quantity'] = quantity
                 total_ticket = total_ticket + quantity
                 result.append(dict)
                 
-
         if len(result) == 0:
-            messages.warning(request,_('Xin vui lòng nhập số vé đăng ký.'))
+            messages.warning(request,_('Xin vui lòng nhập số vé để đăng ký.'))
             return render(request,'ticket/home.html',{'workshops':workshops})
 
         #if total tickets excess current available user's ticket
