@@ -34,20 +34,25 @@ class CustomUser(User):
         verbose_name_plural = _('Người dùng')
 class CustomUserAdmin(BaseUserAdmin):
     inlines = [UserExtendInline,ParticipantInline,]
+    search_fields =['username','first_name','last_name','email']
     save_on_top = True
 class CustomUserExtendAdmin(admin.ModelAdmin):
-    list_display=['user_id','get_fullname','ticket','get_registered_ticket']
+    list_display=['user_id','get_fullname','phone_number','ticket','get_selected_ticket']
+    search_fields=['user_id__username','user_id__last_name','user_id__first_name','phone_number','user_id__email']
     list_editable=['ticket']   
+
+    def has_add_permission(self, request):
+        return False
 
     def get_fullname(self, obj):
         fullname = obj.user_id.last_name + obj.user_id.first_name
         return fullname
     get_fullname.short_description = _('Họ tên')
 
-    def get_registered_ticket(self, obj):
+    def get_selected_ticket(self, obj):
         quantity = obj.user_id.participant_set.aggregate(sum =Coalesce(Sum('quantity'),0))['sum']   
         return quantity
-    get_registered_ticket.short_description = _('Số vé đã đăng ký')
+    get_selected_ticket.short_description = _('Vé đã chọn')
 
     def changelist_view(self, request, extra_context=None):
         extra_context = {'title': _('Nhập vé cho người dùng.')}

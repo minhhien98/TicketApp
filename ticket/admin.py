@@ -12,6 +12,7 @@ class CustomWorkshopAdmin(admin.ModelAdmin):
 
     list_display = ['name','date','slot','participant_count']
     list_editable= ['slot']
+    search_fields = ['name']
 
     def participant_count(self, obj):       
         return obj.participant_set.aggregate(sum =Coalesce(Sum('quantity'),0))['sum']    

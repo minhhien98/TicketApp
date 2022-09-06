@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-03 17:55+0700\n"
+"POT-Creation-Date: 2022-09-06 15:44+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,12 +26,12 @@ msgid "Tiếng Anh"
 msgstr "English"
 
 #: .\templates\admin\base.html:7 .\ticket\templates\ticket\base.html:31
-#: .\ticket\templates\ticket\base.html:67 .\users\models.py:23
+#: .\ticket\templates\ticket\base.html:67 .\users\models.py:27
 #: .\users\templates\users\base.html:31 .\users\templates\users\base.html:67
 msgid "Ngôn ngữ"
 msgstr "Language"
 
-#: .\ticket\admin.py:18
+#: .\ticket\admin.py:19
 msgid "Số lượng vé đã đăng ký"
 msgstr "Registered tickets's Quantity"
 
@@ -48,7 +48,7 @@ msgid "Số lượng chỗ trống"
 msgstr "Available slot"
 
 #: .\ticket\models.py:23 .\users\admin.py:33 .\users\admin.py:34
-#: .\users\models.py:12
+#: .\users\models.py:16
 msgid "Người dùng"
 msgstr "User"
 
@@ -77,9 +77,10 @@ msgstr "Home"
 msgid "Hướng dẫn mua vé"
 msgstr "How to buy ticket"
 
-#: .\ticket\templates\ticket\base.html:28 .\users\templates\users\base.html:28
-msgid "Số vé đã mua"
-msgstr "Bought ticket"
+#: .\ticket\templates\ticket\base.html:28 .\users\models.py:22
+#: .\users\templates\users\base.html:28
+msgid "Vé chưa chọn"
+msgstr "Available tickets"
 
 #: .\ticket\templates\ticket\base.html:35 .\users\templates\users\base.html:35
 #: .\users\templates\users\user_profile.html:7
@@ -109,17 +110,17 @@ msgstr "Log in"
 msgid "Đăng ký"
 msgstr "Register"
 
-#: .\ticket\templates\ticket\home.html:13 .\users\admin.py:50
-msgid "Số vé đã đăng ký"
-msgstr "Registered ticket Quantity"
+#: .\ticket\templates\ticket\home.html:13
+msgid "ĐÃ CHỌN"
+msgstr "SELECTED"
 
 #: .\ticket\templates\ticket\home.html:14
-msgid "Số vé đăng ký"
-msgstr "Registration ticket Quantity"
+msgid "ĐĂNG KÝ"
+msgstr "REGISTER"
 
 #: .\ticket\templates\ticket\home.html:15
-msgid "Số lượng vé tối đa có thể đăng ký"
-msgstr "Available slot"
+msgid "GIỚI HẠN"
+msgstr "LIMIT"
 
 #: .\ticket\templates\ticket\send_ticket_template.html:2
 #: .\users\templates\users\email_template.html:98
@@ -205,11 +206,15 @@ msgstr "Registered Successfully"
 msgid "Workshop đã đăng ký"
 msgstr "Registered Workshop"
 
-#: .\users\admin.py:45
+#: .\users\admin.py:50
 msgid "Họ tên"
 msgstr "Full name"
 
-#: .\users\admin.py:53
+#: .\users\admin.py:55
+msgid "Vé đã chọn"
+msgstr "Selected"
+
+#: .\users\admin.py:58
 msgid "Nhập vé cho người dùng."
 msgstr "Add ticket for user."
 
@@ -269,9 +274,9 @@ msgstr "Please enter valid phone number!"
 msgid "Số điện thoại:"
 msgstr "Phone number:"
 
-#: .\users\forms.py:21 .\users\forms.py:44 .\users\models.py:14
+#: .\users\forms.py:21 .\users\forms.py:44 .\users\models.py:18
 msgid "Số điện thoại"
-msgstr "Phone number"
+msgstr "Phone no."
 
 #: .\users\forms.py:22 .\users\forms.py:45
 msgid "Ngày sinh:"
@@ -281,7 +286,7 @@ msgstr "Birthdate:"
 msgid "Địa chỉ:"
 msgstr "Address:"
 
-#: .\users\forms.py:23 .\users\forms.py:46 .\users\models.py:16
+#: .\users\forms.py:23 .\users\forms.py:46 .\users\models.py:20
 msgid "Địa chỉ"
 msgstr "Address"
 
@@ -289,7 +294,7 @@ msgstr "Address"
 msgid "Giáo xứ:"
 msgstr "Parish:"
 
-#: .\users\forms.py:24 .\users\forms.py:47 .\users\models.py:17
+#: .\users\forms.py:24 .\users\forms.py:47 .\users\models.py:21
 msgid "Giáo xứ"
 msgstr "Parish"
 
@@ -330,33 +335,29 @@ msgstr "Confirm Email:"
 msgid "Email không trùng khớp."
 msgstr "Email didn't match."
 
-#: .\users\models.py:13
+#: .\users\models.py:13 .\users\models.py:14
+msgid "Nhập vé"
+msgstr "Add Ticket"
+
+#: .\users\models.py:17
 msgid "Xin vui lòng nhập đúng số điện thoại!"
 msgstr "Please enter valid phone number!"
 
-#: .\users\models.py:15
+#: .\users\models.py:19
 msgid "Ngày sinh"
 msgstr "Birthdate"
 
-#: .\users\models.py:18
-msgid "Số vé"
-msgstr "Ticket Quantity"
-
-#: .\users\models.py:20
+#: .\users\models.py:24
 msgid "Đã xác nhận Email"
 msgstr "Email Verified"
 
-#: .\users\models.py:21
+#: .\users\models.py:25
 msgid "Key kích hoạt"
 msgstr "Activation Key"
 
-#: .\users\models.py:22
+#: .\users\models.py:26
 msgid "Thời hạn key"
 msgstr "Key expiration"
-
-#: .\users\models.py:26 .\users\models.py:27
-msgid "Nhập vé"
-msgstr "Add Ticket"
 
 #: .\users\templates\users\email_template.html:113
 msgid "Xin chân thành cảm ơn"
