@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <form id="RegisterForm" method="POST" action="{% url 'ticket:home' %}">
+        <form id="RegisterForm" method="POST" action="{% url 'ticket:home' %}" onsubmit="SubmitLoader()">
             {% csrf_token %}
             <table class="responsive-table centered">
                 <thead>
@@ -35,7 +35,7 @@
             <div class="valign-wrapper" style="margin-top: 10px;">
                 <button id="RegisterButton" class="waves-effect waves-light btn-large red" type="submit">{% trans 'Đăng ký' %}</button>
 
-                <div class="preloader-wrapper big active" style="margin-left: 10px;display: none;">
+                <div id ='Loader' class="preloader-wrapper big active" style="margin-left: 10px;display: none;">
                     <div class="spinner-layer spinner-red-only">
                         <div class="circle-clipper left">
                             <div class="circle"></div>
@@ -65,15 +65,9 @@
 </div>
 
 <script>
-    $('#RegisterForm').submit(function(e){
-        e.preventDefault();
-        $('#RegisterButton').prop('disabled',true);
-        $('.preloader-wrapper').css('display','block');
-        //Submit
-        //this.submit();    
-        setTimeout( function () { 
-            $('#RegisterForm')[0].submit();
-        }, 2000);
-    });
+    function SubmitLoader(){
+        document.getElementById('RegisterButton').disabled = true;
+        document.getElementById('Loader').style.display = 'block';
+    }
 </script>
 {% endblock %}

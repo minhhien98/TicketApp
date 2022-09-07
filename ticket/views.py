@@ -47,11 +47,11 @@ def home(request):
                 #if workshop not exist refresh page
                 workshop_exist = Workshop.objects.filter(id = id).annotate(available = Coalesce(F('slot') - Sum('participant__quantity'),'slot')).first()
                 if not workshop_exist:
-                    messages.warning(request,_('{workshop_name} không tồn tại, xin vui lòng chọn Workshop khác!').format(workshop_name = workshop_exist.name))
+                    messages.warning(request,_('{workshop_name} không tồn tại, xin vui lòng chọn Workshop khác.').format(workshop_name = workshop_exist.name))
                     return render(request,'ticket/home.html',{'workshops':workshops})
                 #if workshop out of slot                    
                 if workshop_exist.available == 0:
-                    messages.warning(request,_('{workshop_name} đã hết vé, xin vui lòng chọn Workshop khác!').format(workshop_name = workshop_exist.name))
+                    messages.warning(request,_('{workshop_name} đã hết vé, xin vui lòng chọn Workshop khác.').format(workshop_name = workshop_exist.name))
                     return render(request,'ticket/home.html',{'workshops':workshops})
                 #add id and quantity to a dict list    
                 dict['id'] = id

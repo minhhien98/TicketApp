@@ -83,8 +83,6 @@ def add_participant_to_google_sheet(user_info):
     # Check if participant exist in spread, update exisrt participant and return
     qr_exist = participant_worksheet.find(in_column=6,query=user_info.get('QRCode'))
     if qr_exist is not None:
-        print(qr_exist)
-        print(qr_exist.row)
         for field in field_list:       
             participant_worksheet.update_cell(qr_exist.row,col,str(user_info.get(field)))
             col +=1

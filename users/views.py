@@ -42,7 +42,6 @@ def register(request):
             send_email(template,subject,user.email,merge_data)
             return HttpResponseRedirect(reverse('users:register_success'))
         else:
-            print(form.errors)
             return render(request,'users/register.html',{'form':form})
     else:
         form = RegisterForm()
