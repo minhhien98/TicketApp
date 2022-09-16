@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-07 21:51+0700\n"
+"POT-Creation-Date: 2022-09-16 19:04+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,9 +25,12 @@ msgstr "Vietnamese"
 msgid "Tiếng Anh"
 msgstr "English"
 
-#: .\templates\admin\base.html:7 .\ticket\templates\ticket\base.html:31
-#: .\ticket\templates\ticket\base.html:67 .\users\models.py:27
-#: .\users\templates\users\base.html:31 .\users\templates\users\base.html:67
+#: .\templates\admin\base.html:7 .\ticket\templates\ticket\base.html:32
+#: .\ticket\templates\ticket\base.html:73
+#: .\ticket\templates\ticket\base.html:111
+#: .\ticket\templates\ticket\base.html:138 .\users\models.py:27
+#: .\users\templates\users\base.html:32 .\users\templates\users\base.html:73
+#: .\users\templates\users\base.html:111 .\users\templates\users\base.html:138
 msgid "Ngôn ngữ"
 msgstr "Language"
 
@@ -64,59 +67,75 @@ msgstr "Quantity"
 msgid "Người tham gia"
 msgstr "Participant"
 
-#: .\ticket\templates\ticket\base.html:23
-#: .\ticket\templates\ticket\base.html:60 .\users\templates\users\base.html:23
-#: .\users\templates\users\base.html:60
+#: .\ticket\templates\ticket\base.html:25
+#: .\ticket\templates\ticket\base.html:69
+#: .\ticket\templates\ticket\base.html:104
+#: .\ticket\templates\ticket\base.html:134 .\users\templates\users\base.html:25
+#: .\users\templates\users\base.html:69 .\users\templates\users\base.html:104
+#: .\users\templates\users\base.html:134
 msgid "Trang chủ"
 msgstr "Home"
 
-#: .\ticket\templates\ticket\base.html:24
-#: .\ticket\templates\ticket\base.html:61
-#: .\ticket\templates\ticket\guide.html:4 .\users\templates\users\base.html:24
-#: .\users\templates\users\base.html:61
+#: .\ticket\templates\ticket\base.html:26
+#: .\ticket\templates\ticket\base.html:70
+#: .\ticket\templates\ticket\base.html:105
+#: .\ticket\templates\ticket\base.html:135
+#: .\ticket\templates\ticket\guide.html:4 .\users\templates\users\base.html:26
+#: .\users\templates\users\base.html:70 .\users\templates\users\base.html:105
+#: .\users\templates\users\base.html:135
 msgid "Hướng dẫn mua vé"
 msgstr "How to buy ticket"
 
-#: .\ticket\templates\ticket\base.html:28 .\users\models.py:22
-#: .\users\templates\users\base.html:28
+#: .\ticket\templates\ticket\base.html:29
+#: .\ticket\templates\ticket\base.html:38 .\users\models.py:22
+#: .\users\templates\users\base.html:29 .\users\templates\users\base.html:38
 msgid "Vé chưa chọn"
 msgstr "Available tickets"
 
-#: .\ticket\templates\ticket\base.html:35 .\users\templates\users\base.html:35
+#: .\ticket\templates\ticket\base.html:44
+#: .\ticket\templates\ticket\base.html:78 .\users\templates\users\base.html:44
+#: .\users\templates\users\base.html:78
 #: .\users\templates\users\user_profile.html:7
 msgid "Thông tin cá nhân"
 msgstr "User's profile"
 
-#: .\ticket\templates\ticket\base.html:36 .\users\templates\users\base.html:36
+#: .\ticket\templates\ticket\base.html:45
+#: .\ticket\templates\ticket\base.html:79 .\users\templates\users\base.html:45
+#: .\users\templates\users\base.html:79
 #: .\users\templates\users\change_password.html:7
 #: .\users\templates\users\change_password.html:42
 msgid "Đổi mật khẩu"
 msgstr "Change password"
 
-#: .\ticket\templates\ticket\base.html:40 .\users\templates\users\base.html:40
+#: .\ticket\templates\ticket\base.html:49
+#: .\ticket\templates\ticket\base.html:83 .\users\templates\users\base.html:49
+#: .\users\templates\users\base.html:83
 msgid "Đăng xuất"
 msgstr "Log out"
 
-#: .\ticket\templates\ticket\base.html:64 .\users\templates\users\base.html:64
+#: .\ticket\templates\ticket\base.html:108
+#: .\ticket\templates\ticket\base.html:136
+#: .\users\templates\users\base.html:108 .\users\templates\users\base.html:136
 #: .\users\templates\users\login.html:9 .\users\templates\users\login.html:34
 #: .\users\templates\users\register_success.html:8
 msgid "Đăng nhập"
 msgstr "Log in"
 
-#: .\ticket\templates\ticket\base.html:65
-#: .\ticket\templates\ticket\home.html:36 .\users\templates\users\base.html:65
-#: .\users\templates\users\login.html:35
+#: .\ticket\templates\ticket\base.html:109
+#: .\ticket\templates\ticket\base.html:137
+#: .\ticket\templates\ticket\home.html:38 .\users\templates\users\base.html:109
+#: .\users\templates\users\base.html:137 .\users\templates\users\login.html:35
 #: .\users\templates\users\register.html:29
 msgid "Đăng ký"
 msgstr "Register"
 
 #: .\ticket\templates\ticket\home.html:13
-msgid "ĐÃ CHỌN"
-msgstr "SELECTED"
-
-#: .\ticket\templates\ticket\home.html:14
 msgid "ĐĂNG KÝ"
 msgstr "REGISTER"
+
+#: .\ticket\templates\ticket\home.html:14
+msgid "ĐÃ CHỌN"
+msgstr "SELECTED"
 
 #: .\ticket\templates\ticket\home.html:15
 msgid "GIỚI HẠN"
@@ -282,11 +301,11 @@ msgstr "First name"
 msgid "Xin hãy nhập tên của bạn."
 msgstr "Please enter your first name."
 
-#: .\users\forms.py:13 .\users\forms.py:57 .\users\forms.py:58
+#: .\users\forms.py:13 .\users\forms.py:56 .\users\forms.py:57
 msgid "Xin hãy nhập email."
 msgstr "Please enter your email."
 
-#: .\users\forms.py:13 .\users\forms.py:57 .\users\forms.py:58
+#: .\users\forms.py:13 .\users\forms.py:56 .\users\forms.py:57
 msgid "Xin hãy nhập email hợp lệ."
 msgstr "Please enter valid email."
 
@@ -331,7 +350,7 @@ msgstr "Parish"
 msgid "Tên tài khoản {username} đã tồn tại."
 msgstr "Username {username} already exist."
 
-#: .\users\forms.py:29 .\users\forms.py:53
+#: .\users\forms.py:29 .\users\forms.py:52
 msgid "Mật khẩu xác nhận ko trùng khớp."
 msgstr "Confirm password doesn't match."
 
@@ -351,11 +370,11 @@ msgstr "New Password:"
 msgid "Mật khẩu mới"
 msgstr "New Password"
 
-#: .\users\forms.py:58
+#: .\users\forms.py:57
 msgid "Xác nhận Email:"
 msgstr "Confirm Email:"
 
-#: .\users\forms.py:66
+#: .\users\forms.py:65
 msgid "Email không trùng khớp."
 msgstr "Email didn't match."
 

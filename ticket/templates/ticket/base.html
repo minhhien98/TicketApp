@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     {% load tz %}
     {% load i18n %}
@@ -8,7 +9,8 @@
     <script type="text/javascript" src="{% static 'jquery/jquery-3.6.1.min.js' %}"></script>
     <!-- Materialize-->
     <script src="{% static 'materialize/js/materialize.min.js' %}"></script>
-    <link type="text/css" rel="stylesheet" href="{% static 'materialize/css/materialize.min.css' %}" media="screen,projection" />  
+    <link type="text/css" rel="stylesheet" href="{% static 'materialize/css/materialize.min.css' %}"
+        media="screen,projection" />
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Let browser know website is optimized for mobile-->
@@ -16,46 +18,88 @@
 </head>
 <header>
     {% block header %}
+    {% if user.is_authenticated %}
     <nav>
         <div class="nav-wrapper">
-            {% if user.is_authenticated %}
             <ul class="left hide-on-med-and-down">
                 <li><a href="{% url 'ticket:home' %}">{% trans 'Trang chủ' %}</a></li>
                 <li><a href="{% url 'ticket:guide' %}">{% trans 'Hướng dẫn mua vé' %}</a></li>
             </ul>
-
             <ul class="right hide-on-med-and-down">
                 <li><a>{% trans 'Vé chưa chọn' %}: {{ user.userextend.ticket }}</a></li>
-                <li><a class="user-dropdown-trigger" data-target="user-dropdown">{{ user.get_username }}<i class="material-icons right">arrow_drop_down</i></a></li>
-                <!-- Change Language -->
-                <li><a class="language-dropdown-trigger" data-target="language-dropdown">{% trans 'Ngôn ngữ' %}<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a class="user-dropdown-trigger" data-target="user-dropdown">{{ user.get_username }}<i
+                            class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a class="language-dropdown-trigger" data-target="language-dropdown">{% trans 'Ngôn ngữ' %}<i
+                            class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
-            <!-- user dropdown -->
-            <ul id="user-dropdown" class="dropdown-content">
-                <li><a href="{% url 'users:user_profile' %}">{% trans 'Thông tin cá nhân' %}</a></li>
-                <li><a href="{% url 'users:change_password' %}">{% trans 'Đổi mật khẩu' %}</a></li>
-                <form id="logout-form" name="logout" method="post" action="{% url 'users:logout' %}">
-                    {% csrf_token %}
-                    <li>
-                        <a name="logout" onclick="document.forms['logout-form'].submit();">{% trans 'Đăng xuất' %}</a>
-                    </li>
-                </form>
+            <!-- mobile navbar -->
+            <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-large">
+                <li><a>{% trans 'Vé chưa chọn' %}: {{ user.userextend.ticket }}</a></li>
             </ul>
-            <!-- language dropdown-->
-            <ul id="language-dropdown" class="dropdown-content">
-                <form id="change_language_form" name="change_language_form" method="post" action="/i18n/setlang/">
-                    {% csrf_token %}
-                    <input id="newLanguageInput" type="hidden" name="language" />
-                    {% get_current_language as LANGUAGE_CODE %}
-                    {% get_available_languages as LANGUAGES %}
-                    {% for language in LANGUAGES %}
-                    <li>
-                        <a value="{{ language.0 }}" onclick="ChangeLanguage('{{ language.0 }}')">{{ language.1 }}</a>
-                    </li>
-                    {% endfor %}
-                </form>
-            </ul>
-            {% else %}
+        </div>
+    </nav>
+    <!-- dropdown -->
+    <ul id="user-dropdown" class="dropdown-content">
+        <li><a href="{% url 'users:user_profile' %}">{% trans 'Thông tin cá nhân' %}</a></li>
+        <li><a href="{% url 'users:change_password' %}">{% trans 'Đổi mật khẩu' %}</a></li>
+        <form id="logout-form" name="logout" method="post" action="{% url 'users:logout' %}">
+            {% csrf_token %}
+            <li>
+                <a name="logout" onclick="document.forms['logout-form'].submit();">{% trans 'Đăng xuất' %}</a>
+            </li>
+        </form>
+    </ul>
+    <ul id="language-dropdown" class="dropdown-content">
+        <form id="change_language_form" name="change_language_form" method="post" action="/i18n/setlang/">
+            {% csrf_token %}
+            <input id="newLanguageInput" type="hidden" name="language" />
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% for language in LANGUAGES %}
+            <li>
+                <a value="{{ language.0 }}" onclick="ChangeLanguage('{{ language.0 }}')">{{ language.1 }}</a>
+            </li>
+            {% endfor %}
+        </form>
+    </ul>
+
+    <!-- mobile sidenav -->
+    <ul class="sidenav" id="mobile-nav">
+        <li><a href="{% url 'ticket:home' %}">{% trans 'Trang chủ' %}</a></li>
+        <li><a href="{% url 'ticket:guide' %}">{% trans 'Hướng dẫn mua vé' %}</a></li>
+        <li><a class="user-dropdown-trigger" data-target="user-dropdown-mobile">{{ user.get_username }}<i
+                    class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a class="language-dropdown-trigger" data-target="language-dropdown-mobile">{% trans 'Ngôn ngữ' %}<i
+                    class="material-icons right">arrow_drop_down</i></a></li>
+    </ul>
+    <!-- mobile dropdown -->
+    <ul id="user-dropdown-mobile" class="dropdown-content">
+        <li><a href="{% url 'users:user_profile' %}">{% trans 'Thông tin cá nhân' %}</a></li>
+        <li><a href="{% url 'users:change_password' %}">{% trans 'Đổi mật khẩu' %}</a></li>
+        <form id="logout-form" name="logout" method="post" action="{% url 'users:logout' %}">
+            {% csrf_token %}
+            <li>
+                <a name="logout" onclick="document.forms['logout-form'].submit();">{% trans 'Đăng xuất' %}</a>
+            </li>
+        </form>
+    </ul>
+    <ul id="language-dropdown-mobile" class="dropdown-content">
+        <form id="change_language_form" name="change_language_form" method="post" action="/i18n/setlang/">
+            {% csrf_token %}
+            <input id="newLanguageInput" type="hidden" name="language" />
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% for language in LANGUAGES %}
+            <li>
+                <a value="{{ language.0 }}" onclick="ChangeLanguage('{{ language.0 }}')">{{ language.1 }}</a>
+            </li>
+            {% endfor %}
+        </form>
+    </ul>
+    {% else %}
+    <nav>
+        <div class="nav-wrapper">
             <ul class="left hide-on-med-and-down">
                 <li> <a href="{% url 'ticket:home' %}">{% trans 'Trang chủ' %}</a></li>
                 <li><a href="{% url 'ticket:guide' %}">{% trans 'Hướng dẫn mua vé' %}</a></li>
@@ -63,26 +107,52 @@
             <ul class="right hide-on-med-and-down">
                 <li><a href="{% url 'users:login' %}">{% trans 'Đăng nhập' %}</a></li>
                 <li><a href="{% url 'users:register' %}">{% trans 'Đăng ký' %}</a></li>
-                <!-- Change Language -->
-                <li><a class="language-dropdown-trigger" data-target="language-dropdown">{% trans 'Ngôn ngữ' %}<i class="material-icons right">arrow_drop_down</i></a></li>
+
+                <li><a class="language-dropdown-trigger" data-target="language-dropdown">{% trans 'Ngôn ngữ' %}<i
+                            class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
-            <!-- language dropdown-->
-            <ul id="language-dropdown" class="dropdown-content">
-                <form id="change_language_form" name="change_language_form" method="post" action="/i18n/setlang/">
-                    {% csrf_token %}
-                    <input id="newLanguageInput" type="hidden" name="language" />
-                    {% get_current_language as LANGUAGE_CODE %}
-                    {% get_available_languages as LANGUAGES %}
-                    {% for language in LANGUAGES %}
-                    <li>
-                        <a value="{{ language.0 }}" onclick="ChangeLanguage('{{ language.0 }}')">{{ language.1 }}</a>
-                    </li>
-                    {% endfor %}
-                </form>
-            </ul>
-            {% endif %}
+            <a href="#" data-target="mobile-nav" class="sidenav-trigger left"><i class="material-icons">menu</i></a>
         </div>
     </nav>
+    <!-- dropdown-->
+    <ul id="language-dropdown" class="dropdown-content">
+        <form id="change_language_form" name="change_language_form" method="post" action="/i18n/setlang/">
+            {% csrf_token %}
+            <input id="newLanguageInput" type="hidden" name="language" />
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% for language in LANGUAGES %}
+            <li>
+                <a value="{{ language.0 }}" onclick="ChangeLanguage('{{ language.0 }}')">{{ language.1 }}</a>
+            </li>
+            {% endfor %}
+        </form>
+    </ul>
+
+    <!-- mobile sidenav -->
+    <ul class="sidenav" id="mobile-nav">
+        <li><a href="{% url 'ticket:home' %}">{% trans 'Trang chủ' %}</a></li>
+        <li><a href="{% url 'ticket:guide' %}">{% trans 'Hướng dẫn mua vé' %}</a></li>
+        <li><a href="{% url 'users:login' %}">{% trans 'Đăng nhập' %}</a></li>
+        <li><a href="{% url 'users:register' %}">{% trans 'Đăng ký' %}</a></li>
+        <li><a class="language-dropdown-trigger" data-target="language-dropdown-mobile">{% trans 'Ngôn ngữ' %}<i
+                    class="material-icons right">arrow_drop_down</i></a></li>
+    </ul>
+    <!-- mobile dropdown -->
+    <ul id="language-dropdown-mobile" class="dropdown-content">
+        <form id="change_language_form" name="change_language_form" method="post" action="/i18n/setlang/">
+            {% csrf_token %}
+            <input id="newLanguageInput" type="hidden" name="language" />
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% for language in LANGUAGES %}
+            <li>
+                <a value="{{ language.0 }}" onclick="ChangeLanguage('{{ language.0 }}')">{{ language.1 }}</a>
+            </li>
+            {% endfor %}
+        </form>
+    </ul>
+    {% endif %}
     {% endblock %}
 </header>
 
@@ -91,8 +161,10 @@
     {% endblock %}
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.user-dropdown-trigger').dropdown();
-            $('.language-dropdown-trigger').dropdown();
+            var DropdownOptions = { 'coverTrigger': false, 'hover': true };
+            $('.user-dropdown-trigger').dropdown(DropdownOptions);
+            $('.language-dropdown-trigger').dropdown(DropdownOptions);
+            $('.sidenav').sidenav();
         });
 
         function ChangeLanguage(value) {
