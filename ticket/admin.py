@@ -18,6 +18,10 @@ class CustomWorkshopAdmin(admin.ModelAdmin):
         return obj.participant_set.aggregate(sum =Coalesce(Sum('quantity'),0))['sum']    
     participant_count.short_description = _('Số lượng vé đã đăng ký')
 
+class CustomParticipantAdmin(admin.ModelAdmin):
+    list_display = ['workshop_id','user_id','date','quantity','qrcode',]
+    search_fields=['workshop_id__name','user_id__username','date']
+
 # Register your models here.
 admin.site.register(Workshop,CustomWorkshopAdmin)
-admin.site.register(Participant,CustomModelAdmin)
+admin.site.register(Participant,CustomParticipantAdmin)

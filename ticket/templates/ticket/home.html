@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col s6 offset-s4 m6 offset-m5 l6 offset-l6">
                     <div class="valign-wrapper" style="height: 100%;margin-top: 10px;"> 
-                        <button id="RegisterButton" class="waves-effect waves-light btn-large red center-align" type="submit">{% trans 'Đăng ký' %}</button>
+                        <button id="RegisterButton" class="waves-effect waves-light btn-large red modal-trigger" data-target="RegisterModal" type="button">{% trans 'Đăng ký' %}</button>
                         <div id ='Loader' class="preloader-wrapper big active center-align" style="margin-left: 10px;display: none;">
                             <div class="spinner-layer spinner-red-only">
                                 <div class="circle-clipper left">
@@ -48,6 +48,16 @@
                             </div>
                         </div>
                     </div>                
+                </div>
+            </div>
+            <div id="RegisterModal" class="modal" style="width: 25%; height: 25%;">
+                <div class="modal-content" style="text-align: center;">
+                  <h4>Đăng ký Workshop</h4>
+                  <p>Bạn có muốn đăng ký workshop đã chọn không?</p>
+                </div>
+                <div class="modal-footer" style="text-align: center;">
+                  <button class="modal-close waves-effect waves-light btn red" type="submit">{% trans 'Đăng ký' %}</button>
+                  <button class="modal-close waves-effect waves-light btn blue modal-close" type="button">{% trans 'Hủy' %}</button>                  
                 </div>
             </div>
             {% if messages %}
@@ -65,11 +75,19 @@
             {% endif %}
         </form>
 </div>
-
 <script>
-    function SubmitLoader(){
-        document.getElementById('RegisterButton').disabled = true;
-        document.getElementById('Loader').style.display = 'block';
-    }
+    $(document).ready(function(){
+        $('.modal').modal();
+    });
+
+    $('#RegisterForm').submit(function(e){
+        e.preventDefault();
+        $('#RegisterButton').prop('disabled',true);
+        $('.preloader-wrapper').css('display','block');
+        //Submit    
+        setTimeout( function () { 
+            $('#RegisterForm')[0].submit();
+        }, 1000);
+    });
 </script>
 {% endblock %}

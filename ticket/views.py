@@ -7,6 +7,7 @@ from django.db.models import Q,F,Sum
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db.models.functions import Coalesce
+from django.urls import reverse
 from ticket.methods import generate_ticket
 from ticket.models import Participant, Workshop
 from users.methods import send_email_img
@@ -31,7 +32,7 @@ def home(request):
         if len(id_inputs) == 0:
             #user didnt choose workshop
             messages.warning(request,_('Xin vui lòng chọn workshop.'))
-            return render(request,'ticket/home.html',{'workshops':workshops})
+            return HttpResponseRedirect(reverse('ticket:home'))
         #get workshop id and ticket quantity
         result = []  
         quantity = 0
@@ -61,12 +62,12 @@ def home(request):
                 
         if len(result) == 0:
             messages.warning(request,_('Xin vui lòng nhập số vé để đăng ký.'))
-            return render(request,'ticket/home.html',{'workshops':workshops})
+            return HttpResponseRedirect(reverse('ticket:home'))
 
         #if total tickets excess current available user's ticket
         if user.userextend.ticket < total_ticket:
             messages.warning(request,_('Bạn không có đủ vé để đăng ký, xin vui lòng mua thêm vé.'))
-            return render(request,'ticket/home.html',{'workshops':workshops})
+            return HttpResponseRedirect(reverse('ticket:home'))
 
         #if workshops slot excess
         for item in result:        
@@ -74,33 +75,23 @@ def home(request):
                 if str(workshop.id) == item.get('id'):
                     if workshop.available < item.get('quantity'):
                         messages.warning(request,_('Bạn chỉ có thể đăng ký {workshop_available} vé {workshop_name}').format(workshop_available=str(workshop.available),workshop_name=workshop.name))
-                        return render(request,'ticket/home.html',{'workshops':workshops})
+                        return HttpResponseRedirect(reverse('ticket:home'))
 
         #register workshop     
         for item in result:
             for workshop in workshops:
                 if str(workshop.id) == item.get('id'):
-                    #if user already registered chosen workshop, update ticket quantity
-                    participant = Participant.objects.filter(workshop_id = workshop,user_id = request.user).first()
-                    if participant:
-                        participant.quantity = participant.quantity + item.get('quantity')
-                        quan = item.get('quantity')
-                        participant.save()
-                        Logger.info(f'{request.user.username} updated {workshop.name} ticket. Quantity: {quan}')
-                        user.userextend.ticket = user.userextend.ticket - int(item.get('quantity'))
-                        user.userextend.save()
-                    else:
-                        # Regenerate qrcode if qrcode exist
-                        while True:
-                            qrcode = secrets.token_urlsafe(16)
-                            qrcode_exist = Participant.objects.filter(qrcode = qrcode).exists()
-                            if qrcode_exist == False:
-                                break
-                        participant = Participant(workshop_id = workshop,user_id = request.user,quantity = item.get('quantity'),qrcode = qrcode)
-                        participant.save()
-                        Logger.info(f'{request.user.username} registered {workshop.name} ticket. Quantity: {participant.quantity}')
-                        user.userextend.ticket = user.userextend.ticket - item.get('quantity')
-                        user.userextend.save()
+                    # Regenerate qrcode if qrcode exist
+                    while True:
+                        qrcode = secrets.token_urlsafe(16)
+                        qrcode_exist = Participant.objects.filter(qrcode = qrcode).exists()
+                        if qrcode_exist == False:
+                            break
+                    participant = Participant(workshop_id = workshop,user_id = request.user,quantity = item.get('quantity'),qrcode = qrcode)
+                    participant.save()
+                    Logger.info(f'{request.user.username} registered {workshop.name} ticket. Quantity: {participant.quantity}')
+                    user.userextend.ticket = user.userextend.ticket - item.get('quantity')
+                    user.userextend.save()
                     # Send Ticket to Email
                     fullname = user.last_name + ' ' + user.first_name
                     shortcode = fullname + ' ' + participant.workshop_id.name + ' ' + str(participant.quantity)
@@ -117,7 +108,7 @@ def home(request):
                     send_email_img(template,subject,user.email,merge_data,byte_ticket_img)
 
         messages.success(request,_('Đăng ký vé thành công.'))
-        return HttpResponseRedirect(request.path_info)
+        return HttpResponseRedirect(reverse('ticket:home'))
     else:    
         return render(request, 'ticket/home.html', {'workshops' : workshops})
 

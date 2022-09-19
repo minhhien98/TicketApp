@@ -31,10 +31,11 @@
                                     {% endif %}
                                 {% endfor %}
                             {% endif %}
-                            <button class="waves-effect waves-light btn-small red" type="submit">{% trans 'Đăng nhập' %}</button>
-                            <a class="waves-effect waves-light btn-small blue" href="{% url 'users:register' %}">{% trans 'Đăng ký' %}</a>
-                        </div>
-                        
+                            <button class="waves-effect waves-light btn-small red" type="submit">{% trans 'Đăng nhập' %}</button>                                                
+                        </div> 
+                        <div class="center">
+                            <a href="{% url 'users:register' %}">{% trans 'Chưa có tài khoản? Đăng ký' %}</a> 
+                        </div>                     
                     </form>
                 </div>
             </div>

@@ -16,15 +16,15 @@ class UserExtendInline(admin.StackedInline):
     model = UserExtend
     can_delete = False   
     
-class ParticipantInline(admin.TabularInline):
-    model = Participant
-    fields = ['workshop_id','quantity','date']
-    readonly_fields =['workshop_id','quantity','date']
-    ordering=['-date']
-    extra = 0
-    can_delete = False
-    verbose_name = _('Workshop đã đăng ký')
-    verbose_name_plural = _('Workshop đã đăng ký')
+# class ParticipantInline(admin.TabularInline):
+#     model = Participant
+#     fields = ['workshop_id','quantity','date']
+#     readonly_fields =['workshop_id','quantity','date']
+#     ordering=['-date']
+#     extra = 0
+#     can_delete = False
+#     verbose_name = _('Workshop đã đăng ký')
+#     verbose_name_plural = _('Workshop đã đăng ký')
 
 #Model Class
 class CustomUser(User):
@@ -33,7 +33,7 @@ class CustomUser(User):
         verbose_name = _('Người dùng')
         verbose_name_plural = _('Người dùng')
 class CustomUserAdmin(BaseUserAdmin):
-    inlines = [UserExtendInline,ParticipantInline,]
+    inlines = [UserExtendInline,]
     search_fields =['username','first_name','last_name','email']
     save_on_top = True
 class CustomUserExtendAdmin(admin.ModelAdmin):

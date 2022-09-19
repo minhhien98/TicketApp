@@ -1,13 +1,19 @@
 {% extends "users/base.html" %}
 {% load i18n %}
 {% block content %}
-<div class="container">
-    <div class="row">
-        <span>{% trans 'Đăng ký thành công' %}!</span>
-        <span>{% trans 'Xin vui lòng kiểm tra email để xác nhận' %}.</span>
-        <a href="{% url 'users:login' %}">{% trans 'Đăng nhập' %}</a>
-    </div>   
+<div class="valign-wrapper" style="width:100%;height:80%;position: absolute;">
+    <div class="container">
+        <div class="row">
+            <div class="col l5 push-l4">
+                <span>{% trans 'Đăng ký thành công' %}!</span>
+                <span>{% trans 'Xin vui lòng kiểm tra email để xác nhận' %}.</span>         
+            </div>             
+        </div>   
+        <div class="row">
+            <div class="col l5 push-l4">
+                <a href="{% url 'users:login' %}">{% trans 'Không nhận được mail? Đăng nhập để xác nhận email.' %}</a>
+            </div>                   
+        </div>
+    </div>
 </div>
-    
-
 {% endblock %}

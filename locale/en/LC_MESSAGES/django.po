@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-16 19:04+0700\n"
+"POT-Creation-Date: 2022-09-19 20:33+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,14 +117,14 @@ msgstr "Log out"
 #: .\ticket\templates\ticket\base.html:136
 #: .\users\templates\users\base.html:108 .\users\templates\users\base.html:136
 #: .\users\templates\users\login.html:9 .\users\templates\users\login.html:34
-#: .\users\templates\users\register_success.html:8
 msgid "Đăng nhập"
 msgstr "Log in"
 
 #: .\ticket\templates\ticket\base.html:109
 #: .\ticket\templates\ticket\base.html:137
-#: .\ticket\templates\ticket\home.html:38 .\users\templates\users\base.html:109
-#: .\users\templates\users\base.html:137 .\users\templates\users\login.html:35
+#: .\ticket\templates\ticket\home.html:38
+#: .\ticket\templates\ticket\home.html:59 .\users\templates\users\base.html:109
+#: .\users\templates\users\base.html:137
 #: .\users\templates\users\register.html:29
 msgid "Đăng ký"
 msgstr "Register"
@@ -140,6 +140,10 @@ msgstr "SELECTED"
 #: .\ticket\templates\ticket\home.html:15
 msgid "GIỚI HẠN"
 msgstr "LIMIT"
+
+#: .\ticket\templates\ticket\home.html:60
+msgid "Hủy"
+msgstr "Cancel"
 
 #: .\ticket\templates\ticket\send_ticket_template.html:2
 #: .\users\templates\users\email_template.html:98
@@ -185,45 +189,41 @@ msgstr ""
 msgid "Chúc các bạn nhiều sức khoẻ, niềm vui và bình an trong mùa Chay thánh."
 msgstr "Chúc các bạn nhiều sức khoẻ, niềm vui và bình an trong mùa Chay thánh."
 
-#: .\ticket\views.py:33
+#: .\ticket\views.py:34
 msgid "Xin vui lòng chọn workshop."
 msgstr "Please choose workshop."
 
-#: .\ticket\views.py:50
+#: .\ticket\views.py:51
 #, python-brace-format
 msgid "{workshop_name} không tồn tại, xin vui lòng chọn Workshop khác."
 msgstr "{workshop_name} does not exist, please choose another Workshop."
 
-#: .\ticket\views.py:54
+#: .\ticket\views.py:55
 #, python-brace-format
 msgid "{workshop_name} đã hết vé, xin vui lòng chọn Workshop khác."
 msgstr "{workshop_name} is out of ticket, please choose another Workshop."
 
-#: .\ticket\views.py:63
+#: .\ticket\views.py:64
 msgid "Xin vui lòng nhập số vé để đăng ký."
 msgstr "Please enter number of ticket to register."
 
-#: .\ticket\views.py:68
+#: .\ticket\views.py:69
 msgid "Bạn không có đủ vé để đăng ký, xin vui lòng mua thêm vé."
 msgstr "You dont have enough ticket, please buy more tickets."
 
-#: .\ticket\views.py:76
+#: .\ticket\views.py:77
 #, python-brace-format
 msgid "Bạn chỉ có thể đăng ký {workshop_available} vé {workshop_name}"
 msgstr "You can only register {workshop_available} {workshop_name} ticket"
 
-#: .\ticket\views.py:110
+#: .\ticket\views.py:101
 #, python-brace-format
 msgid "VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}"
 msgstr "VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}"
 
-#: .\ticket\views.py:119
+#: .\ticket\views.py:110
 msgid "Đăng ký vé thành công."
 msgstr "Registered Successfully"
-
-#: .\users\admin.py:26 .\users\admin.py:27
-msgid "Workshop đã đăng ký"
-msgstr "Registered Workshop"
 
 #: .\users\admin.py:50
 msgid "Họ tên"
@@ -406,6 +406,10 @@ msgstr "Key expiration"
 msgid "Xin chân thành cảm ơn"
 msgstr "Best regards"
 
+#: .\users\templates\users\login.html:37
+msgid "Chưa có tài khoản? Đăng ký"
+msgstr "Don't have an Account? Sign up"
+
 #: .\users\templates\users\register.html:7
 msgid "Đăng ký tài khoản"
 msgstr "Create Your Account"
@@ -414,23 +418,27 @@ msgstr "Create Your Account"
 msgid "Đã có tài khoản? Đăng nhập"
 msgstr "Already have an Account? Log in"
 
-#: .\users\templates\users\register_success.html:6
+#: .\users\templates\users\register_success.html:8
 msgid "Đăng ký thành công"
 msgstr "Register Successfully"
 
-#: .\users\templates\users\register_success.html:7
+#: .\users\templates\users\register_success.html:9
 msgid "Xin vui lòng kiểm tra email để xác nhận"
 msgstr "Please check your email for verification"
+
+#: .\users\templates\users\register_success.html:14
+msgid "Không nhận được mail? Đăng nhập để xác nhận email."
+msgstr "Didn't receive mail? Log in for verify email."
 
 #: .\users\templates\users\user_profile.html:44
 msgid "Lưu"
 msgstr "Save"
 
-#: .\users\templates\users\verify_email.html:9
+#: .\users\templates\users\verify_email.html:8
 msgid "Xác nhận Email"
 msgstr "Email Verification"
 
-#: .\users\templates\users\verify_email.html:46
+#: .\users\templates\users\verify_email.html:45
 msgid "Xác nhận"
 msgstr "Verify"
 
@@ -478,3 +486,6 @@ msgstr "How to buy ticket"
 #: .\users\views.py:197
 msgid "Xác nhận Email Thành công."
 msgstr "Email Verified."
+
+#~ msgid "Workshop đã đăng ký"
+#~ msgstr "Registered Workshop"
