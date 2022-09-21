@@ -107,7 +107,8 @@ def home(request):
                     merge_data = {
                         'fullname': user.last_name + ' ' + user.first_name,
                         'workshop': workshop.name,  
-                        'date':workshop.date                
+                        'date':workshop.date,
+                        'address':workshop.address               
                     }
                     send_email_img(template,subject,user.email,merge_data,byte_ticket_img)
 

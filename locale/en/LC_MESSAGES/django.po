@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-21 16:56+0700\n"
+"POT-Creation-Date: 2022-09-21 17:21+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,40 +38,45 @@ msgstr "Language"
 msgid "Số lượng vé đã đăng ký"
 msgstr "Registered tickets's Quantity"
 
-#: .\ticket\models.py:11
+#: .\ticket\models.py:12
 msgid "Tên Workshop"
 msgstr "Workshop name"
 
-#: .\ticket\models.py:12
+#: .\ticket\models.py:13
 msgid "Ngày diễn ra"
 msgstr "Held date"
 
-#: .\ticket\models.py:13
+#: .\ticket\models.py:14
 msgid "Số lượng chỗ trống"
 msgstr "Available slot"
 
-#: .\ticket\models.py:14
+#: .\ticket\models.py:15
 msgid "Workshop đặc biệt"
 msgstr "Special workshop"
 
-#: .\ticket\models.py:15
+#: .\ticket\models.py:16 .\users\forms.py:17 .\users\forms.py:38
+#: .\users\models.py:20
+msgid "Địa chỉ"
+msgstr "Address"
+
+#: .\ticket\models.py:17
 msgid "Ảnh vé"
 msgstr "Ticket's template"
 
-#: .\ticket\models.py:25 .\users\admin.py:33 .\users\admin.py:34
+#: .\ticket\models.py:27 .\users\admin.py:33 .\users\admin.py:34
 #: .\users\models.py:16
 msgid "Người dùng"
 msgstr "User"
 
-#: .\ticket\models.py:26
+#: .\ticket\models.py:28
 msgid "Ngày tham gia"
 msgstr "Join date"
 
-#: .\ticket\models.py:27
+#: .\ticket\models.py:29
 msgid "Số lượng đăng ký"
 msgstr "Quantity"
 
-#: .\ticket\models.py:31 .\ticket\models.py:32
+#: .\ticket\models.py:33 .\ticket\models.py:34
 msgid "Người tham gia"
 msgstr "Participant"
 
@@ -191,15 +196,14 @@ msgstr "Hẹn gặp lại bạn vào ngày Đại hội:"
 msgid "Thời gian: Ngày"
 msgstr "Thời gian: Ngày"
 
-#: .\ticket\templates\ticket\send_ticket_template.html:8
-msgid ""
-"Địa điểm: Giáo xứ Tân Phước, 245 Nguyễn Thị Nhỏ, phường 15, quận Tân Bình."
-msgstr ""
-"Địa điểm: Giáo xứ Tân Phước, 245 Nguyễn Thị Nhỏ, phường 15, quận Tân Bình."
+#: .\ticket\templates\ticket\send_ticket_template.html:8 .\users\forms.py:17
+#: .\users\forms.py:38
+msgid "Địa chỉ:"
+msgstr "Address:"
 
 #: .\ticket\templates\ticket\send_ticket_template.html:9
-msgid "Chúc các bạn nhiều sức khoẻ, niềm vui và bình an trong mùa Chay thánh."
-msgstr "Chúc các bạn nhiều sức khoẻ, niềm vui và bình an trong mùa Chay thánh."
+msgid "Chúc các bạn nhiều sức khoẻ, niềm vui và bình an."
+msgstr "Chúc các bạn nhiều sức khoẻ, niềm vui và bình an."
 
 #: .\ticket\views.py:34
 msgid "Xin vui lòng chọn workshop."
@@ -233,7 +237,7 @@ msgstr "You can only register {workshop_available} {workshop_name} ticket"
 msgid "VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}"
 msgstr "VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}"
 
-#: .\ticket\views.py:119
+#: .\ticket\views.py:120
 msgid "Đăng ký vé thành công."
 msgstr "Registered Successfully"
 
@@ -340,14 +344,6 @@ msgstr "Birthdate:"
 #: .\users\forms.py:16 .\users\forms.py:37
 msgid "Xin hãy nhập ngày sinh."
 msgstr "Please enter your birthdate."
-
-#: .\users\forms.py:17 .\users\forms.py:38
-msgid "Địa chỉ:"
-msgstr "Address:"
-
-#: .\users\forms.py:17 .\users\forms.py:38 .\users\models.py:20
-msgid "Địa chỉ"
-msgstr "Address"
 
 #: .\users\forms.py:18 .\users\forms.py:39
 msgid "Giáo xứ:"

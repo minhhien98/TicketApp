@@ -13,6 +13,7 @@ class Workshop(models.Model):
     date = models.DateTimeField(verbose_name=_('Ngày diễn ra'))
     slot = models.IntegerField(verbose_name=_('Số lượng chỗ trống'))
     is_special = models.BooleanField(verbose_name=_('Workshop đặc biệt'),default= False)
+    address = models.CharField(verbose_name=_('Địa chỉ'),max_length=254, blank=False, default='')
     ticket_template = models.ImageField(verbose_name=_('Ảnh vé'),upload_to='ticket/ticket_template',null=False)
     class Meta:
         verbose_name = 'Workshop'
