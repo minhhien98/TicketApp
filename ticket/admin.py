@@ -10,8 +10,8 @@ class CustomModelAdmin(admin.ModelAdmin):
         super(CustomModelAdmin, self).__init__(model, admin_site)
 class CustomWorkshopAdmin(admin.ModelAdmin):
 
-    list_display = ['name','date','slot','participant_count']
-    list_editable= ['slot']
+    list_display = ['name','date','slot','is_special','participant_count']
+    list_editable= ['slot','is_special']
     search_fields = ['name']
 
     def participant_count(self, obj):       

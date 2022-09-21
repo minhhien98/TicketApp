@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 from django.db import models
 from django.contrib.auth.models import User
 from django.dispatch import receiver
@@ -11,6 +12,8 @@ class Workshop(models.Model):
     name = models.CharField(verbose_name=_('Tên Workshop'),max_length=30)
     date = models.DateTimeField(verbose_name=_('Ngày diễn ra'))
     slot = models.IntegerField(verbose_name=_('Số lượng chỗ trống'))
+    is_special = models.BooleanField(verbose_name=_('Workshop đặc biệt'),default= False)
+    ticket_template = models.ImageField(verbose_name=_('Ảnh vé'),upload_to='ticket/ticket_template',null=False)
     class Meta:
         verbose_name = 'Workshop'
         verbose_name_plural = 'Workshop'
@@ -48,3 +51,34 @@ def post_save_participant(sender, instance, *args, **kwargs):
         "Group": instance.quantity,
     }
     add_participant_to_google_sheet(user_info)
+
+# These two auto-delete files from filesystem when they are unneeded:
+@receiver(models.signals.post_delete, sender=Workshop)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    """
+    Deletes file from filesystem
+    when corresponding `MediaFile` object is deleted.
+    """
+    if instance.ticket_template:
+        if os.path.isfile(instance.ticket_template.path):
+            os.remove(instance.ticket_template.path)
+
+@receiver(models.signals.pre_save, sender=Workshop)
+def auto_delete_file_on_change(sender, instance, **kwargs):
+    """
+    Deletes old file from filesystem
+    when corresponding `MediaFile` object is updated
+    with new file.
+    """
+    if not instance.pk:
+        return False
+
+    try:
+        old_file = Workshop.objects.get(pk=instance.pk).ticket_template
+    except Workshop.DoesNotExist:
+        return False
+
+    new_file = instance.ticket_template
+    if not old_file == new_file:
+        if os.path.isfile(old_file.path):
+            os.remove(old_file.path)

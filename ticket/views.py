@@ -87,25 +87,34 @@ def home(request):
                         qrcode_exist = Participant.objects.filter(qrcode = qrcode).exists()
                         if qrcode_exist == False:
                             break
-                    participant = Participant(workshop_id = workshop,user_id = request.user,quantity = item.get('quantity'),qrcode = qrcode)
-                    participant.save()
-                    Logger.info(f'{request.user.username} registered {workshop.name} ticket. Quantity: {participant.quantity}')
-                    user.userextend.ticket = user.userextend.ticket - item.get('quantity')
-                    user.userextend.save()
+                    participant = Participant(workshop_id = workshop,user_id = request.user,quantity = item.get('quantity'),qrcode = qrcode)                  
+                    if workshop.is_special:
+                        user.userextend.special_ticket = user.userextend.special_ticket - item.get('quantity')                     
+                    else:
+                        user.userextend.ticket = user.userextend.ticket - item.get('quantity')  
+
                     # Send Ticket to Email
                     fullname = user.last_name + ' ' + user.first_name
                     shortcode = fullname + ' ' + participant.workshop_id.name + ' ' + str(participant.quantity)
                     fullcode = fullname + '\n' + str(participant.workshop_id.id) + '\n' + participant.qrcode + '\n' + 'ĐHGT ' + str(datetime.utcnow().year)
-                    byte_ticket_img = generate_ticket(fullcode,shortcode,workshop.id)
+
+                    # generate ticket
+                    byte_ticket_img = generate_ticket(fullcode,shortcode,workshop.id,workshop.ticket_template)
+
                     #Send email function                   
                     subject =_('VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}').format(year=str(datetime.utcnow().year),last_name=user.last_name,first_name=user.first_name)
-                    template ='ticket/send_ticket_template.html'
+                    template = 'ticket/send_ticket_template.html'
                     merge_data = {
                         'fullname': user.last_name + ' ' + user.first_name,
                         'workshop': workshop.name,  
                         'date':workshop.date                
                     }
                     send_email_img(template,subject,user.email,merge_data,byte_ticket_img)
+
+                    participant.save()
+                    user.userextend.save()
+                    # Logger
+                    Logger.info(f'{request.user.username} registered {workshop.name} ticket. Quantity: {participant.quantity}')
 
         messages.success(request,_('Đăng ký vé thành công.'))
         return HttpResponseRedirect(reverse('ticket:home'))

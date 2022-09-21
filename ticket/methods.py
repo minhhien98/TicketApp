@@ -7,19 +7,17 @@ import pyqrcode
 from PIL import Image, ImageDraw, ImageFont
 
 # Generate QR Code
-def generate_ticket(sFullCode, sFullName, sWorkshopID) :
+def generate_ticket(sFullCode, sFullName, sWorkshopID,ticket_template_path) :
     #Review Gsheet "List of registered user":
         # FullCode i sutilized to generate QRCode.
     bytes_qrcode = make_qr_code(sFullCode) # generate <sShortCode>.png in DEFAULT_IMAGE_PATH
-
     iTicketNo = int(sWorkshopID)
-
     # Use workshop 3 for the ones who do not choose workshop.
     # Ticket Template without qr code img
     sFullPathOfTicket = os.path.join(settings.STATIC_ROOT, 'ticket/img/ticket_template.png')
     #Ticket Template with qr code img
-    bytes_img_with_qr =add_image(sFullPathOfTicket, bytes_qrcode) # add QRCode image to ticket image -> final image temp.png in DEFAULT_IMAGE_PATH
-
+    #bytes_img_with_qr =add_image(sFullPathOfTicket, bytes_qrcode) # add QRCode image to ticket image -> final image temp.png in DEFAULT_IMAGE_PATH
+    bytes_img_with_qr =add_image(ticket_template_path, bytes_qrcode)
     bytes_ticket = add_text(bytes_img_with_qr, sFullName)  # add <sFullName> to image of Ticket_with_QRCode
     return bytes_ticket
 

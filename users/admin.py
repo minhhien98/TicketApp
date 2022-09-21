@@ -37,9 +37,9 @@ class CustomUserAdmin(BaseUserAdmin):
     search_fields =['username','first_name','last_name','email']
     save_on_top = True
 class CustomUserExtendAdmin(admin.ModelAdmin):
-    list_display=['user_id','get_fullname','phone_number','ticket','get_selected_ticket']
+    list_display=['user_id','get_fullname','phone_number','ticket','special_ticket','get_selected_ticket']
     search_fields=['user_id__username','user_id__last_name','user_id__first_name','phone_number','user_id__email']
-    list_editable=['ticket']   
+    list_editable=['ticket','special_ticket']   
 
     def has_add_permission(self, request):
         return False
