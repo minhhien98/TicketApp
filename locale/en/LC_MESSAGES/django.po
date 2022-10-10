@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-11 04:32+0700\n"
+"POT-Creation-Date: 2022-10-11 06:08+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -241,26 +241,30 @@ msgstr "VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_
 msgid "Đăng ký vé thành công."
 msgstr "Registered Successfully"
 
-#: .\users\admin.py:51
-msgid "Normal Workshop không tồn tại."
-msgstr "Normal Workshop doesn't exist."
-
-#: .\users\admin.py:56
-#, python-brace-format
-msgid "Bạn chỉ có thể thêm {available} vé thường."
-msgstr "You can only add {available} normal ticket."
-
-#: .\users\admin.py:69
+#: .\users\admin.py:52
 msgid "Họ tên"
 msgstr "Full name"
 
-#: .\users\admin.py:74
+#: .\users\admin.py:57
 msgid "Vé đã chọn"
 msgstr "Selected"
 
-#: .\users\admin.py:77
+#: .\users\admin.py:60
 msgid "Nhập vé cho người dùng."
 msgstr "Add ticket for user."
+
+#: .\users\admin.py:75
+msgid "Tài khoản {username} chưa xác nhận email."
+msgstr "Username {username} doesn't verify email."
+
+#: .\users\admin.py:80
+msgid "Normal Workshop không tồn tại."
+msgstr "Normal Workshop doesn't exist."
+
+#: .\users\admin.py:84
+#, python-brace-format
+msgid "Bạn chỉ có thể thêm {available} vé thường."
+msgstr "You can only add {available} normal ticket."
 
 #: .\users\forms.py:8
 msgid "Tài khoản:"
