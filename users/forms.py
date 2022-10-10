@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
 class RegisterForm(forms.Form):
-    username = forms.CharField(label=_('Tài khoản:'), required=True,min_length=5, max_length=20, widget=forms.TextInput(attrs={'placeholder':_('Tài khoản')}),error_messages={'min_length':_('Tên tài khoản phải có ít nhất 5 ký tự.'),'max_length':_('Tên tài khoản chỉ dc tối đa 20 kí tự.')})
+    username = forms.CharField(label=_('Tài khoản:'), required=True,min_length=5, max_length=20, widget=forms.TextInput(attrs={'placeholder':_('Tài khoản')}),error_messages={'required':_('Xin hãy nhập tên tài khoản.'),'min_length':_('Tên tài khoản phải có ít nhất 5 ký tự.'),'max_length':_('Tên tài khoản chỉ dc tối đa 20 kí tự.')})
     password = forms.CharField(label=_('Mật khẩu:'), required=True, min_length=5, widget=forms.TextInput(attrs={ 'type':'password','placeholder':_('Mật khẩu')}),error_messages={'required':_('Xin hãy nhập mật khẩu.'),'min_length':_('Mật khẩu phải có ít nhất 5 kí tự.')})
     confirm_password = forms.CharField(label=_('Xác nhận mật khẩu:'),required=True, widget=forms.TextInput(attrs={ 'type':'password','placeholder':_('Xác nhận mật khẩu')}),error_messages={'required':_('Xin hãy nhập mật khẩu.')})        
     last_name = forms.CharField(label=_('Họ:'), required=True,widget=forms.TextInput(attrs={'placeholder':_('Họ')}), error_messages={'required':_('Xin hãy nhập họ của bạn.')})

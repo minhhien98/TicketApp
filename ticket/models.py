@@ -6,7 +6,8 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.utils.translation import gettext_lazy as _
 
-from ticket.methods import add_participant_to_google_sheet
+from users.methods import add_participant_to_google_sheet
+
 # Create your models here.
 class Workshop(models.Model):
     name = models.CharField(verbose_name=_('Tên Workshop'),max_length=30)
@@ -36,6 +37,7 @@ class Participant(models.Model):
     def __str__(self):
         return ' '
 
+# Signal
 @receiver(post_save,sender= Participant)
 def post_save_participant(sender, instance, *args, **kwargs):
     user_info = {

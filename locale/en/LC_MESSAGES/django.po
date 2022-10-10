@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-21 17:21+0700\n"
+"POT-Creation-Date: 2022-10-11 04:32+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +28,7 @@ msgstr "English"
 #: .\templates\admin\base.html:7 .\ticket\templates\ticket\base.html:32
 #: .\ticket\templates\ticket\base.html:73
 #: .\ticket\templates\ticket\base.html:111
-#: .\ticket\templates\ticket\base.html:138 .\users\models.py:29
+#: .\ticket\templates\ticket\base.html:138 .\users\models.py:35
 #: .\users\templates\users\base.html:32 .\users\templates\users\base.html:73
 #: .\users\templates\users\base.html:111 .\users\templates\users\base.html:138
 msgid "Ngôn ngữ"
@@ -38,45 +38,45 @@ msgstr "Language"
 msgid "Số lượng vé đã đăng ký"
 msgstr "Registered tickets's Quantity"
 
-#: .\ticket\models.py:12
+#: .\ticket\models.py:13
 msgid "Tên Workshop"
 msgstr "Workshop name"
 
-#: .\ticket\models.py:13
+#: .\ticket\models.py:14
 msgid "Ngày diễn ra"
 msgstr "Held date"
 
-#: .\ticket\models.py:14
+#: .\ticket\models.py:15
 msgid "Số lượng chỗ trống"
 msgstr "Available slot"
 
-#: .\ticket\models.py:15
+#: .\ticket\models.py:16
 msgid "Workshop đặc biệt"
 msgstr "Special workshop"
 
-#: .\ticket\models.py:16 .\users\forms.py:17 .\users\forms.py:38
-#: .\users\models.py:20
+#: .\ticket\models.py:17 .\users\forms.py:17 .\users\forms.py:38
+#: .\users\models.py:27
 msgid "Địa chỉ"
 msgstr "Address"
 
-#: .\ticket\models.py:17
+#: .\ticket\models.py:18
 msgid "Ảnh vé"
 msgstr "Ticket's template"
 
-#: .\ticket\models.py:27 .\users\admin.py:33 .\users\admin.py:34
-#: .\users\models.py:16
+#: .\ticket\models.py:28 .\users\admin.py:35 .\users\admin.py:36
+#: .\users\models.py:23
 msgid "Người dùng"
 msgstr "User"
 
-#: .\ticket\models.py:28
+#: .\ticket\models.py:29
 msgid "Ngày tham gia"
 msgstr "Join date"
 
-#: .\ticket\models.py:29
+#: .\ticket\models.py:30
 msgid "Số lượng đăng ký"
 msgstr "Quantity"
 
-#: .\ticket\models.py:33 .\ticket\models.py:34
+#: .\ticket\models.py:34 .\ticket\models.py:35
 msgid "Người tham gia"
 msgstr "Participant"
 
@@ -100,12 +100,12 @@ msgid "Hướng dẫn mua vé"
 msgstr "How to buy ticket"
 
 #: .\ticket\templates\ticket\base.html:29
-#: .\ticket\templates\ticket\base.html:37 .\users\models.py:22
+#: .\ticket\templates\ticket\base.html:37 .\users\models.py:29
 msgid "Vé thường"
 msgstr "Normal ticket"
 
 #: .\ticket\templates\ticket\base.html:30
-#: .\ticket\templates\ticket\base.html:38 .\users\models.py:23
+#: .\ticket\templates\ticket\base.html:38 .\users\models.py:30
 msgid "Vé đặc biệt"
 msgstr "Special ticket"
 
@@ -205,51 +205,60 @@ msgstr "Address:"
 msgid "Chúc các bạn nhiều sức khoẻ, niềm vui và bình an."
 msgstr "Chúc các bạn nhiều sức khoẻ, niềm vui và bình an."
 
-#: .\ticket\views.py:34
+#: .\ticket\views.py:33
 msgid "Xin vui lòng chọn workshop."
 msgstr "Please choose workshop."
 
-#: .\ticket\views.py:51
+#: .\ticket\views.py:50
 #, python-brace-format
 msgid "{workshop_name} không tồn tại, xin vui lòng chọn Workshop khác."
 msgstr "{workshop_name} does not exist, please choose another Workshop."
 
-#: .\ticket\views.py:55
+#: .\ticket\views.py:54
 #, python-brace-format
 msgid "{workshop_name} đã hết vé, xin vui lòng chọn Workshop khác."
 msgstr "{workshop_name} is out of ticket, please choose another Workshop."
 
-#: .\ticket\views.py:64
+#: .\ticket\views.py:63
 msgid "Xin vui lòng nhập số vé để đăng ký."
 msgstr "Please enter number of ticket to register."
 
-#: .\ticket\views.py:69
+#: .\ticket\views.py:68
 msgid "Bạn không có đủ vé để đăng ký, xin vui lòng mua thêm vé."
 msgstr "You dont have enough ticket, please buy more tickets."
 
-#: .\ticket\views.py:77
+#: .\ticket\views.py:76
 #, python-brace-format
 msgid "Bạn chỉ có thể đăng ký {workshop_available} vé {workshop_name}"
 msgstr "You can only register {workshop_available} {workshop_name} ticket"
 
-#: .\ticket\views.py:105
+#: .\ticket\views.py:100 .\users\models.py:59
 #, python-brace-format
 msgid "VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}"
 msgstr "VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}"
 
-#: .\ticket\views.py:120
+#: .\ticket\views.py:115
 msgid "Đăng ký vé thành công."
 msgstr "Registered Successfully"
 
-#: .\users\admin.py:50
+#: .\users\admin.py:51
+msgid "Normal Workshop không tồn tại."
+msgstr "Normal Workshop doesn't exist."
+
+#: .\users\admin.py:56
+#, python-brace-format
+msgid "Bạn chỉ có thể thêm {available} vé thường."
+msgstr "You can only add {available} normal ticket."
+
+#: .\users\admin.py:69
 msgid "Họ tên"
 msgstr "Full name"
 
-#: .\users\admin.py:55
+#: .\users\admin.py:74
 msgid "Vé đã chọn"
 msgstr "Selected"
 
-#: .\users\admin.py:58
+#: .\users\admin.py:77
 msgid "Nhập vé cho người dùng."
 msgstr "Add ticket for user."
 
@@ -260,6 +269,10 @@ msgstr "Username:"
 #: .\users\forms.py:8 .\users\templates\users\login.html:13
 msgid "Tài khoản"
 msgstr "Username"
+
+#: .\users\forms.py:8
+msgid "Xin hãy nhập tên tài khoản."
+msgstr "Please enter your username."
 
 #: .\users\forms.py:8
 msgid "Tên tài khoản phải có ít nhất 5 ký tự."
@@ -333,7 +346,7 @@ msgstr "Please enter valid phone number."
 msgid "Số điện thoại:"
 msgstr "Phone number:"
 
-#: .\users\forms.py:15 .\users\forms.py:36 .\users\models.py:18
+#: .\users\forms.py:15 .\users\forms.py:36 .\users\models.py:25
 msgid "Số điện thoại"
 msgstr "Phone no."
 
@@ -349,7 +362,7 @@ msgstr "Please enter your birthdate."
 msgid "Giáo xứ:"
 msgstr "Parish:"
 
-#: .\users\forms.py:18 .\users\forms.py:39 .\users\models.py:21
+#: .\users\forms.py:18 .\users\forms.py:39 .\users\models.py:28
 msgid "Giáo xứ"
 msgstr "Parish"
 
@@ -386,33 +399,37 @@ msgstr "Confirm Email:"
 msgid "Email không trùng khớp."
 msgstr "Email didn't match."
 
-#: .\users\models.py:13 .\users\models.py:14
+#: .\users\models.py:20 .\users\models.py:21
 msgid "Nhập vé"
 msgstr "Add Ticket"
 
-#: .\users\models.py:17
+#: .\users\models.py:24
 msgid "Xin vui lòng nhập đúng số điện thoại!"
 msgstr "Please enter valid phone number!"
 
-#: .\users\models.py:19
+#: .\users\models.py:26
 msgid "Ngày sinh"
 msgstr "Birthdate"
 
-#: .\users\models.py:26
+#: .\users\models.py:32
 msgid "Đã xác nhận Email"
 msgstr "Email Verified"
 
-#: .\users\models.py:27
+#: .\users\models.py:33
 msgid "Key kích hoạt"
 msgstr "Activation Key"
 
-#: .\users\models.py:28
+#: .\users\models.py:34
 msgid "Thời hạn key"
 msgstr "Key expiration"
 
 #: .\users\templates\users\base.html:29 .\users\templates\users\base.html:38
 msgid "Vé chưa chọn"
 msgstr "Available tickets"
+
+#: .\users\templates\users\confirm_email.html:8
+msgid "Xác nhận Email Thành công."
+msgstr "Email Verified."
 
 #: .\users\templates\users\email_template.html:113
 msgid "Xin chân thành cảm ơn"
@@ -487,14 +504,24 @@ msgstr "Invalid username/password!"
 msgid "Đã gửi mail xác nhận. Xin vui lòng kiểm tra email."
 msgstr "Verification mail has been sent. Please check your email."
 
-#: .\users\views.py:181
-msgid "Link đã hết hạn, xin vui lòng đăng nhập để xác nhận lại email."
-msgstr "Link is expiried, please log in for verify email."
+#: .\users\views.py:188
+msgid "Xác nhận Email Thành công. Bạn có thể đăng nhập ngay."
+msgstr "Email is Verified. You can login now."
 
-#: .\users\views.py:186 .\users\views.py:188 .\users\views.py:189
-msgid "Hướng dẫn chuyển khoản mua vé."
-msgstr "How to buy ticket"
+#~ msgid "Vé thường:"
+#~ msgstr "Normal ticket:"
 
-#: .\users\views.py:197
-msgid "Xác nhận Email Thành công."
-msgstr "Email Verified."
+#~ msgid "Vé Đặc biệt:"
+#~ msgstr "Special ticket:"
+
+#~ msgid "Vé Đặc biệt"
+#~ msgstr "Special ticket"
+
+#~ msgid "Ngày"
+#~ msgstr "Date"
+
+#~ msgid "Tình trạng"
+#~ msgstr "Status"
+
+#~ msgid "Đăng ký mua vé"
+#~ msgstr "Buy ticket"

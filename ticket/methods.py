@@ -1,10 +1,19 @@
-from __future__ import print_function
 import io
 import os
+import secrets
 from django.conf import settings
 import gspread
 import pyqrcode
 from PIL import Image, ImageDraw, ImageFont
+
+from ticket.models import Participant
+
+def generate_qrcode():
+    while True:
+        qrcode = secrets.token_urlsafe(16)
+        qrcode_exist = Participant.objects.filter(qrcode = qrcode).exists()
+        if qrcode_exist == False:
+            return qrcode
 
 # Generate QR Code
 def generate_ticket(sFullCode, sFullName, sWorkshopID,ticket_template_path) :

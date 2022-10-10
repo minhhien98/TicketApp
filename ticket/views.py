@@ -1,6 +1,5 @@
 from datetime import datetime, timedelta,timezone
 import logging
-import secrets
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.db.models import Q,F,Sum
@@ -8,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db.models.functions import Coalesce
 from django.urls import reverse
-from ticket.methods import generate_ticket
+from ticket.methods import generate_qrcode, generate_ticket
 from ticket.models import Participant, Workshop
 from users.methods import send_email_img
 from django.utils.translation import gettext as _
@@ -18,7 +17,7 @@ Logger = logging.getLogger("workshop_log")
 def home(request):
     if request.user.is_authenticated:
         user = User.objects.get(username = request.user.username)
-        workshops = Workshop.objects.filter(date__gte = datetime.now(timezone(timedelta(hours=+7))) - timedelta(days=1),slot__gt = Coalesce(Sum('participant__quantity'),0)).annotate(registered = Coalesce(Sum('participant__quantity', filter=Q(participant__user_id = request.user)),0),available = Coalesce(F('slot') - Sum('participant__quantity'),'slot'))
+        workshops = Workshop.objects.filter(is_special= True,date__gte = datetime.now(timezone(timedelta(hours=+7))) - timedelta(days=1),slot__gt = Coalesce(Sum('participant__quantity'),0)).annotate(registered = Coalesce(Sum('participant__quantity', filter=Q(participant__user_id = request.user)),0),available = Coalesce(F('slot') - Sum('participant__quantity'),'slot'))
     else:
         return redirect('users:login')
     #if email is not verified
@@ -65,7 +64,7 @@ def home(request):
             return HttpResponseRedirect(reverse('ticket:home'))
 
         #if total tickets excess current available user's ticket
-        if user.userextend.ticket < total_ticket:
+        if user.userextend.special_ticket < total_ticket:
             messages.warning(request,_('Bạn không có đủ vé để đăng ký, xin vui lòng mua thêm vé.'))
             return HttpResponseRedirect(reverse('ticket:home'))
 
@@ -81,12 +80,8 @@ def home(request):
         for item in result:
             for workshop in workshops:
                 if str(workshop.id) == item.get('id'):
-                    # Regenerate qrcode if qrcode exist
-                    while True:
-                        qrcode = secrets.token_urlsafe(16)
-                        qrcode_exist = Participant.objects.filter(qrcode = qrcode).exists()
-                        if qrcode_exist == False:
-                            break
+                    # Generate qrcode
+                    qrcode = generate_qrcode()
                     participant = Participant(workshop_id = workshop,user_id = request.user,quantity = item.get('quantity'),qrcode = qrcode)                  
                     if workshop.is_special:
                         user.userextend.special_ticket = user.userextend.special_ticket - item.get('quantity')                     

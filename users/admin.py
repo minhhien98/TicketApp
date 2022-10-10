@@ -1,9 +1,11 @@
+from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from ticket.models import Participant
+from django.forms import BaseModelFormSet
+from ticket.models import Participant, Workshop
 from users.models import UserExtend
-from django.db.models import Sum
+from django.db.models import Sum, F
 from django.db.models.functions import Coalesce
 from django.utils.translation import gettext_lazy as _
 #universal Model Admin
@@ -57,6 +59,30 @@ class CustomUserExtendAdmin(admin.ModelAdmin):
     def changelist_view(self, request, extra_context=None):
         extra_context = {'title': _('Nhập vé cho người dùng.')}
         return super(CustomUserExtendAdmin, self).changelist_view(request, extra_context=extra_context)
+
+    def get_changelist_formset(self, request, **kwargs):
+        kwargs['formset'] = UserExtendFormSet
+        return super().get_changelist_formset(request, **kwargs)
+
+class UserExtendFormSet(BaseModelFormSet):
+    def clean(self):
+        form_set = self.cleaned_data
+        for form_data in form_set:        
+            #check if normal ticket still have slot
+            if int(form_data.get('ticket')) > 0:
+                #check if email is verified
+                if form_data.get('id').is_email_verified == False:
+                    raise forms.ValidationError(_('Tài khoản {username} chưa xác nhận email.').format(username = form_data.get('id').user_id.username))
+
+                #check if  normal workshop exists
+                normal_workshop = Workshop.objects.filter(name='Normal Workshop', is_special = False).annotate(available = Coalesce(F('slot') - Sum('participant__quantity'),'slot')).first()             
+                if not normal_workshop:
+                    raise forms.ValidationError(_('Normal Workshop không tồn tại.'))
+                    
+                #check if normal workshop slot still available
+                if normal_workshop.available < form_data.get('ticket'):
+                    raise forms.ValidationError(_('Bạn chỉ có thể thêm {available} vé thường.').format(available = str(normal_workshop.available)))
+        return form_set
     
 # Register your models
 admin.site.unregister(User)

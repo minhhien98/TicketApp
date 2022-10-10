@@ -5,11 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col l5 push-l4"> 
-                {% if messages %}
-                {% for message in messages %}
-                    <span  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </span>
-                {% endfor %}
-            {% endif %}
+                <span>{% trans 'Xác nhận Email Thành công.' %}</span>              
             </div>       
         </div>
     </div> 

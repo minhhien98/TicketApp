@@ -1,5 +1,5 @@
-from datetime import datetime, timedelta
-from django.http import HttpResponseRedirect
+from datetime import datetime, timedelta, tzinfo
+from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
@@ -178,21 +178,27 @@ def confirm_email(request,key):
     user_extend = get_object_or_404(UserExtend, activation_key = key)
     #if activation key expires, request user to login for verify email
     if user_extend.key_expires.replace(tzinfo=None) < datetime.utcnow():
-        messages.warning(request,_('Link đã hết hạn, xin vui lòng đăng nhập để xác nhận lại email.'))
-        return render(request,'users/confirm_email.html')
+        return HttpResponseNotFound()
     user_extend.is_email_verified = True
     user_extend.save()
+
+    #force logout if login in another account
+    if request.user.is_authenticated:
+        auth_logout(request)  
+    messages.success(request,_('Xác nhận Email Thành công. Bạn có thể đăng nhập ngay.'))
+    return redirect('users:login')
+    
     #Send email function
-    subject =_('Hướng dẫn chuyển khoản mua vé.')
-    template ='users/email_template.html'
-    title =_('Hướng dẫn chuyển khoản mua vé.')
-    content = _('Hướng dẫn chuyển khoản mua vé.')
-    merge_data = {
-        'title':title,
-        'content':content,
-        'username': user_extend.user_id.username,
-    }  
-    send_email(template, subject, user_extend.user_id.email, merge_data)
-    #Xác nhận thành công
-    messages.success(request,_('Xác nhận Email Thành công.'))
-    return render(request,'users/confirm_email.html')
+    # subject =_('Hướng dẫn chuyển khoản mua vé.')
+    # template ='users/email_template.html'
+    # title =_('Hướng dẫn chuyển khoản mua vé.')
+    # content = _('Hướng dẫn chuyển khoản mua vé.')
+    # merge_data = {
+    #     'title':title,
+    #     'content':content,
+    #     'username': user_extend.user_id.username,
+    # }  
+    # send_email(template, subject, user_extend.user_id.email, merge_data)
+
+    #Xác nhận thành công   
+    #return render(request,'users/confirm_email.html')
