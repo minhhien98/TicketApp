@@ -90,7 +90,7 @@ def home(request):
 
                     # Send Ticket to Email
                     fullname = user.last_name + ' ' + user.first_name
-                    shortcode = fullname + ' ' + participant.workshop_id.name + ' ' + str(participant.quantity)
+                    shortcode = fullname + ' ' + str(participant.quantity)
                     fullcode = fullname + '\n' + str(participant.workshop_id.id) + '\n' + participant.qrcode + '\n' + 'ĐHGT ' + str(datetime.utcnow().year)
 
                     # generate ticket

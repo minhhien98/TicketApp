@@ -68,7 +68,7 @@ def send_normal_ticket(sender,instance,*args, **kwargs):
         participant.save()   
         # Send Ticket to Email
         fullname = instance.user_id.last_name + ' ' + instance.user_id.first_name
-        shortcode = fullname + ' ' + participant.workshop_id.name + ' ' + str(participant.quantity)
+        shortcode = fullname + ' ' + str(participant.quantity)
         fullcode = fullname + '\n' + str(participant.workshop_id.id) + '\n' + participant.qrcode + '\n' + 'ĐHGT ' + str(datetime.utcnow().year)
 
         # generate ticket

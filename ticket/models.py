@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.utils.translation import gettext_lazy as _
-
+from django_resized import ResizedImageField
 from users.methods import add_participant_to_google_sheet
 
 # Create your models here.
@@ -15,7 +15,7 @@ class Workshop(models.Model):
     slot = models.IntegerField(verbose_name=_('Số lượng chỗ trống'))
     is_special = models.BooleanField(verbose_name=_('Workshop đặc biệt'),default= False)
     address = models.CharField(verbose_name=_('Địa chỉ'),max_length=254, blank=False, default='')
-    ticket_template = models.ImageField(verbose_name=_('Ảnh vé'),upload_to='ticket/ticket_template',null=False)
+    ticket_template = ResizedImageField(verbose_name=_('Ảnh vé'),upload_to='ticket/ticket_template',null=False, size=[720,1280])
     class Meta:
         verbose_name = 'Workshop'
         verbose_name_plural = 'Workshop'
