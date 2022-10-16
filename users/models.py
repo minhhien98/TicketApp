@@ -30,7 +30,7 @@ class UserExtend(models.Model):
     address = models.CharField(verbose_name=_('Địa chỉ'), blank=True, max_length=254)   
     parish = models.CharField(verbose_name=_('Giáo xứ'), blank=True, max_length=100)
     ticket = models.IntegerField(verbose_name=_('Vé thường'),default=0)
-    special_ticket = models.IntegerField(verbose_name=_('Vé đặc biệt'),default=0)
+    special_ticket = models.IntegerField(verbose_name=_('Vé Workshop'),default=0)
 
     is_email_verified = models.BooleanField(verbose_name=_('Đã xác nhận Email'),default= False)
     activation_key = models.CharField(verbose_name=_('Key kích hoạt'),blank=True, max_length=40)

@@ -26,16 +26,14 @@
                 <li><a href="{% url 'ticket:guide' %}">{% trans 'Hướng dẫn mua vé' %}</a></li>
             </ul>
             <ul class="right hide-on-med-and-down">
-                <li><a>{% trans 'Vé thường' %}: {{ user.userextend.ticket }}</a></li>
-                <li><a>{% trans 'Vé đặc biệt' %}: {{ user.userextend.special_ticket }}</a></li>
+                <li><a>{% trans 'Vé Workshop' %}: {{ user.userextend.special_ticket }}</a></li>
                 <li><a class="user-dropdown-trigger" data-target="user-dropdown">{{ user.get_username }}<i class="material-icons right">arrow_drop_down</i></a></li>
                 <li><a class="language-dropdown-trigger" data-target="language-dropdown">{% trans 'Ngôn ngữ' %}<i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
             <!-- mobile navbar -->
             <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-large-only">
-                <li><a>{% trans 'Vé thường' %}: {{ user.userextend.ticket }}</a></li>
-                <li><a>{% trans 'Vé đặc biệt' %}: {{ user.userextend.special_ticket }}</a></li>
+                <li><a>{% trans 'Vé Workshop' %}: {{ user.userextend.special_ticket }}</a></li>
             </ul>
         </div>
     </nav>
