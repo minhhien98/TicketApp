@@ -1,12 +1,15 @@
-from datetime import datetime, timedelta, timezone
+from datetime import datetime
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.dispatch import receiver
 from django.db.models.signals import post_save,post_delete
 from django.utils.translation import gettext_lazy as _
 from ticket.methods import generate_qrcode, generate_ticket
+from django.db.models import Sum, F
+from django.db.models.functions import Coalesce
 
 from ticket.models import Participant, Workshop
 from users.methods import send_email_img
@@ -36,6 +39,21 @@ class UserExtend(models.Model):
 
     def __str__(self):
         return self.user_id.username
+
+    def clean(self):
+        if self.ticket > 0:
+            #check if user activate email
+            if self.is_email_verified == False:
+                raise ValidationError(_('Tài khoản {username} chưa xác nhận email.').format(username = self.user_id.username))
+            #check if  normal workshop exists
+            normal_workshop = Workshop.objects.filter(name='Normal Workshop', is_special = False).annotate(available = Coalesce(F('slot') - Sum('participant__quantity'),'slot')).first() 
+            if not normal_workshop:
+                raise ValidationError(_('"Normal Workshop" không tồn tại. Hãy tạo 1 Workshop tên "Normal Workshop", is_special = False'))
+           #check if normal workshop slot still available
+            if normal_workshop.available < self.ticket:
+                raise ValidationError(_('Bạn chỉ có thể thêm {available} vé thường.').format(available = str(normal_workshop.available)))
+            return super().clean()
+            
 @receiver(post_save,sender = UserExtend)
 def send_normal_ticket(sender,instance,*args, **kwargs):
     #if normal workshop doesnt exist, create one

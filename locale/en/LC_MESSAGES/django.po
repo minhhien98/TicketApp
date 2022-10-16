@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-11 06:08+0700\n"
+"POT-Creation-Date: 2022-10-16 17:00+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +28,7 @@ msgstr "English"
 #: .\templates\admin\base.html:7 .\ticket\templates\ticket\base.html:32
 #: .\ticket\templates\ticket\base.html:73
 #: .\ticket\templates\ticket\base.html:111
-#: .\ticket\templates\ticket\base.html:138 .\users\models.py:35
+#: .\ticket\templates\ticket\base.html:138 .\users\models.py:38
 #: .\users\templates\users\base.html:32 .\users\templates\users\base.html:73
 #: .\users\templates\users\base.html:111 .\users\templates\users\base.html:138
 msgid "Ngôn ngữ"
@@ -55,7 +55,7 @@ msgid "Workshop đặc biệt"
 msgstr "Special workshop"
 
 #: .\ticket\models.py:17 .\users\forms.py:17 .\users\forms.py:38
-#: .\users\models.py:27
+#: .\users\models.py:30
 msgid "Địa chỉ"
 msgstr "Address"
 
@@ -64,7 +64,7 @@ msgid "Ảnh vé"
 msgstr "Ticket's template"
 
 #: .\ticket\models.py:28 .\users\admin.py:35 .\users\admin.py:36
-#: .\users\models.py:23
+#: .\users\models.py:26
 msgid "Người dùng"
 msgstr "User"
 
@@ -100,12 +100,12 @@ msgid "Hướng dẫn mua vé"
 msgstr "How to buy ticket"
 
 #: .\ticket\templates\ticket\base.html:29
-#: .\ticket\templates\ticket\base.html:37 .\users\models.py:29
+#: .\ticket\templates\ticket\base.html:37 .\users\models.py:32
 msgid "Vé thường"
 msgstr "Normal ticket"
 
 #: .\ticket\templates\ticket\base.html:30
-#: .\ticket\templates\ticket\base.html:38 .\users\models.py:30
+#: .\ticket\templates\ticket\base.html:38 .\users\models.py:33
 msgid "Vé đặc biệt"
 msgstr "Special ticket"
 
@@ -232,7 +232,7 @@ msgstr "You dont have enough ticket, please buy more tickets."
 msgid "Bạn chỉ có thể đăng ký {workshop_available} vé {workshop_name}"
 msgstr "You can only register {workshop_available} {workshop_name} ticket"
 
-#: .\ticket\views.py:100 .\users\models.py:59
+#: .\ticket\views.py:100 .\users\models.py:77
 #, python-brace-format
 msgid "VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}"
 msgstr "VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}"
@@ -252,19 +252,6 @@ msgstr "Selected"
 #: .\users\admin.py:60
 msgid "Nhập vé cho người dùng."
 msgstr "Add ticket for user."
-
-#: .\users\admin.py:75
-msgid "Tài khoản {username} chưa xác nhận email."
-msgstr "Username {username} doesn't verify email."
-
-#: .\users\admin.py:80
-msgid "Normal Workshop không tồn tại."
-msgstr "Normal Workshop doesn't exist."
-
-#: .\users\admin.py:84
-#, python-brace-format
-msgid "Bạn chỉ có thể thêm {available} vé thường."
-msgstr "You can only add {available} normal ticket."
 
 #: .\users\forms.py:8
 msgid "Tài khoản:"
@@ -350,7 +337,7 @@ msgstr "Please enter valid phone number."
 msgid "Số điện thoại:"
 msgstr "Phone number:"
 
-#: .\users\forms.py:15 .\users\forms.py:36 .\users\models.py:25
+#: .\users\forms.py:15 .\users\forms.py:36 .\users\models.py:28
 msgid "Số điện thoại"
 msgstr "Phone no."
 
@@ -366,7 +353,7 @@ msgstr "Please enter your birthdate."
 msgid "Giáo xứ:"
 msgstr "Parish:"
 
-#: .\users\forms.py:18 .\users\forms.py:39 .\users\models.py:28
+#: .\users\forms.py:18 .\users\forms.py:39 .\users\models.py:31
 msgid "Giáo xứ"
 msgstr "Parish"
 
@@ -403,29 +390,47 @@ msgstr "Confirm Email:"
 msgid "Email không trùng khớp."
 msgstr "Email didn't match."
 
-#: .\users\models.py:20 .\users\models.py:21
+#: .\users\models.py:23 .\users\models.py:24
 msgid "Nhập vé"
 msgstr "Add Ticket"
 
-#: .\users\models.py:24
+#: .\users\models.py:27
 msgid "Xin vui lòng nhập đúng số điện thoại!"
 msgstr "Please enter valid phone number!"
 
-#: .\users\models.py:26
+#: .\users\models.py:29
 msgid "Ngày sinh"
 msgstr "Birthdate"
 
-#: .\users\models.py:32
+#: .\users\models.py:35
 msgid "Đã xác nhận Email"
 msgstr "Email Verified"
 
-#: .\users\models.py:33
+#: .\users\models.py:36
 msgid "Key kích hoạt"
 msgstr "Activation Key"
 
-#: .\users\models.py:34
+#: .\users\models.py:37
 msgid "Thời hạn key"
 msgstr "Key expiration"
+
+#: .\users\models.py:47
+#, python-brace-format
+msgid "Tài khoản {username} chưa xác nhận email."
+msgstr "Username {username} doesn't verify email."
+
+#: .\users\models.py:51
+msgid ""
+"\"Normal Workshop\" không tồn tại. Hãy tạo 1 Workshop tên \"Normal Workshop"
+"\", is_special = False"
+msgstr ""
+"\"Normal Workshop\" doesn't exist. Please create 1 Workshop name \"Normal "
+"Workshop\", is_special = False"
+
+#: .\users\models.py:54
+#, python-brace-format
+msgid "Bạn chỉ có thể thêm {available} vé thường."
+msgstr "You can only add {available} normal ticket."
 
 #: .\users\templates\users\base.html:29 .\users\templates\users\base.html:38
 msgid "Vé chưa chọn"
@@ -511,21 +516,3 @@ msgstr "Verification mail has been sent. Please check your email."
 #: .\users\views.py:188
 msgid "Xác nhận Email Thành công. Bạn có thể đăng nhập ngay."
 msgstr "Email is Verified. You can login now."
-
-#~ msgid "Vé thường:"
-#~ msgstr "Normal ticket:"
-
-#~ msgid "Vé Đặc biệt:"
-#~ msgstr "Special ticket:"
-
-#~ msgid "Vé Đặc biệt"
-#~ msgstr "Special ticket"
-
-#~ msgid "Ngày"
-#~ msgstr "Date"
-
-#~ msgid "Tình trạng"
-#~ msgstr "Status"
-
-#~ msgid "Đăng ký mua vé"
-#~ msgstr "Buy ticket"
