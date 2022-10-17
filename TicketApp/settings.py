@@ -190,13 +190,18 @@ LOGGING = {
             'filename': './Log/workshop_log/'+ datetime.now(timezone(timedelta(hours=+7))).strftime('%d_%m_%Y.log'),
             'formatter':'default'
         },
+        'admin_ticket_log_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': './Log/admin_ticket_log/'+ datetime.now(timezone(timedelta(hours=+7))).strftime('%d_%m_%Y.log'),
+            'formatter':'default',
+        },
         'backends_file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': './Log/admin_log/'+ datetime.now(timezone(timedelta(hours=+7))).strftime('%d_%m_%Y.log'),
             'formatter':'default',
         },
- 
         'console': {
             'class': 'logging.StreamHandler',
             'formatter':'default'
@@ -210,6 +215,11 @@ LOGGING = {
         },
         'workshop_log': {
             'handlers': ['workshop_log_file','console'],
+            'level': 'INFO',
+            'propagate': False,           
+        },
+        'admin_ticket_log': {
+            'handlers': ['admin_ticket_log_file','console'],
             'level': 'INFO',
             'propagate': False,           
         },

@@ -8,6 +8,9 @@ from users.models import UserExtend
 from django.db.models import Sum, F
 from django.db.models.functions import Coalesce
 from django.utils.translation import gettext_lazy as _
+import logging
+
+Logger = logging.getLogger("admin_ticket_log")
 #universal Model Admin
 class CustomModelAdmin(admin.ModelAdmin):  
     def __init__(self, model, admin_site):
@@ -59,6 +62,15 @@ class CustomUserExtendAdmin(admin.ModelAdmin):
     def changelist_view(self, request, extra_context=None):
         extra_context = {'title': _('Nhập vé cho người dùng.')}
         return super(CustomUserExtendAdmin, self).changelist_view(request, extra_context=extra_context)
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        if 'ticket' in form.changed_data:
+            Logger.info('{user} added {ticket} normal ticket(s) to {obj_username} and exported to {obj_username}\'s email.'.format(user = request.user, obj_username = obj.user_id.username ,ticket = form.cleaned_data.get('ticket')))
+        if 'special_ticket' in form.changed_data:
+            Logger.info('{user} changed {obj_username}\'s Workshop ticket from {old_ticket} to {new_ticket}.'.format(user = request.user, obj_username = obj.user_id.username ,old_ticket = form.initial.get('special_ticket'), new_ticket = obj.special_ticket))
+        return 
+        
     
 # Register your models
 admin.site.unregister(User)
