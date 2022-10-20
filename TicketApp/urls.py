@@ -24,7 +24,8 @@ urlpatterns = [
     path('', include('ticket.urls')),
     path('u/', include('users.urls')),
     path('i18n/', include('django.conf.urls.i18n')), #translation url
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
 # Serving the media files in development mode
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
