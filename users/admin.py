@@ -46,9 +46,6 @@ class CustomUserExtendAdmin(admin.ModelAdmin):
     search_fields=['user_id__username','user_id__last_name','user_id__first_name','phone_number','user_id__email']
     list_editable=['ticket','special_ticket']   
 
-    def has_add_permission(self, request):
-        return False
-
     def get_fullname(self, obj):
         fullname = obj.user_id.last_name + obj.user_id.first_name
         return fullname
