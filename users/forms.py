@@ -5,17 +5,17 @@ from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
 class RegisterForm(forms.Form):
-    username = forms.CharField(label=_('Tài khoản:'), required=True,min_length=5, max_length=20, widget=forms.TextInput(attrs={'placeholder':_('Tài khoản')}),error_messages={'required':_('Xin hãy nhập tên tài khoản.'),'min_length':_('Tên tài khoản phải có ít nhất 5 ký tự.'),'max_length':_('Tên tài khoản chỉ dc tối đa 20 kí tự.')})
-    password = forms.CharField(label=_('Mật khẩu:'), required=True, min_length=5, widget=forms.TextInput(attrs={ 'type':'password','placeholder':_('Mật khẩu')}),error_messages={'required':_('Xin hãy nhập mật khẩu.'),'min_length':_('Mật khẩu phải có ít nhất 5 kí tự.')})
-    confirm_password = forms.CharField(label=_('Xác nhận mật khẩu:'),required=True, widget=forms.TextInput(attrs={ 'type':'password','placeholder':_('Xác nhận mật khẩu')}),error_messages={'required':_('Xin hãy nhập mật khẩu.')})        
-    last_name = forms.CharField(label=_('Họ:'), required=True,widget=forms.TextInput(attrs={'placeholder':_('Họ')}), error_messages={'required':_('Xin hãy nhập họ của bạn.')})
-    first_name = forms.CharField(label=_('Tên:'),required=True, widget=forms.TextInput(attrs={'placeholder':_('Tên')}), error_messages={'required':_('Xin hãy nhập tên của bạn.')})                                
-    email = forms.EmailField(label='Email:',required=True, widget=forms.TextInput(attrs={'placeholder':'Email'}),error_messages={'required':_('Xin hãy nhập email.'),'invalid':_('Xin hãy nhập email hợp lệ.')})
+    username = forms.CharField(label=_('Tài khoản:'), required=True,min_length=5, max_length=20, widget=forms.TextInput(attrs={'class':'form-control','placeholder':_('Tài khoản')}),error_messages={'required':_('Xin hãy nhập tên tài khoản.'),'min_length':_('Tên tài khoản phải có ít nhất 5 ký tự.'),'max_length':_('Tên tài khoản chỉ dc tối đa 20 kí tự.')})
+    password = forms.CharField(label=_('Mật khẩu:'), required=True, min_length=5, widget=forms.TextInput(attrs={ 'class':'form-control', 'type':'password','placeholder':_('Mật khẩu')}),error_messages={'required':_('Xin hãy nhập mật khẩu.'),'min_length':_('Mật khẩu phải có ít nhất 5 kí tự.')})
+    confirm_password = forms.CharField(label=_('Xác nhận mật khẩu:'),required=True, widget=forms.TextInput(attrs={ 'class':'form-control','type':'password','placeholder':_('Xác nhận mật khẩu')}),error_messages={'required':_('Xin hãy nhập mật khẩu.')})        
+    last_name = forms.CharField(label=_('Họ:'), required=True,widget=forms.TextInput(attrs={'class':'form-control','placeholder':_('Họ')}), error_messages={'required':_('Xin hãy nhập họ của bạn.')})
+    first_name = forms.CharField(label=_('Tên:'),required=True, widget=forms.TextInput(attrs={'class':'form-control','placeholder':_('Tên')}), error_messages={'required':_('Xin hãy nhập tên của bạn.')})                                
+    email = forms.EmailField(label='Email:',required=True, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Email'}),error_messages={'required':_('Xin hãy nhập email.'),'invalid':_('Xin hãy nhập email hợp lệ.')})
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message=_('Xin hãy nhập số điện thoại hợp lệ.'))
-    phone_number = forms.CharField(label=_('Số điện thoại:'),min_length=9,max_length=15,widget=forms.TextInput(attrs={'placeholder':_('Số điện thoại')}),validators= [phone_regex])
-    birthdate = forms.DateField(label =_('Ngày sinh:'),required= True, widget=forms.TextInput(attrs={'type':'date'}),input_formats=settings.DATE_INPUT_FORMATS,error_messages={'required':_('Xin hãy nhập ngày sinh.')})
-    address = forms.CharField(label=_('Địa chỉ:'),widget = forms.TextInput(attrs={'placeholder':_('Địa chỉ')}))
-    parish = forms.CharField(label=_('Giáo xứ:'),max_length= 100, widget=forms.TextInput(attrs={'placeholder':_('Giáo xứ')}))
+    phone_number = forms.CharField(label=_('Số điện thoại:'),min_length=9,max_length=15,widget=forms.TextInput(attrs={'class':'form-control','placeholder':_('Số điện thoại')}),validators= [phone_regex])
+    birthdate = forms.DateField(label =_('Ngày sinh:'),required= True, widget=forms.TextInput(attrs={'class':'form-control','type':'date'}),input_formats=settings.DATE_INPUT_FORMATS,error_messages={'required':_('Xin hãy nhập ngày sinh.')})
+    address = forms.CharField(label=_('Địa chỉ:'),widget = forms.TextInput(attrs={'class':'form-control','placeholder':_('Địa chỉ')}))
+    parish = forms.CharField(label=_('Giáo xứ:'),max_length= 100, widget=forms.TextInput(attrs={'class':'form-control','placeholder':_('Giáo xứ')}))
 
 
     def clean(self):
@@ -30,18 +30,18 @@ class RegisterForm(forms.Form):
         return data
 
 class UserProfileForm(forms.Form):       
-    last_name = forms.CharField(label=_('Họ:'), required=True,widget=forms.TextInput(attrs={'placeholder':_('Họ')}), error_messages={'required':_('Xin hãy nhập họ của bạn.')})
-    first_name = forms.CharField(label=_('Tên:'),required=True, widget=forms.TextInput(attrs={'placeholder':_('Tên')}), error_messages={'required':_('Xin hãy nhập tên của bạn.')})                       
+    last_name = forms.CharField(label=_('Họ:'), required=True,widget=forms.TextInput(attrs={'class':'form-control','placeholder':_('Họ')}), error_messages={'required':_('Xin hãy nhập họ của bạn.')})
+    first_name = forms.CharField(label=_('Tên:'),required=True, widget=forms.TextInput(attrs={'class':'form-control','placeholder':_('Tên')}), error_messages={'required':_('Xin hãy nhập tên của bạn.')})                       
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message=_('Xin hãy nhập số điện thoại hợp lệ.'))
-    phone_number = forms.CharField(label=_('Số điện thoại:'),min_length=9,max_length=15,widget=forms.TextInput(attrs={'placeholder':_('Số điện thoại')}),validators= [phone_regex])
-    birthdate = forms.DateField(label =_('Ngày sinh:'),required= True, widget=forms.TextInput(attrs={'type':'date'}),input_formats=settings.DATE_INPUT_FORMATS,error_messages={'required':_('Xin hãy nhập ngày sinh.')})
-    address = forms.CharField(label =_('Địa chỉ:'),widget = forms.TextInput(attrs={'placeholder':_('Địa chỉ')}))
-    parish = forms.CharField(label =_('Giáo xứ:'),max_length= 100, widget=forms.TextInput(attrs={'placeholder':_('Giáo xứ')}))
+    phone_number = forms.CharField(label=_('Số điện thoại:'),min_length=9,max_length=15,widget=forms.TextInput(attrs={'class':'form-control','placeholder':_('Số điện thoại')}),validators= [phone_regex])
+    birthdate = forms.DateField(label =_('Ngày sinh:'),required= True, widget=forms.TextInput(attrs={'class':'form-control','type':'date'}),input_formats=settings.DATE_INPUT_FORMATS,error_messages={'required':_('Xin hãy nhập ngày sinh.')})
+    address = forms.CharField(label =_('Địa chỉ:'),widget = forms.TextInput(attrs={'class':'form-control','placeholder':_('Địa chỉ')}))
+    parish = forms.CharField(label =_('Giáo xứ:'),max_length= 100, widget=forms.TextInput(attrs={'class':'form-control','placeholder':_('Giáo xứ')}))
 
 class ChangePasswordForm(forms.Form):
-    old_password = forms.CharField(label =_('Mật khẩu cũ:'), widget=forms.TextInput(attrs={'placeholder':_('Mật khẩu cũ')}))
-    new_password = forms.CharField(label =_('Mật khẩu mới:'),required=True, min_length=5, widget=forms.TextInput(attrs={ 'type':'password','placeholder':_('Mật khẩu mới')}),error_messages={'required':_('Xin hãy nhập mật khẩu.'),'min_length':_('Mật khẩu phải có ít nhất 5 kí tự.')})
-    confirm_password = forms.CharField(label=_('Xác nhận mật khẩu:'), widget=forms.TextInput(attrs={ 'type':'password','placeholder':_('Xác nhận mật khẩu')}))
+    old_password = forms.CharField(label =_('Mật khẩu cũ:'), widget=forms.TextInput(attrs={'class':'form-control','type':'password','placeholder':_('Mật khẩu cũ')}))
+    new_password = forms.CharField(label =_('Mật khẩu mới:'),required=True, min_length=5, widget=forms.TextInput(attrs={ 'class':'form-control','type':'password','placeholder':_('Mật khẩu mới')}),error_messages={'required':_('Xin hãy nhập mật khẩu.'),'min_length':_('Mật khẩu phải có ít nhất 5 kí tự.')})
+    confirm_password = forms.CharField(label=_('Xác nhận mật khẩu:'), widget=forms.TextInput(attrs={ 'class':'form-control','type':'password','placeholder':_('Xác nhận mật khẩu')}))
 
     def clean(self):
         data = super().clean()
@@ -53,8 +53,8 @@ class ChangePasswordForm(forms.Form):
         return data
 
 class VerifyEmailForm(forms.Form):
-    email = forms.EmailField(label = 'Email:',required=True,error_messages={'required':_('Xin hãy nhập email.'),'invalid':_('Xin hãy nhập email hợp lệ.')})
-    confirm_email = forms.EmailField(label=_('Xác nhận Email:'),required=True,error_messages={'required':_('Xin hãy nhập email.'),'invalid':_('Xin hãy nhập email hợp lệ.')})
+    email = forms.EmailField(label = 'Email:',required=True,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Email'}),error_messages={'required':_('Xin hãy nhập email.'),'invalid':_('Xin hãy nhập email hợp lệ.')})
+    confirm_email = forms.EmailField(label=_('Xác nhận Email:'),required=True,widget=forms.TextInput(attrs={'class':'form-control','placeholder':_('Xác nhận Email:')}),error_messages={'required':_('Xin hãy nhập email.'),'invalid':_('Xin hãy nhập email hợp lệ.')})
 
     def clean(self):
         data = super().clean()

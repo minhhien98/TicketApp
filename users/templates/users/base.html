@@ -8,9 +8,12 @@
     <!-- Jquery -->
     <script type="text/javascript" src="{% static 'jquery/jquery-3.6.1.min.js' %}"></script>
     <!-- Materialize-->
-    <script src="{% static 'materialize/js/materialize.min.js' %}"></script>
-    <link type="text/css" rel="stylesheet" href="{% static 'materialize/css/materialize.min.css' %}"
-        media="screen,projection" />
+    <!-- <script src="{% static 'materialize/js/materialize.min.js' %}"></script>
+    <link type="text/css" rel="stylesheet" href="{% static 'materialize/css/materialize.min.css' %}" media="screen,projection" /> -->
+
+    <!-- Bootstrap-->   
+    <link text="text/css" rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">  
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Let browser know website is optimized for mobile-->
@@ -19,84 +22,196 @@
 <header>
     {% block header %}
     {% if user.is_authenticated %}
-    <nav>
-        <div class="nav-wrapper">
-            <ul class="left hide-on-med-and-down">
-                <li><a href="{% url 'ticket:home' %}">{% trans 'Trang chủ' %}</a></li>
-                <li><a href="{% url 'ticket:guide' %}">{% trans 'Hướng dẫn mua vé' %}</a></li>
-            </ul>
-            <ul class="right hide-on-med-and-down">
-                <li><a>{% trans 'Vé Workshop' %}: {{ user.userextend.special_ticket }}</a></li>
-                <li><a class="user-dropdown-trigger" data-target="user-dropdown">{{ user.get_username }}<i class="material-icons right">arrow_drop_down</i></a></li>
-                <li><a class="language-dropdown-trigger" data-target="language-dropdown">{% trans 'Ngôn ngữ' %}<i class="material-icons right">arrow_drop_down</i></a></li>
-            </ul>
-            <!-- mobile navbar -->
-            <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            <ul class="right hide-on-large-only">
-                <li><a>{% trans 'Vé Workshop' %}: {{ user.userextend.special_ticket }}</a></li>
-            </ul>
+    <nav class="navbar navbar-dark bg-primary navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'ticket:home' %}"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'ticket:home' %}">{% trans 'Trang chủ' %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'ticket:guide' %}">{% trans 'Hướng dẫn mua vé' %}</a>
+                    </li> 
+                </ul>
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link">{% trans 'Vé Workshop' %}: {{ user.userextend.special_ticket }}</a>
+                    </li>
+
+                    <li class="nav-item dropdown me-auto mb-2 mb-lg-0">
+                        <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ user.get_username }}</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <li><a class="dropdown-item" href="{% url 'users:user_profile' %}">{% trans 'Thông tin cá nhân' %}</a></li>
+                                <li><a class="dropdown-item" href="{% url 'users:change_password' %}">{% trans 'Đổi mật khẩu' %}</a></li>
+                                <li>
+                                    <form id="logout-form" name="logout" method="post" action="{% url 'users:logout' %}">
+                                        {% csrf_token %}
+                                        <a class="dropdown-item" name="logout" onclick="document.forms['logout-form'].submit();">{% trans 'Đăng xuất' %}</a>
+                                    </form>
+                                    
+                                </li>
+                            </li>                                                                                          
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown me-auto mb-2 mb-lg-0">
+                        <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">{% trans 'Ngôn ngữ' %}</a>
+                        <ul class="dropdown-menu">
+                            <form id="change_language_form" name="change_language_form" method="post" action="/i18n/setlang/">
+                                {% csrf_token %}
+                                <input id="newLanguageInput" type="hidden" name="language" />
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_available_languages as LANGUAGES %}
+                            {% for language in LANGUAGES %}
+                            <li>
+                                <a class="dropdown-item" value="{{ language.0 }}" onclick="ChangeLanguage('{{ language.0 }}')">{{ language.1 }}</a>
+                            </li>                                
+                            {% endfor %}
+                            </form>                                                           
+                        </ul>
+                    </li>                      
+                </ul>
+            </div>
         </div>
     </nav>
-    <!-- dropdown -->
-    <ul id="user-dropdown" class="dropdown-content">
-        <li><a href="{% url 'users:user_profile' %}">{% trans 'Thông tin cá nhân' %}</a></li>
-        <li><a href="{% url 'users:change_password' %}">{% trans 'Đổi mật khẩu' %}</a></li>
-        <form id="logout-form" name="logout" method="post" action="{% url 'users:logout' %}">
-            {% csrf_token %}
-            <li>
-                <a name="logout" onclick="document.forms['logout-form'].submit();">{% trans 'Đăng xuất' %}</a>
-            </li>
-        </form>
-    </ul>
-    <ul id="language-dropdown" class="dropdown-content">
-        <form id="change_language_form" name="change_language_form" method="post" action="/i18n/setlang/">
-            {% csrf_token %}
-            <input id="newLanguageInput" type="hidden" name="language" />
-            {% get_current_language as LANGUAGE_CODE %}
-            {% get_available_languages as LANGUAGES %}
-            {% for language in LANGUAGES %}
-            <li>
-                <a value="{{ language.0 }}" onclick="ChangeLanguage('{{ language.0 }}')">{{ language.1 }}</a>
-            </li>
-            {% endfor %}
-        </form>
-    </ul>
 
-    <!-- mobile sidenav -->
-    <ul class="sidenav" id="mobile-nav">
-        <li><a href="{% url 'ticket:home' %}">{% trans 'Trang chủ' %}</a></li>
-        <li><a href="{% url 'ticket:guide' %}">{% trans 'Hướng dẫn mua vé' %}</a></li>
-        <li><a class="user-dropdown-trigger" data-target="user-dropdown-mobile">{{ user.get_username }}<i
-                    class="material-icons right">arrow_drop_down</i></a></li>
-        <li><a class="language-dropdown-trigger" data-target="language-dropdown-mobile">{% trans 'Ngôn ngữ' %}<i
-                    class="material-icons right">arrow_drop_down</i></a></li>
-    </ul>
-    <!-- mobile dropdown -->
-    <ul id="user-dropdown-mobile" class="dropdown-content">
-        <li><a href="{% url 'users:user_profile' %}">{% trans 'Thông tin cá nhân' %}</a></li>
-        <li><a href="{% url 'users:change_password' %}">{% trans 'Đổi mật khẩu' %}</a></li>
-        <form id="logout-form" name="logout" method="post" action="{% url 'users:logout' %}">
-            {% csrf_token %}
-            <li>
-                <a name="logout" onclick="document.forms['logout-form'].submit();">{% trans 'Đăng xuất' %}</a>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'ticket:home' %}">{% trans 'Trang chủ' %}</a>
             </li>
-        </form>
-    </ul>
-    <ul id="language-dropdown-mobile" class="dropdown-content">
-        <form id="change_language_form" name="change_language_form" method="post" action="/i18n/setlang/">
-            {% csrf_token %}
-            <input id="newLanguageInput" type="hidden" name="language" />
-            {% get_current_language as LANGUAGE_CODE %}
-            {% get_available_languages as LANGUAGES %}
-            {% for language in LANGUAGES %}
-            <li>
-                <a value="{{ language.0 }}" onclick="ChangeLanguage('{{ language.0 }}')">{{ language.1 }}</a>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'ticket:guide' %}">{% trans 'Hướng dẫn mua vé' %}</a>
+            </li> 
+            <li class="nav-item dropdown me-auto mb-2 mb-lg-0">
+                <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ user.get_username }}</a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <li><a class="dropdown-item" href="{% url 'users:user_profile' %}">{% trans 'Thông tin cá nhân' %}</a></li>
+                        <li><a class="dropdown-item" href="{% url 'users:change_password' %}">{% trans 'Đổi mật khẩu' %}</a></li>
+                        <li>
+                            <form id="logout-form" name="logout" method="post" action="{% url 'users:logout' %}">
+                                {% csrf_token %}
+                                <a class="dropdown-item" name="logout" onclick="document.forms['logout-form'].submit();">{% trans 'Đăng xuất' %}</a>
+                            </form>
+                            
+                        </li>
+                    </li>                                                                                          
+                </ul>
             </li>
-            {% endfor %}
-        </form>
-    </ul>
+            <li class="nav-item dropdown me-auto mb-2 mb-lg-0">
+                <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">{% trans 'Ngôn ngữ' %}</a>
+                <ul class="dropdown-menu">
+                    <form id="change_language_form_mobile" name="change_language_form_mobile" method="post" action="/i18n/setlang/">
+                        {% csrf_token %}
+                        <input id="newLanguageInput_mobile" type="hidden" name="language" />
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% for language in LANGUAGES %}
+                        <li>
+                            <a class="dropdown-item" value="{{ language.0 }}" onclick="ChangeLanguage('{{ language.0 }}')">{{ language.1 }}</a>
+                        </li>                                
+                        {% endfor %}
+                    </form>                                                           
+                </ul>
+            </li>
+          </ul>
+        </div>
+    </div>
     {% else %}
-    <nav>
+    <nav class="navbar navbar-dark bg-primary navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'ticket:home' %}"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'ticket:home' %}">{% trans 'Trang chủ' %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'ticket:guide' %}">{% trans 'Hướng dẫn mua vé' %}</a>
+                    </li>                 
+                </ul>
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:login' %}">{% trans 'Đăng nhập' %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:register' %}">{% trans 'Đăng ký' %}</a>
+                    </li>
+                    <li class="nav-item dropdown me-auto mb-2 mb-lg-0">
+                        <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">{% trans 'Ngôn ngữ' %}</a>
+                        <ul class="dropdown-menu">
+                            <form id="change_language_form" name="change_language_form" method="post" action="/i18n/setlang/">
+                                {% csrf_token %}
+                                <input id="newLanguageInput" type="hidden" name="language" />
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_available_languages as LANGUAGES %}
+                            {% for language in LANGUAGES %}
+                            <li>
+                                <a class="dropdown-item" value="{{ language.0 }}" onclick="ChangeLanguage('{{ language.0 }}')">{{ language.1 }}</a>
+                            </li>                                
+                            {% endfor %}
+                            </form>                                                           
+                        </ul>
+                    </li>
+                </ul>                                     
+            </div> 
+        </div>
+    </nav>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'ticket:home' %}">{% trans 'Trang chủ' %}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'ticket:guide' %}">{% trans 'Hướng dẫn mua vé' %}</a>
+            </li> 
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:login' %}">{% trans 'Đăng nhập' %}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:register' %}">{% trans 'Đăng ký' %}</a>
+            </li>
+            <li class="nav-item dropdown me-auto mb-2 mb-lg-0">
+                <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">{% trans 'Ngôn ngữ' %}</a>
+                <ul class="dropdown-menu">
+                    <form id="change_language_form_mobile" name="change_language_form_mobile" method="post" action="/i18n/setlang/">
+                        {% csrf_token %}
+                        <input id="newLanguageInput_mobile" type="hidden" name="language" />
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% for language in LANGUAGES %}
+                        <li>
+                            <a class="dropdown-item" value="{{ language.0 }}" onclick="ChangeLanguage('{{ language.0 }}')">{{ language.1 }}</a>
+                        </li>                                
+                        {% endfor %}
+                    </form>                                                           
+                </ul>
+            </li>
+          </ul>
+        </div>
+    </div>
+    
+    <!-- <nav>
         <div class="nav-wrapper">
             <ul class="left hide-on-med-and-down">
                 <li> <a href="{% url 'ticket:home' %}">{% trans 'Trang chủ' %}</a></li>
@@ -112,7 +227,6 @@
             <a href="#" data-target="mobile-nav" class="sidenav-trigger left"><i class="material-icons">menu</i></a>
         </div>
     </nav>
-    <!-- dropdown-->
     <ul id="language-dropdown" class="dropdown-content">
         <form id="change_language_form" name="change_language_form" method="post" action="/i18n/setlang/">
             {% csrf_token %}
@@ -127,7 +241,6 @@
         </form>
     </ul>
 
-    <!-- mobile sidenav -->
     <ul class="sidenav" id="mobile-nav">
         <li><a href="{% url 'ticket:home' %}">{% trans 'Trang chủ' %}</a></li>
         <li><a href="{% url 'ticket:guide' %}">{% trans 'Hướng dẫn mua vé' %}</a></li>
@@ -136,7 +249,7 @@
         <li><a class="language-dropdown-trigger" data-target="language-dropdown-mobile">{% trans 'Ngôn ngữ' %}<i
                     class="material-icons right">arrow_drop_down</i></a></li>
     </ul>
-    <!-- mobile dropdown -->
+
     <ul id="language-dropdown-mobile" class="dropdown-content">
         <form id="change_language_form" name="change_language_form" method="post" action="/i18n/setlang/">
             {% csrf_token %}
@@ -149,7 +262,7 @@
             </li>
             {% endfor %}
         </form>
-    </ul>
+    </ul> -->
     {% endif %}
     {% endblock %}
 </header>
@@ -158,18 +271,17 @@
     {% block content %}
     {% endblock %}
     <script type="text/javascript">
-        $(document).ready(function () {
-            var DropdownOptions = { 'coverTrigger': false, 'hover': true };
-            $('.user-dropdown-trigger').dropdown(DropdownOptions);
-            $('.language-dropdown-trigger').dropdown(DropdownOptions);
-            $('.sidenav').sidenav();
-        });
-
         function ChangeLanguage(value) {
             console.log(value);
             document.getElementById('newLanguageInput').value = value;
             document.forms['change_language_form'].submit();
         }
+        function ChangeLanguageMobile(value) {
+            console.log(value);
+            document.getElementById('newLanguageInput_mobile').value = value;
+            document.forms['change_language_form_mobile'].submit();
+        }
+
     </script>
 </body>
 </html>
