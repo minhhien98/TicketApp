@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-26 23:10+0700\n"
+"POT-Creation-Date: 2022-10-27 01:16+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -131,7 +131,7 @@ msgstr "Log out"
 #: .\ticket\templates\ticket\base.html:149
 #: .\ticket\templates\ticket\base.html:189
 #: .\users\templates\users\base.html:149 .\users\templates\users\base.html:189
-#: .\users\templates\users\login.html:12
+#: .\users\templates\users\login.html:12 .\users\templates\users\login.html:32
 msgid "Đăng nhập"
 msgstr "Log in"
 
@@ -523,6 +523,3 @@ msgstr "Verification mail has been sent. Please check your email."
 #: .\users\views.py:188
 msgid "Xác nhận Email Thành công. Bạn có thể đăng nhập ngay."
 msgstr "Email is Verified. You can login now."
-
-#~ msgid "Đã có tài khoản? Đăng nhập"
-#~ msgstr "Already have an Account? Log in"
