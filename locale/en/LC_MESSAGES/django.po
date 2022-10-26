@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-25 17:22+0700\n"
+"POT-Creation-Date: 2022-10-26 23:10+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,13 +25,12 @@ msgstr "Vietnamese"
 msgid "Tiếng Anh"
 msgstr "English"
 
-#: .\templates\admin\base.html:7 .\ticket\templates\ticket\base.html:31
-#: .\ticket\templates\ticket\base.html:71
-#: .\ticket\templates\ticket\base.html:109
-#: .\ticket\templates\ticket\base.html:136 .\users\models.py:38
+#: .\templates\admin\base.html:7 .\ticket\templates\ticket\base.html:63
+#: .\ticket\templates\ticket\base.html:113
+#: .\ticket\templates\ticket\base.html:155
+#: .\ticket\templates\ticket\base.html:195 .\users\models.py:38
 #: .\users\templates\users\base.html:63 .\users\templates\users\base.html:113
 #: .\users\templates\users\base.html:155 .\users\templates\users\base.html:195
-#: .\users\templates\users\base.html:224 .\users\templates\users\base.html:249
 msgid "Ngôn ngữ"
 msgstr "Language"
 
@@ -81,43 +80,40 @@ msgstr "Quantity"
 msgid "Người tham gia"
 msgstr "Participant"
 
-#: .\ticket\templates\ticket\base.html:25
-#: .\ticket\templates\ticket\base.html:67
-#: .\ticket\templates\ticket\base.html:102
-#: .\ticket\templates\ticket\base.html:132 .\users\templates\users\base.html:34
+#: .\ticket\templates\ticket\base.html:34
+#: .\ticket\templates\ticket\base.html:91
+#: .\ticket\templates\ticket\base.html:141
+#: .\ticket\templates\ticket\base.html:183 .\users\templates\users\base.html:34
 #: .\users\templates\users\base.html:91 .\users\templates\users\base.html:141
-#: .\users\templates\users\base.html:183 .\users\templates\users\base.html:217
-#: .\users\templates\users\base.html:245
+#: .\users\templates\users\base.html:183
 msgid "Trang chủ"
 msgstr "Home"
 
-#: .\ticket\templates\ticket\base.html:26
-#: .\ticket\templates\ticket\base.html:68
-#: .\ticket\templates\ticket\base.html:103
-#: .\ticket\templates\ticket\base.html:133
+#: .\ticket\templates\ticket\base.html:37
+#: .\ticket\templates\ticket\base.html:94
+#: .\ticket\templates\ticket\base.html:144
+#: .\ticket\templates\ticket\base.html:186
 #: .\ticket\templates\ticket\guide.html:4 .\users\templates\users\base.html:37
 #: .\users\templates\users\base.html:94 .\users\templates\users\base.html:144
-#: .\users\templates\users\base.html:186 .\users\templates\users\base.html:218
-#: .\users\templates\users\base.html:246
+#: .\users\templates\users\base.html:186
 msgid "Hướng dẫn mua vé"
 msgstr "How to buy ticket"
 
-#: .\ticket\templates\ticket\base.html:29
-#: .\ticket\templates\ticket\base.html:36 .\users\models.py:33
+#: .\ticket\templates\ticket\base.html:42 .\users\models.py:33
 #: .\users\templates\users\base.html:42
 msgid "Vé Workshop"
 msgstr "Workshop Ticket"
 
-#: .\ticket\templates\ticket\base.html:42
-#: .\ticket\templates\ticket\base.html:76 .\users\templates\users\base.html:49
+#: .\ticket\templates\ticket\base.html:49
+#: .\ticket\templates\ticket\base.html:100 .\users\templates\users\base.html:49
 #: .\users\templates\users\base.html:100
 #: .\users\templates\users\user_profile.html:16
 #: .\users\templates\users\user_profile.html:83
 msgid "Thông tin cá nhân"
 msgstr "User's profile"
 
-#: .\ticket\templates\ticket\base.html:43
-#: .\ticket\templates\ticket\base.html:77 .\users\templates\users\base.html:50
+#: .\ticket\templates\ticket\base.html:50
+#: .\ticket\templates\ticket\base.html:101 .\users\templates\users\base.html:50
 #: .\users\templates\users\base.html:101
 #: .\users\templates\users\change_password.html:16
 #: .\users\templates\users\change_password.html:63
@@ -126,41 +122,47 @@ msgstr "User's profile"
 msgid "Đổi mật khẩu"
 msgstr "Change password"
 
-#: .\ticket\templates\ticket\base.html:47
-#: .\ticket\templates\ticket\base.html:81 .\users\templates\users\base.html:54
+#: .\ticket\templates\ticket\base.html:54
+#: .\ticket\templates\ticket\base.html:105 .\users\templates\users\base.html:54
 #: .\users\templates\users\base.html:105
 msgid "Đăng xuất"
 msgstr "Log out"
 
-#: .\ticket\templates\ticket\base.html:106
-#: .\ticket\templates\ticket\base.html:134
+#: .\ticket\templates\ticket\base.html:149
+#: .\ticket\templates\ticket\base.html:189
 #: .\users\templates\users\base.html:149 .\users\templates\users\base.html:189
-#: .\users\templates\users\base.html:221 .\users\templates\users\base.html:247
 #: .\users\templates\users\login.html:12
 msgid "Đăng nhập"
 msgstr "Log in"
 
-#: .\ticket\templates\ticket\base.html:107
-#: .\ticket\templates\ticket\base.html:135
-#: .\ticket\templates\ticket\home.html:38
+#: .\ticket\templates\ticket\base.html:152
+#: .\ticket\templates\ticket\base.html:192
+#: .\ticket\templates\ticket\home.html:40
 #: .\ticket\templates\ticket\home.html:59 .\users\templates\users\base.html:152
-#: .\users\templates\users\base.html:192 .\users\templates\users\base.html:222
-#: .\users\templates\users\base.html:248
-#: .\users\templates\users\register.html:43
+#: .\users\templates\users\base.html:192
+#: .\users\templates\users\register.html:147
 msgid "Đăng ký"
 msgstr "Register"
 
-#: .\ticket\templates\ticket\home.html:13
+#: .\ticket\templates\ticket\home.html:15
 msgid "ĐĂNG KÝ"
 msgstr "REGISTER"
 
-#: .\ticket\templates\ticket\home.html:14
+#: .\ticket\templates\ticket\home.html:16
 msgid "ĐÃ CHỌN"
 msgstr "SELECTED"
 
-#: .\ticket\templates\ticket\home.html:15
+#: .\ticket\templates\ticket\home.html:17
 msgid "GIỚI HẠN"
 msgstr "LIMIT"
+
+#: .\ticket\templates\ticket\home.html:52
+msgid "Đăng ký Workshop"
+msgstr "Register Workshop"
+
+#: .\ticket\templates\ticket\home.html:56
+msgid "Bạn có muốn đăng ký workshop đã chọn không?"
+msgstr "Do you want to buy chosen workshops?"
 
 #: .\ticket\templates\ticket\home.html:60
 msgid "Hủy"
@@ -454,7 +456,7 @@ msgstr "Best regards"
 msgid "Chưa có tài khoản? Đăng ký"
 msgstr "Don't have an Account? Sign up"
 
-#: .\users\templates\users\register.html:15
+#: .\users\templates\users\register.html:19
 msgid "Đăng ký tài khoản"
 msgstr "Create Your Account"
 

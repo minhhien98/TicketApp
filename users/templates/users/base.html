@@ -210,59 +210,6 @@
           </ul>
         </div>
     </div>
-    
-    <!-- <nav>
-        <div class="nav-wrapper">
-            <ul class="left hide-on-med-and-down">
-                <li> <a href="{% url 'ticket:home' %}">{% trans 'Trang chủ' %}</a></li>
-                <li><a href="{% url 'ticket:guide' %}">{% trans 'Hướng dẫn mua vé' %}</a></li>
-            </ul>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="{% url 'users:login' %}">{% trans 'Đăng nhập' %}</a></li>
-                <li><a href="{% url 'users:register' %}">{% trans 'Đăng ký' %}</a></li>
-
-                <li><a class="language-dropdown-trigger" data-target="language-dropdown">{% trans 'Ngôn ngữ' %}<i
-                            class="material-icons right">arrow_drop_down</i></a></li>
-            </ul>
-            <a href="#" data-target="mobile-nav" class="sidenav-trigger left"><i class="material-icons">menu</i></a>
-        </div>
-    </nav>
-    <ul id="language-dropdown" class="dropdown-content">
-        <form id="change_language_form" name="change_language_form" method="post" action="/i18n/setlang/">
-            {% csrf_token %}
-            <input id="newLanguageInput" type="hidden" name="language" />
-            {% get_current_language as LANGUAGE_CODE %}
-            {% get_available_languages as LANGUAGES %}
-            {% for language in LANGUAGES %}
-            <li>
-                <a value="{{ language.0 }}" onclick="ChangeLanguage('{{ language.0 }}')">{{ language.1 }}</a>
-            </li>
-            {% endfor %}
-        </form>
-    </ul>
-
-    <ul class="sidenav" id="mobile-nav">
-        <li><a href="{% url 'ticket:home' %}">{% trans 'Trang chủ' %}</a></li>
-        <li><a href="{% url 'ticket:guide' %}">{% trans 'Hướng dẫn mua vé' %}</a></li>
-        <li><a href="{% url 'users:login' %}">{% trans 'Đăng nhập' %}</a></li>
-        <li><a href="{% url 'users:register' %}">{% trans 'Đăng ký' %}</a></li>
-        <li><a class="language-dropdown-trigger" data-target="language-dropdown-mobile">{% trans 'Ngôn ngữ' %}<i
-                    class="material-icons right">arrow_drop_down</i></a></li>
-    </ul>
-
-    <ul id="language-dropdown-mobile" class="dropdown-content">
-        <form id="change_language_form" name="change_language_form" method="post" action="/i18n/setlang/">
-            {% csrf_token %}
-            <input id="newLanguageInput" type="hidden" name="language" />
-            {% get_current_language as LANGUAGE_CODE %}
-            {% get_available_languages as LANGUAGES %}
-            {% for language in LANGUAGES %}
-            <li>
-                <a value="{{ language.0 }}" onclick="ChangeLanguage('{{ language.0 }}')">{{ language.1 }}</a>
-            </li>
-            {% endfor %}
-        </form>
-    </ul> -->
     {% endif %}
     {% endblock %}
 </header>

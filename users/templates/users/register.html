@@ -1,58 +1,159 @@
 {% extends 'users/base.html' %}
 {% load i18n %}
 {% load static %}
+
 {% block content %}
-<div class="bg-image" style="background-image: url('/static/images/hero_1.png'); background-size: cover;background-repeat: no-repeat;width: 100%;height: 200vh; padding-top: 5%;">
-    <section class="vh-100">
-        <div class="container h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-lg-12 col-xl-11">
-                    <div class="card text-black" style="border-radius: 25px;">
-                        <div class="card-body p-md-5">
-                            <div class="row justify-content-center">
-                                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-
-                                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">{% trans 'Đăng ký tài khoản' %}</p>
-
-                                    <form class="mx-1 mx-md-4" method="POST" action="{% url 'users:register' %}">
-                                        {% csrf_token %}
-                                        
-                                        {% for field in form.visible_fields %}
-                                        <div class="d-flex flex-row align-items-center mb-4">
-                                            <div class="form-floating flex-fill mb-4">
-                                                {{ field }}
-                                                <label for="{{ field.name }}">{{ field.label }}</label>
-                                                {% if field.errors %}
-                                                    {% for err in field.errors %}
-                                                        <span class="text-danger">{{ err }}</span>
-                                                    {% endfor %}
-                                                {% endif %}    
-                                            </div>
-                                        </div>                                
-                                        {% endfor %}                                       
-                                        {% if form.non_field_errors %}
-                                        {% for err in form.non_field_errors %}                                        
-                                        <div class="d-flex flex-row align-items-center mb-4">
-                                            <div class="form-floating flex-fill mb-4">
-                                                <span class="text-danger">{{ err }}</span>
-                                            </div>                        
-                                        </div>
-                                        {% endfor %}
-                                        {% endif %}                                       
-                                        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">                                        
-                                            <button type="submit" class="btn btn-primary btn-lg">{% trans 'Đăng ký'%}</button>                                          
-                                        </div>                                       
-                                    </form>
-                                </div>
-                                <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-                                    <img src="{% static 'users/images/register_image.png' %}"class="img-fluid" alt="Sample image">
+<head>
+    <link rel="stylesheet" href="{% static '/users/css/register.css' %}">
+</head>
+<body style="background-image: url('/static/images/hero_1.png');">
+    <section class="h-100 h-custom">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+              <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                <div class="card-body p-0">
+                  <div class="row g-0">
+                    <div class="col-lg-6">
+                      <div class="p-5">
+                        <h3 class="fw-normal mb-5" style="color: #4835d4;">{% trans 'Đăng ký tài khoản' %}</h3>
+                        <form class="mx-1 mx-md-4" method="POST" action="{% url 'users:register' %}">
+                            {% csrf_token %}
+                            <div class="mb-4 pb-2">
+                                <div class="form-floating">
+                                    {{ form.username }}
+                                    <label>{{ form.username.label }}</label>
+                                    {% if form.username.errors %}
+                                    {% for err in form.username.errors %}
+                                    <span class="text-danger">{{ err }}</span>
+                                    {% endfor %}
+                                    {% endif %}
                                 </div>
                             </div>
+                            
+                            <div class="mb-4 pb-2">
+                                <div class="form-floating">
+                                    {{ form.password }}
+                                    <label>{{ form.password.label }}</label>
+                                    {% if form.password.errors %}
+                                    {% for err in form.password.errors %}
+                                    <span class="text-danger">{{ err }}</span>
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="mb-4 pb-2">
+                                <div class="form-floating">
+                                    {{ form.confirm_password }}
+                                    <label>{{ form.confirm_password.label }}</label>
+                                    {% if form.confirm_password.errors %}
+                                    {% for err in form.confirm_password.errors %}
+                                    <span class="text-danger">{{ err }}</span>
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+          
+                            <div class="row">
+                                <div class="col-md-6 mb-4 pb-2">                           
+                                    <div class="form-floating">
+                                        {{ form.last_name }}
+                                        <label>{{ form.last_name.label }}</label>
+                                        {% if form.last_name.errors %}
+                                        {% for err in form.last_name.errors %}
+                                        <span class="text-danger">{{ err }}</span>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>                           
+                                </div>
+
+                                <div class="col-md-6 mb-4 pb-2">                       
+                                    <div class="form-floating">
+                                        {{ form.first_name }}
+                                        <label>{{ form.first_name.label }}</label>
+                                        {% if form.first_name.errors %}
+                                        {% for err in form.first_name.errors %}
+                                        <span class="text-danger">{{ err }}</span>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>                   
+                                </div>
+                            </div>                                       
+                          </div>
                         </div>
+
+                        <div class="col-lg-6">
+                          <div class="p-5">
+                            <h3 class="fw-normal mb-5"></h3>
+                            <div class="mb-4 pb-2">
+                                <div class="form-floating">
+                                  {{ form.email }}
+                                  <label >{{ form.email.label }}</label>
+                                  {% if form.email.errors %}
+                                  {% for err in form.email.errors %}
+                                  <span class="text-danger">{{ err }}</span>
+                                  {% endfor %}
+                                  {% endif %}
+                                </div>
+                              </div> 
+                              
+                            <div class="mb-4 pb-2">
+                              <div class="form-floating">
+                                {{ form.phone_number }}
+                                <label>{{ form.phone_number.label}}</label>
+                                {% if form.phone_number.errors %}
+                                {% for err in form.phone_number.errors %}
+                                <span class="text-danger">{{ err }}</span>
+                                {% endfor %}
+                                {% endif %}
+                              </div>
+                            </div>
+          
+                            <div class="mb-4 pb-2">
+                              <div class="form-floating">
+                                {{ form.birthdate }}
+                                <label class="form-label" for="form3Examplea3">{{ form.birthdate.label }}</label>
+                                {% if form.birthdate.errors %}
+                                {% for err in form.birthdate.errors %}
+                                <span class="text-danger">{{ err }}</span>
+                                {% endfor %}
+                                {% endif %}
+                              </div>
+                            </div>
+               
+                            <div class="mb-4 pb-2">
+                              <div class="form-floating">
+                                {{ form.address }}
+                                <label>{{ form.address.label }}</label>
+                                {% if form.address.errors %}
+                                {% for err in form.address.errors %}
+                                <span class="text-danger">{{ err }}</span>
+                                {% endfor %}
+                                {% endif %}
+                              </div>
+                            </div>
+                
+                            <div class="mb-4">
+                              <div class="form-floating">
+                                {{ form.parish }}
+                                <label>{{ form.parish.label }}</label>
+                                {% if form.parish.errors %}
+                                {% for err in form.parish.errors %}
+                                <span class="text-danger">{{ err }}</span>
+                                {% endfor %}
+                                {% endif %}
+                              </div>
+                            </div>                    
+                            <button type="submit" class="btn btn-primary btn-lg">{% trans 'Đăng ký'%}</button>
+                        </form>                          
+                      </div>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
-</div>
+      </section>
+</body>
 {% endblock %}
