@@ -73,7 +73,7 @@ def home(request):
             for workshop in workshops:               
                 if str(workshop.id) == item.get('id'):
                     if workshop.available < item.get('quantity'):
-                        messages.warning(request,_('Bạn chỉ có thể đăng ký {workshop_available} vé {workshop_name}').format(workshop_available=str(workshop.available),workshop_name=workshop.name))
+                        messages.warning(request,_('Workshop {workshop_name} đã hết vé. Bạn vui lòng chọn workshop khác.').format(workshop_name=workshop.name))
                         return HttpResponseRedirect(reverse('ticket:home'))
 
         #register workshop     

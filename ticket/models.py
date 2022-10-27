@@ -16,6 +16,7 @@ class Workshop(models.Model):
     is_special = models.BooleanField(verbose_name=_('Workshop đặc biệt'),default= False)
     address = models.CharField(verbose_name=_('Địa chỉ'),max_length=254, blank=False, default='')
     ticket_template = ResizedImageField(verbose_name=_('Ảnh vé'),upload_to='ticket/ticket_template',null=False, size=[720,1280])
+    intro_link = models.URLField(verbose_name=_('Link giới thiệu'),blank=True)
     class Meta:
         verbose_name = 'Workshop'
         verbose_name_plural = 'Workshop'

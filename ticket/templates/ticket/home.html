@@ -14,7 +14,6 @@
                             <th>WORKSHOP</th>
                             <th>{% trans 'ĐĂNG KÝ' %}</th>
                             <th>{% trans 'ĐÃ CHỌN' %}</th>
-                            <th>{% trans 'GIỚI HẠN' %}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -24,21 +23,27 @@
                             <td>
                                 <img class="img-fluid" src="" alt="" style="height: 90px; width:90px;">
                             </td>
-                            <td>{{ workshop.name }}</td>
+                            <td>
+                                {% if workshop.intro_link %}
+                                <a href="{{ workshop.intro_link }}" target="_blank">{{ workshop.name }}</a>
+                                {% else %}
+                                {{ workshop.name }}
+                                {% endif %}
+                            </td>
                             <td>           
                                 <input class="form-control" type="number" name='quantity' value="0" min="0" style="text-align: center; width: 70px;">
                             </td>
                             <td>{{ workshop.registered }}</td>
-                            <td>{{ workshop.available }}</td>
                         </tr>                       
                         {% endfor %}    
                         <tr>
-                            <td colspan="5" class="text-center">
+                            <td colspan="4" class="text-center">
                                 <div class="d-flex justify-content-center">
-                                    <button class="btn btn-danger btn-lg" id="RegisterButton" type="button" data-bs-toggle="modal" data-bs-target="#ConfirmModal" style="display: block">
+                                    <button class="btn btn-danger" id="RegisterButton" type="button" data-bs-toggle="modal" data-bs-target="#ConfirmModal">
                                         <span class="spinner-border spinner-border-sm" id="RegisterSpinner" role="status" aria-hidden="true" hidden></span>
                                         {% trans 'Đăng ký' %}
                                     </button>
+                                    <a href="{% url 'ticket:guide' %}" class="btn btn-info" style="margin-left: 10px;">{% trans 'Hướng dẫn mua vé thường' %}</a>
                                 </div>                            
                             </td>
                         </tr>            
@@ -50,7 +55,6 @@
                         <div class="modal-content">
                             <div class="modal-header text-center border-0">
                                 <h5 class="modal-title w-100">{% trans 'Đăng ký Workshop' %}</h5>
-                                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                             </div>
                             <div class="modal-body text-center">
                                 {% trans 'Bạn có muốn đăng ký workshop đã chọn không?' %}
