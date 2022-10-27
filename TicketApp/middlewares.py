@@ -1,4 +1,5 @@
 import logging
+from re import L, T
 from django.contrib.auth.models  import User
 from django.utils import translation
 from django.conf import settings
@@ -23,19 +24,31 @@ class UserLanguageMiddleware:
     def __call__(self, request):
         response = self.get_response(request)   
         current_language = request.COOKIES.get('language')
-        #if language code in cookie not found in settings ignore
-        if current_language not in settings.LANGUAGES:
+        # if languague cookie is exists in settings
+        lang_exists = False
+        for language in settings.LANGUAGES:                           
+            if current_language == language[0]:
+                lang_exists = True
+                break
+        if lang_exists == False:
+            translation.activate('vi')
+            response.set_cookie(settings.LANGUAGE_COOKIE_NAME,'vi')
             return response 
+
+        # Change language for logged in users
         if request.user.is_authenticated:            
             user = User.objects.get(username = request.user.username)
-            if current_language != user.userextend.language:
+            # if language is different from user language, ignore
+            if current_language != user.userextend.language:  
+                # save language settings to db           
                 user.userextend.language = current_language
                 user.userextend.save()
-            user_language = user.userextend.language
-            translation.activate(user_language)
-            response.set_cookie(settings.LANGUAGE_COOKIE_NAME, user_language)
+                translation.activate(current_language)
+                response.set_cookie(settings.LANGUAGE_COOKIE_NAME, current_language)    
             return response
         return response
+            
+
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
