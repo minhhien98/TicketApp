@@ -175,7 +175,7 @@ def verify_email(request):
 
 #verify email
 def confirm_email(request,key):
-    user_extend = get_object_or_404(UserExtend, activation_key = key)
+    user_extend = get_object_or_404(UserExtend, activation_key = key, is_email_verified= False)
     #if activation key expires, request user to login for verify email
     if user_extend.key_expires.replace(tzinfo=None) < datetime.utcnow():
         return HttpResponseNotFound()
@@ -185,20 +185,15 @@ def confirm_email(request,key):
     #force logout if login in another account
     if request.user.is_authenticated:
         auth_logout(request)  
-    messages.success(request,_('Xác nhận Email Thành công. Bạn có thể đăng nhập ngay.'))
-    return redirect('users:login')
-    
-    #Send email function
-    # subject =_('Hướng dẫn chuyển khoản mua vé.')
-    # template ='users/email_template.html'
-    # title =_('Hướng dẫn chuyển khoản mua vé.')
-    # content = _('Hướng dẫn chuyển khoản mua vé.')
-    # merge_data = {
-    #     'title':title,
-    #     'content':content,
-    #     'username': user_extend.user_id.username,
-    # }  
-    # send_email(template, subject, user_extend.user_id.email, merge_data)
 
-    #Xác nhận thành công   
-    #return render(request,'users/confirm_email.html')
+    #Send email function
+    subject =_('Hướng dẫn chuyển khoản mua vé.')
+    template ='users/how_to_buy_ticket_template.html'
+    merge_data = {
+         'fullname':user_extend.user_id.last_name + ' ' + user_extend.user_id.first_name,
+         'username': user_extend.user_id.username,
+    }  
+    send_email(template, subject, user_extend.user_id.email, merge_data)
+    messages.success(request,_('Xác nhận Email Thành công. Bạn có thể đăng nhập ngay.'))
+    messages.success(request,_('Bạn có thể kiểm tra email để xem hướng dẫn mua vé hoặc vào trang hướng dẫn.'))
+    return redirect('users:login')

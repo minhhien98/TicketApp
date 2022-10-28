@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 17:59+0700\n"
+"POT-Creation-Date: 2022-10-28 19:07+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -149,10 +149,8 @@ msgid "Đăng ký"
 msgstr "Register"
 
 #: .\ticket\templates\ticket\guide.html:5
-#, fuzzy
-#| msgid "Hướng dẫn mua vé"
 msgid "Hướng dẫn mua vé."
-msgstr "How to buy ticket"
+msgstr "How to buy ticket."
 
 #: .\ticket\templates\ticket\home.html:18
 msgid "ĐĂNG KÝ"
@@ -455,12 +453,6 @@ msgstr ""
 msgid "Bạn chỉ có thể thêm {available} vé thường."
 msgstr "You can only add {available} normal ticket."
 
-#: .\users\models.py:99
-#, fuzzy
-#| msgid "Xác nhận mật khẩu"
-msgid "Xác nhận chuyển khoản!"
-msgstr "Confirm password"
-
 #: .\users\templates\users\confirm_email.html:8
 msgid "Xác nhận Email Thành công."
 msgstr "Email Verified."
@@ -535,16 +527,15 @@ msgstr "Invalid username/password!"
 msgid "Đã gửi mail xác nhận. Xin vui lòng kiểm tra email."
 msgstr "Verification mail has been sent. Please check your email."
 
-#: .\users\views.py:188
+#: .\users\views.py:190
+msgid "Hướng dẫn chuyển khoản mua vé."
+msgstr "Hướng dẫn chuyển khoản mua vé."
+
+#: .\users\views.py:197
 msgid "Xác nhận Email Thành công. Bạn có thể đăng nhập ngay."
 msgstr "Email is Verified. You can login now."
 
-#~ msgid "Tiếng Anh"
-#~ msgstr "English"
-
-#~ msgid "GIỚI HẠN"
-#~ msgstr "LIMIT"
-
-#, python-brace-format
-#~ msgid "Bạn chỉ có thể đăng ký {workshop_available} vé {workshop_name}"
-#~ msgstr "You can only register {workshop_available} {workshop_name} ticket"
+#: .\users\views.py:198
+msgid ""
+"Bạn có thể kiểm tra email để xem hướng dẫn mua vé hoặc vào trang hướng dẫn."
+msgstr "You can check email for guide or go to guide page."

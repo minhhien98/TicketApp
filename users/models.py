@@ -94,9 +94,8 @@ def send_mail_after_add_ws_ticket(sender,instance, *args, **kwargs):
     if instance.id:
         old_user_extend = UserExtend.objects.get(id = instance.id)
         if instance.special_ticket > old_user_extend.special_ticket:
-            print('Sent charged email!')
              #Send email function                   
-            subject =_('Xác nhận chuyển khoản!')
+            subject = 'Xác nhận chuyển khoản!'
             template = 'users/notify_after_added_ticket_template.html'
             merge_data = {
             'fullname': instance.user_id.last_name + ' ' + instance.user_id.first_name,
