@@ -115,7 +115,7 @@ from django.utils.translation import gettext_lazy as _
 
 LANGUAGES = [
     ('vi', _('Tiếng Việt')),
-    ('en', _('Tiếng Anh')),
+    ('en', _('Tiếng Anh (chưa hoàn thiện)')),
 ]
 
 LANGUAGE_CODE = 'vi'
