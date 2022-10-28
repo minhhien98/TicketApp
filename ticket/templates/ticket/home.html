@@ -3,11 +3,11 @@
 {% load static %}
 {% block content %}
 <body style="background-image: url('/static/images/hero_1.png');">
-    <div class="container" style="margin-top: 150px;">
-        <div class="table-responsive">
-            <form id="RegisterForm" method="POST" action="{% url 'ticket:home' %}" onsubmit="SubmitLoader()">
-                {% csrf_token %}
-                <table class="table table-light table-responsive" style="border-radius: 6px; overflow: hidden;">
+    <div class="container" style="margin-top: 150px;">  
+        <form id="RegisterForm" method="POST" action="{% url 'ticket:home' %}" onsubmit="SubmitLoader()">
+            {% csrf_token %}
+            <div class="table-responsive">
+                <table class="table table-light table-responsive" style="border-radius: 6px; overflow: hidden; opacity: 0.8;">
                     <thead>
                         <tr>
                             <th></th>
@@ -49,25 +49,24 @@
                         </tr>            
                     </tbody>
                 </table>
-        
-                <div class="modal fade" id="ConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header text-center border-0">
-                                <h5 class="modal-title w-100">{% trans 'Đăng ký Workshop' %}</h5>
-                            </div>
-                            <div class="modal-body text-center">
-                                {% trans 'Bạn có muốn đăng ký workshop đã chọn không?' %}
-                            </div>
-                            <div class="modal-footer justify-content-center border-0">
-                                <button class="btn btn-danger" type="submit" data-bs-dismiss="modal">{% trans 'Đăng ký' %}</button>
-                                <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Hủy' %}</button>
-                            </div>
+            </div>           
+            <div class="modal fade" id="ConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header text-center border-0">
+                            <h5 class="modal-title w-100">{% trans 'Đăng ký Workshop' %}</h5>
+                        </div>
+                        <div class="modal-body text-center">
+                            {% trans 'Bạn có muốn đăng ký workshop đã chọn không?' %}
+                        </div>
+                        <div class="modal-footer justify-content-center border-0">
+                            <button class="btn btn-danger" type="submit" data-bs-dismiss="modal">{% trans 'Đăng ký' %}</button>
+                            <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Hủy' %}</button>
                         </div>
                     </div>
-                </div>           
-            </form>
-        </div>      
+                </div>
+            </div>           
+        </form>
     </div>
     
     <div class="toast-container text-center top-0 start-50 translate-middle-x" style="margin-top: 110px;">
