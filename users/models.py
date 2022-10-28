@@ -5,14 +5,13 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.dispatch import receiver
-from django.db.models.signals import post_save,post_delete
+from django.db.models.signals import pre_save,post_save,post_delete
 from django.utils.translation import gettext_lazy as _
 from ticket.methods import generate_qrcode, generate_ticket
 from django.db.models import Sum, F
 from django.db.models.functions import Coalesce
-
 from ticket.models import Participant, Workshop
-from users.methods import send_email_img
+from users.methods import send_email, send_email_img
 
 import logging
 Logger = logging.getLogger("workshop_log")
@@ -89,6 +88,24 @@ def send_normal_ticket(sender,instance,*args, **kwargs):
 
         # Logger
         Logger.info(f'{instance.user_id.username} registered {normal_workshop.name} ticket. Quantity: {participant.quantity}')
+    
+@receiver(pre_save, sender=UserExtend)
+def send_mail_after_add_ws_ticket(sender,instance, *args, **kwargs):
+    if instance.id:
+        old_user_extend = UserExtend.objects.get(id = instance.id)
+        if instance.special_ticket > old_user_extend.special_ticket:
+            print('Sent charged email!')
+             #Send email function                   
+            subject =_('Xác nhận chuyển khoản!')
+            template = 'users/notify_after_added_ticket_template.html'
+            merge_data = {
+            'fullname': instance.user_id.last_name + ' ' + instance.user_id.first_name,
+            'link_home': settings.DOMAIN_NAME,
+            'link_guide': settings.DOMAIN_NAME + '/guide',         
+            }
+            send_email(template,subject,instance.user_id.email,merge_data)
+            
+
 
 @receiver(post_delete, sender = UserExtend)
 def post_delete_user(sender, instance, *args, **kwargs):
