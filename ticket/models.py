@@ -59,46 +59,46 @@ def post_save_participant(sender, instance, *args, **kwargs):
     }
     add_participant_to_google_sheet(user_info)
 
-# # These two auto-delete files from filesystem when they are unneeded:
-# @receiver(models.signals.post_delete, sender=Workshop)
-# def auto_delete_file_on_delete(sender, instance, **kwargs):
-#     """
-#     Deletes file from filesystem
-#     when corresponding `MediaFile` object is deleted.
-#     """
-#     # delete template when delete workshop
-#     if instance.ticket_template:
-#         if os.path.isfile(instance.ticket_template.path):
-#             os.remove(instance.ticket_template.path)
-#     # delete icon when delete workshop
-#     if instance.icon:
-#         if os.path.isfile(instance.icon.path):
-#             os.remove(instance.icon.path)
+# These two auto-delete files from filesystem when they are unneeded:
+@receiver(models.signals.post_delete, sender=Workshop)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    """
+    Deletes file from filesystem
+    when corresponding `MediaFile` object is deleted.
+    """
+    # delete template when delete workshop
+    if instance.ticket_template:
+        if os.path.isfile(instance.ticket_template.path):
+            os.remove(instance.ticket_template.path)
+    # delete icon when delete workshop
+    if instance.icon:
+        if os.path.isfile(instance.icon.path):
+            os.remove(instance.icon.path)
 
-# @receiver(models.signals.pre_save, sender=Workshop)
-# def auto_delete_file_on_change(sender, instance, **kwargs):
-#     """
-#     Deletes old file from filesystem
-#     when corresponding `MediaFile` object is updated
-#     with new file.
-#     """
-#     if not instance.pk:
-#         return False
+@receiver(models.signals.pre_save, sender=Workshop)
+def auto_delete_file_on_change(sender, instance, **kwargs):
+    """
+    Deletes old file from filesystem
+    when corresponding `MediaFile` object is updated
+    with new file.
+    """
+    if not instance.pk:
+        return False
 
-#     try:
-#         old_file = Workshop.objects.get(pk=instance.pk).ticket_template
-#         old_icon = Workshop.objects.get(pk=instance.pk).icon
-#     except Workshop.DoesNotExist:
-#         return False
+    try:
+        old_file = Workshop.objects.get(pk=instance.pk).ticket_template
+        old_icon = Workshop.objects.get(pk=instance.pk).icon
+    except Workshop.DoesNotExist:
+        return False
 
-#     new_file = instance.ticket_template
-#     new_icon = instance.icon
-#     # change workshop template
-#     if not old_file == new_file:
-#         if os.path.isfile(old_file.path):
-#             os.remove(old_file.path)
-#     # change icon
-#     if not old_icon == new_icon:
-#         if os.path.isfile(old_icon.path):
-#             os.remove(old_icon.path)
+    new_file = instance.ticket_template
+    new_icon = instance.icon
+    # change workshop template
+    if not old_file == new_file:
+        if os.path.isfile(old_file.path):
+            os.remove(old_file.path)
+    # change icon
+    if not old_icon == new_icon:
+        if os.path.isfile(old_icon.path):
+            os.remove(old_icon.path)
     
