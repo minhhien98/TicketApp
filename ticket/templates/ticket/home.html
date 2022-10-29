@@ -24,7 +24,7 @@
                         <input type="text" name="id" value="{{ workshop.id }}" readonly hidden>
                         <tr>
                             <td>
-                                <img class="img-fluid" src="" alt="" style="height: 90px; width:90px;">
+                                <img class="img-fluid" src="{{ workshop.icon.url }}" alt="" style="height: 90px; width:90px;">                              
                             </td>
                             <td>
                                 {% if workshop.intro_link %}

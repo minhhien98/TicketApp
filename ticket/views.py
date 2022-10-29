@@ -17,7 +17,7 @@ Logger = logging.getLogger("workshop_log")
 def home(request):
     if request.user.is_authenticated:
         user = User.objects.get(username = request.user.username)
-        workshops = Workshop.objects.filter(is_special= True,date__gte = datetime.now(timezone(timedelta(hours=+7))) - timedelta(days=1),slot__gt = Coalesce(Sum('participant__quantity'),0)).annotate(registered = Coalesce(Sum('participant__quantity', filter=Q(participant__user_id = request.user)),0),available = Coalesce(F('slot') - Sum('participant__quantity'),'slot'))
+        workshops = Workshop.objects.filter(is_special= True,date__gte = datetime.now(timezone(timedelta(hours=+7))) - timedelta(days=1),slot__gt = Coalesce(Sum('participant__quantity'),0)).annotate(registered = Coalesce(Sum('participant__quantity', filter=Q(participant__user_id = request.user)),0),available = Coalesce(F('slot') - Sum('participant__quantity'),'slot')).order_by('id')
     else:
         return redirect('users:login')
     #if email is not verified
