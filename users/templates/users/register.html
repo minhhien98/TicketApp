@@ -53,49 +53,48 @@
                                     {% endif %}
                                 </div>
                             </div>
-          
-                            <div class="row">
-                                <div class="col-md-6 mb-4 pb-2">                           
-                                    <div class="form-floating">
-                                        {{ form.last_name }}
-                                        <label>{{ form.last_name.label }}</label>
-                                        {% if form.last_name.errors %}
-                                        {% for err in form.last_name.errors %}
-                                        <span class="text-danger">{{ err }}</span>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </div>                           
-                                </div>
-
-                                <div class="col-md-6 mb-4 pb-2">                       
-                                    <div class="form-floating">
-                                        {{ form.first_name }}
-                                        <label>{{ form.first_name.label }}</label>
-                                        {% if form.first_name.errors %}
-                                        {% for err in form.first_name.errors %}
-                                        <span class="text-danger">{{ err }}</span>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </div>                   
-                                </div>
-                            </div>                                       
-                          </div>
+                            <div class="mb-4 pb-2">
+                              <div class="form-floating">
+                                {{ form.email }}
+                                <label >{{ form.email.label }}</label>
+                                {% if form.email.errors %}
+                                {% for err in form.email.errors %}
+                                <span class="text-danger">{{ err }}</span>
+                                {% endfor %}
+                                {% endif %}
+                              </div>
+                          </div>                                                                           
                         </div>
+                      </div>
 
                         <div class="col-lg-6">
                           <div class="p-5">
-                            <h3 class="fw-normal mb-5"></h3>
-                            <div class="mb-4 pb-2">
+                            <h3 class="fw-normal mb-5" style="color: #4835d4;">{% trans 'Thông tin cá nhân' %}</h3>                             
+                            <div class="row">
+                              <div class="col-md-6 mb-4 pb-2">
                                 <div class="form-floating">
-                                  {{ form.email }}
-                                  <label >{{ form.email.label }}</label>
-                                  {% if form.email.errors %}
-                                  {% for err in form.email.errors %}
+                                  {{ form.last_name }}
+                                  <label>{{ form.last_name.label }}</label>
+                                  {% if form.last_name.errors %}
+                                  {% for err in form.last_name.errors %}
                                   <span class="text-danger">{{ err }}</span>
                                   {% endfor %}
                                   {% endif %}
                                 </div>
-                              </div> 
+                              </div>
+
+                              <div class="col-md-6 mb-4 pb-2">                       
+                                  <div class="form-floating">
+                                      {{ form.first_name }}
+                                      <label>{{ form.first_name.label }}</label>
+                                      {% if form.first_name.errors %}
+                                      {% for err in form.first_name.errors %}
+                                      <span class="text-danger">{{ err }}</span>
+                                      {% endfor %}
+                                      {% endif %}
+                                  </div>                   
+                              </div>
+                          </div>
                               
                             <div class="mb-4 pb-2">
                               <div class="form-floating">
