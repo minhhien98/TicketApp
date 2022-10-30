@@ -1,9 +1,16 @@
-{% load i18n %}
-<p style="text-align: left;"><span style="font-size: large;">{% trans 'Xin chào' %} {{ fullname }}</span></p>
-{% blocktrans with workshop=workshop %}<p style="text-align: left;"><span style="font-size: large;">Chúc mừng bạn đã đăng ký thành công Đại hội Giới trẻ Mùa Chay Tổng giáo phận Sài Gòn<strong> CHO TIỀM NĂNG TRỖI DẬY</strong> với Workshop {{ workshop }}.</span></p>{% endblocktrans %}
-<p style="text-align: left;"><span style="font-size: large;">{% trans 'Vé tham dự Đại hội của bạn được đính kèm bên dưới. Bạn vui lòng lưu lại ảnh này để check-in tại cổng.' %}</span></p>
-<img src="cid:image.png" width="720" height="1280"/>
-<p>{% trans 'Hẹn gặp lại bạn vào ngày Đại hội:' %}</p>
-<strong>- {% trans 'Thời gian: Ngày' %} {{ date|date:'d/m/Y H:i' }}</strong>
-<strong>- {% trans 'Địa chỉ:' %} {{ address }}</strong>
-<p>{% trans 'Chúc các bạn nhiều sức khoẻ, niềm vui và bình an.' %}</p>
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <div>Xin chào {{ fullname }},</div>
+    <div>Cảm ơn bạn đã đăng ký tham dự Đại hội Giới trẻ TGP Sài Gòn ngày 19.11.2022 và hoàn tất thanh toán tiền vé.</div>
+    <p>Vé tham dự Đại hội của bạn được đính kèm bên dưới. Bạn vui lòng lưu lại ảnh này để check-in tại cổng.</p>
+    <img src="cid:image.png" width="720" height="1280"/>
+    <br>
+    <div>Hẹn gặp lại bạn tại Đại hội Giới trẻ TGP Sài Gòn ngày 19.11.2022</div>
+    <div>Exodus - Cùng nhau lên đường!</div>
+    <div>-----------------------------------</div>
+    <div>Mọi thông tin liên hệ xin vui lòng gửi tin nhắn cho BTC theo link: <a target="_blank" href="http://m.me/SG.YouthDay">http://m.me/SG.YouthDay</a></div>   
+</body>
+</html>

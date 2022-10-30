@@ -9,6 +9,7 @@ from users.forms import ChangePasswordForm, RegisterForm, UserProfileForm, Verif
 from users.methods import random_string_generator, send_email
 from users.models import UserExtend
 from django.utils.translation import gettext as _
+from django.conf import settings
 
 # Create your views here.
 
@@ -28,16 +29,13 @@ def register(request):
             userextend.save()
             #Send email function
             subject =_('Xác nhận email!')
-            template ='users/email_template.html'
-            title =_('Xác nhận email!')
-            content = _('Link xác nhận email( Thời hạn 1 ngày):')
-            link = request.scheme + '://' + request.get_host() +'/u/confirm-email/' + user.userextend.activation_key
+            template ='users/verify_email_template.html'
+            verify_link = request.scheme + '://' + request.get_host() +'/u/confirm-email/' + user.userextend.activation_key
+            home_link = settings.DOMAIN_NAME
             merge_data = {
-                'tittle':title,
-                'content':content,
-                'link':link,
-                'key': user.userextend.activation_key,
-                'username': user.username,
+                'fullname':user.last_name + ' ' + user.first_name,
+                'verify_link':verify_link,
+                'home_link':home_link,
             }
             send_email(template,subject,user.email,merge_data)
             return HttpResponseRedirect(reverse('users:register_success'))
@@ -153,16 +151,13 @@ def verify_email(request):
 
             #Send email function
             subject =_('Xác nhận email!')
-            template ='users/email_template.html'
-            title =_('Xác nhận email!')
-            content = _('Link xác nhận email( Thời hạn 1 ngày):')
-            link = request.scheme + '://' + request.get_host() +'/u/confirm-email/' + user.userextend.activation_key
+            template ='users/verify_email_template.html'
+            verify_link = request.scheme + '://' + request.get_host() +'/u/confirm-email/' + user.userextend.activation_key
+            home_link = settings.DOMAIN_NAME
             merge_data = {
-                'title':title,
-                'content':content,
-                'link':link,
-                'key': user.userextend.activation_key,
-                'username': user.username,
+                'fullname':user.last_name + ' ' + user.first_name,
+                'verify_link':verify_link,
+                'home_link':home_link,
             }
             send_email(template,subject,user.email,merge_data)
             messages.success(request,_('Đã gửi mail xác nhận. Xin vui lòng kiểm tra email.'))
@@ -187,11 +182,13 @@ def confirm_email(request,key):
         auth_logout(request)  
 
     #Send email function
+    link_home = settings.DOMAIN_NAME
     subject =_('Hướng dẫn chuyển khoản mua vé.')
     template ='users/how_to_buy_ticket_template.html'
     merge_data = {
          'fullname':user_extend.user_id.last_name + ' ' + user_extend.user_id.first_name,
-         'username': user_extend.user_id.username,
+         'link_home': link_home,
+         'username': user_extend.user_id.username
     }  
     send_email(template, subject, user_extend.user_id.email, merge_data)
     messages.success(request,_('Xác nhận Email Thành công. Bạn có thể đăng nhập ngay.'))

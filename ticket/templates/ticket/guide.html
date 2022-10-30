@@ -13,38 +13,36 @@
         <div class="d-flex align-items-center justify-content-center">
             <h2>EXODUS - CÙNG NHAU LÊN ĐƯỜNG </h2>      
         </div>
-        <div style="margin-top: 50px;">
-            <p>I.  Đăng ký và kích hoạt tài khoản trên hệ thống:</p>
-            <span><strong>Bước 1: </strong>Vào Trang Đăng Ký Mua Vé Đại Hội Giới Trẻ (kèm hyperlink) để tạo tài khoản mua vé.</span>
-            <br>
-            <span><strong>Bước 2: </strong>Nhập đầy đủ thông tin cần thiết (bạn lưu ý nhập đúng thông tin số điện thoại và địa chỉ email để hệ thống gửi có thể xác minh tài khoản và gửi vé)</span>
-            <br>
-            <span><strong>Bước 3: </strong> Vào email cá nhân để kiểm tra thư xác minh tài khoản (bạn nhớ kiểm tra trong mục SPAM nữa nhé!)</span>
-            <br>
-            <p><strong>Bước 4: </strong> Bạn mở thư xác minh và nhấp vào link để kích hoạt tài khoản</p>
-            <p>II.  Chuyển khoản:</p>
-            <span>Tại đây bạn có thể chuyển khoản theo thông tin mà BTC cung cấp để nhận được số lượng vé Đại hội hoặc số lượng voucher để đăng ký tham dự Workshop tương ứng.
-            </span>
-            <br>
-            <span class="text-danger"> Nội dung chuyển khoản là mã [tên user] +  vé thường [số lượng vé], Vé workshop + [số lượng vé].</span>
-            <br>
+        <br>
+        <div>
+            <div><strong>I. Đăng ký và kích hoạt tài khoản trên hệ thống:</strong></div>
+            <div>Bước 1: Vào Trang Đăng Ký Mua Vé Đại Hội Giới Trẻ <a target="_blank" href="{% url 'users:register' %}">tại đây</a> để tạo tài khoản mua vé.</div>
+            <div>Bước 2: Nhập đầy đủ thông tin cần thiết (bạn lưu ý nhập đúng thông tin số điện thoại và địa chỉ email để hệ thống gửi có thể xác minh tài khoản và gửi vé)</div>
+            <div>Bước 3: Vào email cá nhân để kiểm tra thư xác minh tài khoản (bạn nhớ kiểm tra trong mục SPAM nữa nhé!)</div>
+            <div>Bước 4: Bạn mở thư xác minh và nhấp vào link để kích hoạt tài khoản</div>
+            <div><strong>II. Chuyển khoản:</strong></div>
             <span>Có 2 loại vé là:</span>
             <ul>
-                <li>Vé Đại hội: 40.000 VNĐ/Vé</li>
-                <li>Voucher Workshop: 70.000 VNĐ/Vé</li>
+                <li>Vé Đại hội (không Workshop): 40.000 VNĐ/Vé</li>
+                <li>Vé Đại hội kèm Workshop: 70.000 VNĐ/Vé</li>
             </ul>
-            <p>Sau khi nhận được tiền, hệ thống sẽ gửi vé Đại hội qua email và cập nhật voucher workshop vào tài khoản đăng ký của bạn chậm nhất trong vòng 24h.</p>
-            <p>III.  Chọn workshop bạn muốn tham dự:</p>
-            <span><strong>Bước 1: </strong>Đăng nhập vào tài khoản đã kích hoạt thành công ở mục I</span>
+            <div>Ở bước này, bạn có thể chuyển khoản theo thông tin mà BTC cung cấp để nhận vé tương ứng. (Mỗi tài khoản có thể đăng ký một hoặc nhiều vé, nên các nhóm bạn có thể mua vé cùng nhau nè ^^)</div>
             <br>
-            <span><strong>Bước 2: </strong>Chọn workshop mà bạn muốn đăng ký:</span>
+            <div>Nội dung chuyển khoản: [tên user] - vé thường [số lượng vé Đại hội ] - WS [số lượng vé có Workshop]</div>
+            <div><strong>Ví dụ (đoạn trong ngoặc là giải thích thôi nha bạn ơi): </strong></div>
             <ul>
-                <li>1 Credit Vé Thường tương ứng với 1 vé tham dự đại hội không có workshop.</li>
-                <li>1 Credit Vé Workshop tương ứng với 1 vé đại hội có tham dự workshop chủ đề tương ứng.</li>
+                <li>NguyenVanA - VeThuong 3 - WS 1 ( bạn muốn mua 3 vé thường và 1 vé workshop)</li>
+                <li>TranThiB - VeThuong 0 - WS 3 (bạn chọn mua 3 vé workshop nè)</li>
+                <li>PhamVanC - VeThuong 5 - WS 0 (bạn mua 5 vé thường nhé)</li>
             </ul>
-            <span><strong>Bước 3: </strong>Sau khi chọn vé hệ thống sẽ gửi e-ticket có mã QR về địa chỉ email đăng ký tài khoản của bạn.</span>
-            <br>
-            <span>Như vậy là bạn đã hoàn thành việc đăng ký vé tham dự đại hội giới trẻ EXODUS - CÙNG NHAU LÊN ĐƯỜNG. Bạn nhớ mang theo e-ticket này vào ngày đại hội để check-in nhé!</span>
+            <p>Sau khi nhận được phí, hệ thống sẽ gửi vé Đại hội qua email và cập nhật voucher workshop vào tài khoản đăng ký của bạn chậm nhất trong vòng 24h.</p>
+            <p>Đến bước này, nếu bạn chỉ chọn vé thường, nhiệm vụ mua vé hoàn tất rồi đấy. Bạn có thể kiểm tra email, lưu E-ticket về điện thoại để check-in vào ngày đại hội thôi.</p>
+            <div>Còn với các bạn mua vé Workshop, bạn sẽ chủ động đăng nhập hệ thống để xuất vé cho chính mình theo hướng dẫn ở mục III nha.</div>
+            <div><strong>III. Chọn workshop bạn muốn tham dự:</strong></div>
+            <div>Bước 1: Đăng nhập vào tài khoản đã kích hoạt thành công ở mục I</div>
+            <div>Bước 2: Chọn chủ đề workshop với số lượng vé tương ứng đã đăng ký</div>
+            <div>Bước 3: Sau khi chọn vé hệ thống sẽ gửi e-ticket có mã QR về địa chỉ email đăng ký tài khoản của bạn.</div>
+            <div>Như vậy là bạn đã hoàn thành việc đăng ký vé tham dự đại hội giới trẻ EXODUS - CÙNG NHAU LÊN ĐƯỜNG. Bạn nhớ mang theo e-ticket này vào ngày đại hội để check-in nhé!</div>
         </div>  
     </div>
 </body>

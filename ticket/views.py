@@ -11,6 +11,7 @@ from ticket.methods import generate_qrcode, generate_ticket
 from ticket.models import Participant, Workshop
 from users.methods import send_email_img
 from django.utils.translation import gettext as _
+from django.conf import settings
 
 Logger = logging.getLogger("workshop_log")
 # Create your views here.
