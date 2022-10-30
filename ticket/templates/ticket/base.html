@@ -44,7 +44,7 @@
 
                     <li class="nav-item dropdown me-auto mb-2 mb-lg-0">
                         <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ user.get_username }}</a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu dropdown-menu-end">
                             <li>
                                 <li><a class="dropdown-item" href="{% url 'users:user_profile' %}">{% trans 'Thông tin cá nhân' %}</a></li>
                                 <li><a class="dropdown-item" href="{% url 'users:change_password' %}">{% trans 'Đổi mật khẩu' %}</a></li>
@@ -57,24 +57,7 @@
                                 </li>
                             </li>                                                                                          
                         </ul>
-                    </li>
-
-                    <li class="nav-item dropdown me-auto mb-2 mb-lg-0">
-                        <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">{% trans 'Ngôn ngữ' %}</a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <form id="change_language_form" name="change_language_form" method="post" action="/i18n/setlang/">
-                                {% csrf_token %}
-                                <input id="newLanguageInput" type="hidden" name="language" />
-                            {% get_current_language as LANGUAGE_CODE %}
-                            {% get_available_languages as LANGUAGES %}
-                            {% for language in LANGUAGES %}
-                            <li>
-                                <a class="dropdown-item" value="{{ language.0 }}" onclick="ChangeLanguage('{{ language.0 }}')">{{ language.1 }}</a>
-                            </li>                                
-                            {% endfor %}
-                            </form>                                                           
-                        </ul>
-                    </li>                      
+                    </li>                   
                 </ul>
             </div>
         </div>
@@ -95,7 +78,7 @@
             </li> 
             <li class="nav-item dropdown me-auto mb-2 mb-lg-0">
                 <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ user.get_username }}</a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu dropdown-menu-end">
                     <li>
                         <li><a class="dropdown-item" href="{% url 'users:user_profile' %}">{% trans 'Thông tin cá nhân' %}</a></li>
                         <li><a class="dropdown-item" href="{% url 'users:change_password' %}">{% trans 'Đổi mật khẩu' %}</a></li>
@@ -107,22 +90,6 @@
                             
                         </li>
                     </li>                                                                                          
-                </ul>
-            </li>
-            <li class="nav-item dropdown me-auto mb-2 mb-lg-0">
-                <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">{% trans 'Ngôn ngữ' %}</a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <form id="change_language_form_mobile" name="change_language_form_mobile" method="post" action="/i18n/setlang/">
-                        {% csrf_token %}
-                        <input id="newLanguageInput_mobile" type="hidden" name="language" />
-                        {% get_current_language as LANGUAGE_CODE %}
-                        {% get_available_languages as LANGUAGES %}
-                        {% for language in LANGUAGES %}
-                        <li>
-                            <a class="dropdown-item" value="{{ language.0 }}" onclick="ChangeLanguage('{{ language.0 }}')">{{ language.1 }}</a>
-                        </li>                                
-                        {% endfor %}
-                    </form>                                                           
                 </ul>
             </li>
           </ul>
@@ -151,22 +118,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'users:register' %}">{% trans 'Đăng ký' %}</a>
                     </li>
-                    <li class="nav-item dropdown me-auto mb-2 mb-lg-0">
-                        <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">{% trans 'Ngôn ngữ' %}</a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <form id="change_language_form" name="change_language_form" method="post" action="/i18n/setlang/">
-                                {% csrf_token %}
-                                <input id="newLanguageInput" type="hidden" name="language" />
-                            {% get_current_language as LANGUAGE_CODE %}
-                            {% get_available_languages as LANGUAGES %}
-                            {% for language in LANGUAGES %}
-                            <li>
-                                <a class="dropdown-item" value="{{ language.0 }}" onclick="ChangeLanguage('{{ language.0 }}')">{{ language.1 }}</a>
-                            </li>                                
-                            {% endfor %}
-                            </form>                                                           
-                        </ul>
-                    </li>
                 </ul>                                     
             </div> 
         </div>
@@ -191,22 +142,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'users:register' %}">{% trans 'Đăng ký' %}</a>
             </li>
-            <li class="nav-item dropdown me-auto mb-2 mb-lg-0">
-                <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">{% trans 'Ngôn ngữ' %}</a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <form id="change_language_form_mobile" name="change_language_form_mobile" method="post" action="/i18n/setlang/">
-                        {% csrf_token %}
-                        <input id="newLanguageInput_mobile" type="hidden" name="language" />
-                        {% get_current_language as LANGUAGE_CODE %}
-                        {% get_available_languages as LANGUAGES %}
-                        {% for language in LANGUAGES %}
-                        <li>
-                            <a class="dropdown-item" value="{{ language.0 }}" onclick="ChangeLanguage('{{ language.0 }}')">{{ language.1 }}</a>
-                        </li>                                
-                        {% endfor %}
-                    </form>                                                           
-                </ul>
-            </li>
           </ul>
         </div>
     </div>
@@ -217,18 +152,5 @@
 <body>
     {% block content %}
     {% endblock %}
-    <script type="text/javascript">
-        function ChangeLanguage(value) {
-            console.log(value);
-            document.getElementById('newLanguageInput').value = value;
-            document.forms['change_language_form'].submit();
-        }
-        function ChangeLanguageMobile(value) {
-            console.log(value);
-            document.getElementById('newLanguageInput_mobile').value = value;
-            document.forms['change_language_form_mobile'].submit();
-        }
-
-    </script>
 </body>
 </html>
