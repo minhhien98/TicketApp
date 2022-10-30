@@ -191,6 +191,5 @@ def confirm_email(request,key):
          'username': user_extend.user_id.username
     }  
     send_email(template, subject, user_extend.user_id.email, merge_data)
-    messages.success(request,_('Xác nhận Email Thành công. Bạn có thể đăng nhập ngay.'))
-    messages.success(request,_('Bạn có thể kiểm tra email để xem hướng dẫn mua vé hoặc vào trang hướng dẫn.'))
+    messages.success(request,_('Xác nhận email thành công, bạn có thể kiểm tra email hoặc đăng nhập xem hướng dẫn mua vé.'))
     return redirect('users:login')

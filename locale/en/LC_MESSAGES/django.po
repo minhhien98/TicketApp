@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-31 01:09+0700\n"
+"POT-Creation-Date: 2022-10-31 01:15+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -489,10 +489,7 @@ msgid "Hướng dẫn chuyển khoản mua vé."
 msgstr "Hướng dẫn chuyển khoản mua vé."
 
 #: .\users\views.py:194
-msgid "Xác nhận Email Thành công. Bạn có thể đăng nhập ngay."
-msgstr "Email is Verified. You can login now."
-
-#: .\users\views.py:195
 msgid ""
-"Bạn có thể kiểm tra email để xem hướng dẫn mua vé hoặc vào trang hướng dẫn."
-msgstr "You can check email for guide or go to guide page."
+"Xác nhận email thành công, bạn có thể kiểm tra email hoặc đăng nhập xem "
+"hướng dẫn mua vé."
+msgstr "Email is Verified. You can check email or login to see the guide."
