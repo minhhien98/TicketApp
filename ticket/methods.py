@@ -73,28 +73,28 @@ def add_text(bytes_img_with_qr, sText):
     return buffer.getvalue()
 
 # Google API
-scope = [
-        'https://www.googleapis.com/auth/drive',
-        'https://www.googleapis.com/auth/drive.file'
-        ]
-def add_participant_to_google_sheet(user_info): 
-    # Connect to google service account 
-    gc = gspread.service_account_from_dict(settings.GOOGLE_JSON_KEY,scopes=scope)
-    # Get Spreadsheet
-    sheet = gc.open_by_key(settings.SPREADSHEET_ID)
-    participant_worksheet = sheet.worksheet('Participant')
-    #Create new participant rows
-    row_count = len(participant_worksheet.get_all_values())
-    field_list = participant_worksheet.row_values(1)
-    col = 1
-    # Check if participant exist in spread, update exist participant and return
-    qr_exist = participant_worksheet.find(in_column=6,query=user_info.get('QRCode'))
-    if qr_exist is not None:
-        for field in field_list:       
-            participant_worksheet.update_cell(qr_exist.row,col,str(user_info.get(field)))
-            col +=1
-        return
-    # Add new Participant to google sheet
-    for field in field_list:       
-        participant_worksheet.update_cell(row_count + 1,col,str(user_info.get(field)))
-        col +=1
+# scope = [
+#         'https://www.googleapis.com/auth/drive',
+#         'https://www.googleapis.com/auth/drive.file'
+#         ]
+# def add_participant_to_google_sheet(user_info): 
+#     # Connect to google service account 
+#     gc = gspread.service_account_from_dict(settings.GOOGLE_JSON_KEY,scopes=scope)
+#     # Get Spreadsheet
+#     sheet = gc.open_by_key(settings.SPREADSHEET_ID)
+#     participant_worksheet = sheet.worksheet('Participant')
+#     #Create new participant rows
+#     row_count = len(participant_worksheet.get_all_values())
+#     field_list = participant_worksheet.row_values(1)
+#     col = 1
+#     # Check if participant exist in spread, update exist participant and return
+#     qr_exist = participant_worksheet.find(in_column=6,query=user_info.get('QRCode'))
+#     if qr_exist is not None:
+#         for field in field_list:       
+#             participant_worksheet.update_cell(qr_exist.row,col,str(user_info.get(field)))
+#             col +=1
+#         return
+#     # Add new Participant to google sheet
+#     for field in field_list:       
+#         participant_worksheet.update_cell(row_count + 1,col,str(user_info.get(field)))
+#         col +=1

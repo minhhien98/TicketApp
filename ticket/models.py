@@ -7,7 +7,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.utils.translation import gettext_lazy as _
 from django_resized import ResizedImageField
-from users.methods import add_participant_to_google_sheet
+#from users.methods import add_participant_to_google_sheet
 
 # Create your models here.
 class Workshop(models.Model):
@@ -42,22 +42,22 @@ class Participant(models.Model):
         return ' '
 
 # Signal
-@receiver(post_save,sender= Participant)
-def post_save_participant(sender, instance, *args, **kwargs):
-    user_info = {
-        "timestamp": instance.date.timestamp(),
-        "FullName": instance.user_id.last_name + ' ' + instance.user_id.first_name,
-        "Birthday": instance.user_id.userextend.birthdate.strftime("%d/%m/%Y"),
-        "PhoneNo": instance.user_id.userextend.phone_number,
-        "Email": instance.user_id.email,
-        "QRCode": instance.qrcode,
-        "Workshop": instance.workshop_id.id,
-        "CheckInStatus": "N",
-        "Parish": instance.user_id.userextend.parish,
-        "Address": instance.user_id.userextend.address,
-        "Group": instance.quantity,
-    }
-    add_participant_to_google_sheet(user_info)
+# @receiver(post_save,sender= Participant)
+# def post_save_participant(sender, instance, *args, **kwargs):
+#     user_info = {
+#         "timestamp": instance.date.timestamp(),
+#         "FullName": instance.user_id.last_name + ' ' + instance.user_id.first_name,
+#         "Birthday": instance.user_id.userextend.birthdate.strftime("%d/%m/%Y"),
+#         "PhoneNo": instance.user_id.userextend.phone_number,
+#         "Email": instance.user_id.email,
+#         "QRCode": instance.qrcode,
+#         "Workshop": instance.workshop_id.id,
+#         "CheckInStatus": "N",
+#         "Parish": instance.user_id.userextend.parish,
+#         "Address": instance.user_id.userextend.address,
+#         "Group": instance.quantity,
+#     }
+#     add_participant_to_google_sheet(user_info)
 
 # These two auto-delete files from filesystem when they are unneeded:
 @receiver(models.signals.post_delete, sender=Workshop)
