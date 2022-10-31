@@ -5,8 +5,9 @@ from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
 class RegisterForm(forms.Form):
-    username = forms.CharField(label=_('Tài khoản:'), required=True,min_length=5, max_length=20, widget=forms.TextInput(attrs={'class':'form-control','placeholder':_('Tài khoản')}),error_messages={'required':_('Xin hãy nhập tên tài khoản.'),'min_length':_('Tên tài khoản phải có ít nhất 5 ký tự.'),'max_length':_('Tên tài khoản chỉ dc tối đa 20 kí tự.')})
-    password = forms.CharField(label=_('Mật khẩu:'), required=True, min_length=5, widget=forms.TextInput(attrs={ 'class':'form-control', 'type':'password','placeholder':_('Mật khẩu')}),error_messages={'required':_('Xin hãy nhập mật khẩu.'),'min_length':_('Mật khẩu phải có ít nhất 5 kí tự.')})
+    alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$', 'Bạn không được nhập kí tự đặc biệt.')
+    username = forms.CharField(label=_('Tài khoản:'), required=True,min_length=5, max_length=20, validators=[alphanumeric],widget=forms.TextInput(attrs={'class':'form-control','placeholder':_('Tài khoản')}),error_messages={'required':_('Xin hãy nhập tên tài khoản.'),'min_length':_('Tên tài khoản phải có ít nhất 5 ký tự.'),'max_length':_('Tên tài khoản chỉ được tối đa 20 kí tự.')})
+    password = forms.CharField(label=_('Mật khẩu:'), required=True, min_length=5,max_length=20, widget=forms.TextInput(attrs={ 'class':'form-control', 'type':'password','placeholder':_('Mật khẩu')}),error_messages={'required':_('Xin hãy nhập mật khẩu.'),'min_length':_('Mật khẩu phải có ít nhất 5 kí tự.'),'max_length':_('Mật khẩu chỉ được tối đa 20 kí tự.')})
     confirm_password = forms.CharField(label=_('Xác nhận mật khẩu:'),required=True, widget=forms.TextInput(attrs={ 'class':'form-control','type':'password','placeholder':_('Xác nhận mật khẩu')}),error_messages={'required':_('Xin hãy nhập mật khẩu.')})        
     last_name = forms.CharField(label=_('Họ:'), required=True,widget=forms.TextInput(attrs={'class':'form-control','placeholder':_('Họ')}), error_messages={'required':_('Xin hãy nhập họ của bạn.')})
     first_name = forms.CharField(label=_('Tên:'),required=True, widget=forms.TextInput(attrs={'class':'form-control','placeholder':_('Tên')}), error_messages={'required':_('Xin hãy nhập tên của bạn.')})                                
@@ -63,4 +64,33 @@ class VerifyEmailForm(forms.Form):
         #check email and confirm email
         if str(email) != str(confirm_email):
             raise forms.ValidationError(_('Email không trùng khớp.'))
+        return data
+
+class ForgotPasswordForm(forms.Form):
+    username = forms.CharField(label=_('Tài khoản:'), required=True, widget=forms.TextInput(attrs={'class':'form-control','placeholder':_('Tài khoản')}),error_messages={'required':_('Xin hãy nhập tên tài khoản.')})
+
+    def clean(self):
+        data = super().clean()
+        username = data.get('username')
+        #check if username exist
+        user = User.objects.filter(username = username).first()
+        #if username not found
+        if user is None:
+            raise forms.ValidationError('Tài khoản không tồn tại.')
+        #if username not verify email yet
+        if not user.userextend.is_email_verified:
+            raise forms.ValidationError('Tài khoản chưa xác nhận email.')
+        return data
+
+class ResetPasswordForm(forms.Form):
+    new_password = forms.CharField(label =_('Mật khẩu mới:'),required=True, min_length=5,max_length=20 ,widget=forms.TextInput(attrs={ 'class':'form-control','type':'password','placeholder':_('Mật khẩu mới')}),error_messages={'required':_('Xin hãy nhập mật khẩu.'),'min_length':_('Mật khẩu phải có ít nhất 5 kí tự.'),'max_length':_('Mật khẩu chỉ được tối đa 20 kí tự.')})
+    confirm_password = forms.CharField(label=_('Xác nhận mật khẩu:'), widget=forms.TextInput(attrs={ 'class':'form-control','type':'password','placeholder':_('Xác nhận mật khẩu')}))
+
+    def clean(self):
+        data = super().clean()
+        #check new password and confirm new password
+        new_password = data.get('new_password')
+        confirm_password = data.get('confirm_password')
+        if new_password != confirm_password:
+            raise forms.ValidationError(_('Mật khẩu xác nhận ko trùng khớp.'))
         return data

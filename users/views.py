@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.models  import User
 from django.core.mail import get_connection
 from django.urls import reverse
-from users.forms import ChangePasswordForm, RegisterForm, UserProfileForm, VerifyEmailForm
+from users.forms import ChangePasswordForm, RegisterForm, ForgotPasswordForm, ResetPasswordForm, UserProfileForm, VerifyEmailForm
 from users.methods import get_client_ip, random_string_generator, send_email
 from users.models import UserExtend
 from django.utils.translation import gettext as _
@@ -182,6 +182,7 @@ def confirm_email(request,key):
     if user_extend.key_expires.replace(tzinfo=None) < datetime.utcnow():
         return HttpResponseNotFound()
     user_extend.is_email_verified = True
+    user_extend.activation_key = ''
     user_extend.save()
 
     #force logout if login in another account
@@ -200,3 +201,56 @@ def confirm_email(request,key):
     send_email(template, subject, user_extend.user_id.email, merge_data)
     messages.success(request,_('Xác nhận email thành công, bạn có thể kiểm tra email hoặc đăng nhập xem hướng dẫn mua vé.'))
     return redirect('users:login')
+
+def forgot_password(request):
+    if request.method == 'POST':
+        form = ForgotPasswordForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username') 
+            # get user
+            user = User.objects.filter(username = username).first()
+            user.userextend.activation_key = random_string_generator(length=15)
+            user.userextend.key_expires = datetime.now() + timedelta(days=1)            
+            user.userextend.save()
+            # send mail reset password
+            subject =_('Reset Password!')
+            template ='users/forgot_password_template.html'
+            verify_link = request.scheme + '://' + request.get_host() +'/u/reset-password/' + user.userextend.activation_key
+            home_link = settings.DOMAIN_NAME
+            merge_data = {
+                'fullname':user.last_name + ' ' + user.first_name,
+                'verify_link':verify_link,
+                'home_link':home_link,
+            }
+            send_email(template,subject,user.email,merge_data)
+            messages.success(request,_('Bạn vui lòng kiểm tra email để reset mật khẩu.'))
+            return HttpResponseRedirect(reverse('users:forgot_password'))
+        else:
+            return render(request,'users/forgot_password.html',{'form':form})
+    else:
+        form = ForgotPasswordForm()
+        return render(request,'users/forgot_password.html',{'form':form})
+
+def reset_password(request,key):
+    user_extend = get_object_or_404(UserExtend, activation_key = key)
+    # if key is out of date (1 day)
+    if user_extend.key_expires.replace(tzinfo=None) < datetime.utcnow():
+        return HttpResponseNotFound()
+    # force logout
+    if request.user.is_authenticated:
+        auth_logout(request)
+    
+    if request.method == 'POST':
+        form = ResetPasswordForm(request.POST)
+        if form.is_valid():
+            new_password = form.cleaned_data.get('new_password')
+            user_extend.user_id.set_password(new_password)
+            user_extend.activation_key = ''
+            user_extend.user_id.save()
+            messages.success(request,'Mật khẩu đã thay đổi, bạn có thể đăng nhập ngay.')
+            return redirect('users:login')
+        else:
+            return render(request,'users/reset_password.html',{'form':form})
+    else:
+        form = ResetPasswordForm()
+        return render(request,'users/reset_password.html',{'form':form})
