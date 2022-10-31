@@ -174,7 +174,7 @@ LOGGING = {
         'default': {
             'format': '{levelname} {asctime} {message}',
             'style': '{',
-            'datefmt':'%d/%b/%Y %H:%M:%S %z'
+            'datefmt':'%d/%m/%Y %H:%M:%S %z'
         },
     },
     'handlers': {
@@ -191,9 +191,15 @@ LOGGING = {
             'formatter':'default'
         },
         'admin_ticket_log_file': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.FileHandler',
             'filename': './Log/admin_ticket_log/'+ datetime.now(timezone(timedelta(hours=+7))).strftime('%d_%m_%Y.log'),
+            'formatter':'default',
+        },
+        'login_log_file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': './Log/login_log/'+ datetime.now(timezone(timedelta(hours=+7))).strftime('login-%d-%m-%Y.log'),
             'formatter':'default',
         },
         'backends_file': {
@@ -220,6 +226,11 @@ LOGGING = {
         },
         'admin_ticket_log': {
             'handlers': ['admin_ticket_log_file','console'],
+            'level': 'INFO',
+            'propagate': False,           
+        },
+        'login_log': {
+            'handlers': ['login_log_file','console'],
             'level': 'INFO',
             'propagate': False,           
         },

@@ -62,3 +62,11 @@ def add_participant_to_google_sheet(user_info):
     for field in field_list:       
         participant_worksheet.update_cell(last_row + 1,col,str(user_info.get(field)))
         col +=1
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip

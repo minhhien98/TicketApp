@@ -6,13 +6,14 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.models  import User
 from django.urls import reverse
 from users.forms import ChangePasswordForm, RegisterForm, UserProfileForm, VerifyEmailForm
-from users.methods import random_string_generator, send_email
+from users.methods import get_client_ip, random_string_generator, send_email
 from users.models import UserExtend
 from django.utils.translation import gettext as _
 from django.conf import settings
 
+import logging
+Logger = logging.getLogger("login_log")
 # Create your views here.
-
 def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -109,15 +110,18 @@ def login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        client_ip = get_client_ip(request)
         user = authenticate(request, username = username, password = password)
         if user is not None:
-            auth_login(request, user)
+            auth_login(request, user)         
+            Logger.info(f'{username} {client_ip} pass')
             #if user's email is not verified
             if not user.userextend.is_email_verified:
                 return redirect('users:verify_email')
 
             return HttpResponseRedirect(reverse('ticket:home'))
         else:
+            Logger.warning(f'{username} {client_ip} fail')
             messages.warning(request,_('Tài khoản/Mật khẩu không chính xác!'))
             return render(request,'users/login.html')
     else:
