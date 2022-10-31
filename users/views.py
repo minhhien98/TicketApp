@@ -116,14 +116,14 @@ def login(request):
         user = authenticate(request, username = username, password = password)
         if user is not None:
             auth_login(request, user)         
-            Logger.info(f'{username} {client_ip} pass')
+            Logger.info(f'{client_ip} pass {username}')
             #if user's email is not verified
             if not user.userextend.is_email_verified:
                 messages.warning(request,_('Tài khoản chưa xác nhận email. Bạn vui lòng xác nhận email để đăng nhập.'))
                 return redirect('users:verify_email')
             return HttpResponseRedirect(reverse('ticket:home'))
         else:
-            Logger.warning(f'{username} {client_ip} fail')
+            Logger.warning(f'{client_ip} fail {username}')
             messages.warning(request,_('Tài khoản/Mật khẩu không chính xác!'))
             return render(request,'users/login.html')
     else:
