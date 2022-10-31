@@ -4,6 +4,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.models  import User
+from django.core.mail import get_connection
 from django.urls import reverse
 from users.forms import ChangePasswordForm, RegisterForm, UserProfileForm, VerifyEmailForm
 from users.methods import get_client_ip, random_string_generator, send_email
@@ -28,7 +29,8 @@ def register(request):
                                    key_expires = datetime.now() + timedelta(minutes=30))
             user.save()
             userextend.save()
-            #Send email function
+            #Send mail to verify email function
+            connection = get_connection(host=settings.GMAIL_HOST,port=settings.GMAIL_PORT,username=settings.GMAIL_HOST_USER, password=settings.GMAIL_HOST_PASSWORD,use_tls=settings.GMAIL_USE_TLS)
             subject =_('Xác nhận email!')
             template ='users/verify_email_template.html'
             verify_link = request.scheme + '://' + request.get_host() +'/u/confirm-email/' + user.userextend.activation_key
@@ -38,7 +40,7 @@ def register(request):
                 'verify_link':verify_link,
                 'home_link':home_link,
             }
-            send_email(template,subject,user.email,merge_data)
+            send_email(template,subject,user.email,merge_data,connection)
             return HttpResponseRedirect(reverse('users:register_success'))
         else:
             return render(request,'users/register.html',{'form':form})
@@ -117,8 +119,8 @@ def login(request):
             Logger.info(f'{username} {client_ip} pass')
             #if user's email is not verified
             if not user.userextend.is_email_verified:
+                messages.warning(request,_('Tài khoản chưa xác nhận email. Bạn vui lòng xác nhận email để đăng nhập.'))
                 return redirect('users:verify_email')
-
             return HttpResponseRedirect(reverse('ticket:home'))
         else:
             Logger.warning(f'{username} {client_ip} fail')
@@ -149,11 +151,12 @@ def verify_email(request):
             email = form.cleaned_data.get('email') 
             user.email = email
             user.userextend.activation_key = random_string_generator(length=15)
-            user.userextend.key_expires = datetime.now()  + timedelta(days=1)            
+            user.userextend.key_expires = datetime.now() + timedelta(days=1)            
             user.save()
             user.userextend.save()
 
-            #Send email function
+            #Send mail to verify email function
+            connection = get_connection(host=settings.GMAIL_HOST,port=settings.GMAIL_PORT,username=settings.GMAIL_HOST_USER, password=settings.GMAIL_HOST_PASSWORD,use_tls=settings.GMAIL_USE_TLS)
             subject =_('Xác nhận email!')
             template ='users/verify_email_template.html'
             verify_link = request.scheme + '://' + request.get_host() +'/u/confirm-email/' + user.userextend.activation_key
@@ -163,7 +166,7 @@ def verify_email(request):
                 'verify_link':verify_link,
                 'home_link':home_link,
             }
-            send_email(template,subject,user.email,merge_data)
+            send_email(template,subject,user.email,merge_data,connection)
             messages.success(request,_('Đã gửi mail xác nhận. Xin vui lòng kiểm tra email.'))
             return HttpResponseRedirect(reverse('users:verify_email'))
         else:

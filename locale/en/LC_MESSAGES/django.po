@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-31 03:52+0700\n"
+"POT-Creation-Date: 2022-10-31 17:57+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -451,39 +451,44 @@ msgstr "Save"
 msgid "Xác nhận Email"
 msgstr "Email Verification"
 
-#: .\users\views.py:31 .\users\views.py:153
+#: .\users\views.py:34 .\users\views.py:160
 msgid "Xác nhận email!"
 msgstr "Email Verification!"
 
-#: .\users\views.py:53 .\users\views.py:85 .\users\views.py:134
+#: .\users\views.py:56 .\users\views.py:88 .\users\views.py:140
 msgid "Xin vui lòng đăng nhập."
 msgstr "Please Login."
 
-#: .\users\views.py:67
+#: .\users\views.py:70
 msgid "Đã Lưu"
 msgstr "Saved"
 
-#: .\users\views.py:93
+#: .\users\views.py:96
 msgid "Mật khẩu cũ không chính xác."
 msgstr "Old password is not valid."
 
-#: .\users\views.py:98
+#: .\users\views.py:101
 msgid "Thay đổi mật khẩu thành công."
 msgstr "Change password Successfully."
 
-#: .\users\views.py:121
+#: .\users\views.py:122
+msgid ""
+"Tài khoản chưa xác nhận email. Bạn vui lòng xác nhận email để đăng nhập."
+msgstr "Your account didn't verify email. Please verify email to login."
+
+#: .\users\views.py:127
 msgid "Tài khoản/Mật khẩu không chính xác!"
 msgstr "Invalid username/password!"
 
-#: .\users\views.py:163
+#: .\users\views.py:170
 msgid "Đã gửi mail xác nhận. Xin vui lòng kiểm tra email."
 msgstr "Verification mail has been sent. Please check your email."
 
-#: .\users\views.py:186
+#: .\users\views.py:193
 msgid "Hướng dẫn chuyển khoản mua vé."
 msgstr "Hướng dẫn chuyển khoản mua vé."
 
-#: .\users\views.py:194
+#: .\users\views.py:201
 msgid ""
 "Xác nhận email thành công, bạn có thể kiểm tra email hoặc đăng nhập xem "
 "hướng dẫn mua vé."
