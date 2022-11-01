@@ -1,11 +1,11 @@
-from django import forms
+from datetime import datetime, timedelta
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from django.core.mail import get_connection
-from users.methods import send_email
+from users.methods import random_string_generator, send_email
 from users.models import UserExtend
-from django.db.models import Sum, F
+from django.db.models import Sum
 from django.db.models.functions import Coalesce
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
@@ -78,6 +78,9 @@ class CustomUserExtendAdmin(admin.ModelAdmin):
     def send_multi_verify_email(self,request,queryset):
         for query in queryset:
             if not query.is_email_verified:
+                query.activation_key = random_string_generator(length=15)
+                query.key_expires = datetime.now() + timedelta(days=1)  
+                query.save()         
                 #Send mail to verify email function
                 connection = get_connection(host=settings.GMAIL_HOST,port=settings.GMAIL_PORT,username=settings.GMAIL_HOST_USER, password=settings.GMAIL_HOST_PASSWORD,use_tls=settings.GMAIL_USE_TLS)
                 subject =_('Xác nhận email!')
@@ -90,7 +93,7 @@ class CustomUserExtendAdmin(admin.ModelAdmin):
                     'fullname':query.user_id.last_name + ' ' + query.user_id.first_name,
                     'verify_link':verify_link,
                     'home_link':home_link,
-                }
+                }         
                 send_email(template,subject,to_emails,merge_data,connection)
         self.message_user(request,'Đã gửi email.')
         
