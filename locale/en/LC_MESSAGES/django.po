@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-31 17:57+0700\n"
+"POT-Creation-Date: 2022-11-01 22:29+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,7 +49,7 @@ msgstr "Available slot"
 msgid "Workshop đặc biệt"
 msgstr "Special workshop"
 
-#: .\ticket\models.py:18 .\users\forms.py:17 .\users\forms.py:38
+#: .\ticket\models.py:18 .\users\forms.py:18 .\users\forms.py:39
 #: .\users\models.py:29
 msgid "Địa chỉ"
 msgstr "Address"
@@ -62,7 +62,7 @@ msgstr "Ticket's template"
 msgid "Link giới thiệu"
 msgstr "Introduce Link"
 
-#: .\ticket\models.py:32 .\users\admin.py:38 .\users\admin.py:39
+#: .\ticket\models.py:32 .\users\admin.py:39 .\users\admin.py:40
 #: .\users\models.py:25
 msgid "Người dùng"
 msgstr "User"
@@ -79,42 +79,42 @@ msgstr "Quantity"
 msgid "Người tham gia"
 msgstr "Participant"
 
-#: .\ticket\templates\ticket\base.html:34
-#: .\ticket\templates\ticket\base.html:74
-#: .\ticket\templates\ticket\base.html:108
-#: .\ticket\templates\ticket\base.html:134
-#: .\ticket\templates\ticket\home.html:6 .\users\templates\users\base.html:34
-#: .\users\templates\users\base.html:74 .\users\templates\users\base.html:108
-#: .\users\templates\users\base.html:134
+#: .\ticket\templates\ticket\base.html:35
+#: .\ticket\templates\ticket\base.html:75
+#: .\ticket\templates\ticket\base.html:109
+#: .\ticket\templates\ticket\base.html:135
+#: .\ticket\templates\ticket\home.html:6 .\users\templates\users\base.html:35
+#: .\users\templates\users\base.html:75 .\users\templates\users\base.html:109
+#: .\users\templates\users\base.html:135
 msgid "Trang chủ"
 msgstr "Home"
 
-#: .\ticket\templates\ticket\base.html:37
-#: .\ticket\templates\ticket\base.html:77
-#: .\ticket\templates\ticket\base.html:111
-#: .\ticket\templates\ticket\base.html:137 .\users\templates\users\base.html:37
-#: .\users\templates\users\base.html:77 .\users\templates\users\base.html:111
-#: .\users\templates\users\base.html:137
+#: .\ticket\templates\ticket\base.html:38
+#: .\ticket\templates\ticket\base.html:78
+#: .\ticket\templates\ticket\base.html:112
+#: .\ticket\templates\ticket\base.html:138 .\users\templates\users\base.html:38
+#: .\users\templates\users\base.html:78 .\users\templates\users\base.html:112
+#: .\users\templates\users\base.html:138
 msgid "Hướng dẫn mua vé"
 msgstr "How to buy ticket"
 
-#: .\ticket\templates\ticket\base.html:42 .\users\models.py:32
-#: .\users\templates\users\base.html:42
+#: .\ticket\templates\ticket\base.html:43 .\users\models.py:32
+#: .\users\templates\users\base.html:43
 msgid "Vé Workshop"
 msgstr "Workshop Ticket"
 
-#: .\ticket\templates\ticket\base.html:49
-#: .\ticket\templates\ticket\base.html:83 .\users\templates\users\base.html:49
-#: .\users\templates\users\base.html:83
+#: .\ticket\templates\ticket\base.html:50
+#: .\ticket\templates\ticket\base.html:84 .\users\templates\users\base.html:50
+#: .\users\templates\users\base.html:84
 #: .\users\templates\users\register.html:72
 #: .\users\templates\users\user_profile.html:16
 #: .\users\templates\users\user_profile.html:83
 msgid "Thông tin cá nhân"
 msgstr "User's profile"
 
-#: .\ticket\templates\ticket\base.html:50
-#: .\ticket\templates\ticket\base.html:84 .\users\templates\users\base.html:50
-#: .\users\templates\users\base.html:84
+#: .\ticket\templates\ticket\base.html:51
+#: .\ticket\templates\ticket\base.html:85 .\users\templates\users\base.html:51
+#: .\users\templates\users\base.html:85
 #: .\users\templates\users\change_password.html:16
 #: .\users\templates\users\change_password.html:63
 #: .\users\templates\users\change_password.html:83
@@ -122,23 +122,23 @@ msgstr "User's profile"
 msgid "Đổi mật khẩu"
 msgstr "Change password"
 
-#: .\ticket\templates\ticket\base.html:54
-#: .\ticket\templates\ticket\base.html:88 .\users\templates\users\base.html:54
-#: .\users\templates\users\base.html:88
+#: .\ticket\templates\ticket\base.html:55
+#: .\ticket\templates\ticket\base.html:89 .\users\templates\users\base.html:55
+#: .\users\templates\users\base.html:89
 msgid "Đăng xuất"
 msgstr "Log out"
 
-#: .\ticket\templates\ticket\base.html:116
-#: .\ticket\templates\ticket\base.html:140
-#: .\users\templates\users\base.html:116 .\users\templates\users\base.html:140
+#: .\ticket\templates\ticket\base.html:117
+#: .\ticket\templates\ticket\base.html:141
+#: .\users\templates\users\base.html:117 .\users\templates\users\base.html:141
 #: .\users\templates\users\login.html:12 .\users\templates\users\login.html:32
 msgid "Đăng nhập"
 msgstr "Log in"
 
-#: .\ticket\templates\ticket\base.html:119
-#: .\ticket\templates\ticket\base.html:143
-#: .\ticket\templates\ticket\home.html:47 .\users\templates\users\base.html:119
-#: .\users\templates\users\base.html:143
+#: .\ticket\templates\ticket\base.html:120
+#: .\ticket\templates\ticket\base.html:144
+#: .\ticket\templates\ticket\home.html:57 .\users\templates\users\base.html:120
+#: .\users\templates\users\base.html:144
 #: .\users\templates\users\register.html:146
 msgid "Đăng ký"
 msgstr "Register"
@@ -147,28 +147,29 @@ msgstr "Register"
 msgid "Hướng dẫn mua vé."
 msgstr "How to buy ticket."
 
-#: .\ticket\templates\ticket\home.html:18
+#: .\ticket\templates\ticket\home.html:28
 msgid "ĐĂNG KÝ"
 msgstr "REGISTER"
 
-#: .\ticket\templates\ticket\home.html:19
+#: .\ticket\templates\ticket\home.html:29
 msgid "ĐÃ CHỌN"
 msgstr "SELECTED"
 
-#: .\ticket\templates\ticket\home.html:59
+#: .\ticket\templates\ticket\home.html:69
 msgid "Đăng ký Workshop"
 msgstr "Register Workshop"
 
-#: .\ticket\templates\ticket\home.html:62
+#: .\ticket\templates\ticket\home.html:72
 msgid "Tôi xác nhận đăng ký những workshop đã chọn."
 msgstr "Do you want to buy chosen workshops?"
 
-#: .\ticket\templates\ticket\home.html:67
+#: .\ticket\templates\ticket\home.html:77
+#: .\users\templates\users\reset_password.html:41
 #: .\users\templates\users\verify_email.html:41
 msgid "Xác nhận"
 msgstr "Verify"
 
-#: .\ticket\templates\ticket\home.html:68
+#: .\ticket\templates\ticket\home.html:78
 msgid "Hủy"
 msgstr "Cancel"
 
@@ -191,8 +192,9 @@ msgid "Xin vui lòng nhập số vé để đăng ký."
 msgstr "Please enter number of ticket to register."
 
 #: .\ticket\views.py:69
-msgid "Bạn không có đủ vé để đăng ký, xin vui lòng mua thêm vé."
-msgstr "You dont have enough ticket, please buy more tickets."
+msgid ""
+"Bạn vui lòng chuyển khoản theo hướng dẫn để được kích hoạt chức năng chọn vé."
+msgstr ""
 
 #: .\ticket\views.py:77
 #, python-brace-format
@@ -205,162 +207,175 @@ msgstr ""
 msgid "VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}"
 msgstr "VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}"
 
-#: .\ticket\views.py:116
+#: .\ticket\views.py:119
 msgid "Đăng ký vé thành công."
 msgstr "Registered Successfully"
 
-#: .\users\admin.py:52
+#: .\users\admin.py:58
 msgid "Họ tên"
 msgstr "Full name"
 
-#: .\users\admin.py:57
+#: .\users\admin.py:63
 msgid "Vé đã chọn"
 msgstr "Selected"
 
-#: .\users\admin.py:60
+#: .\users\admin.py:66
 msgid "Nhập vé cho người dùng."
 msgstr "Add ticket for user."
 
-#: .\users\forms.py:8
+#: .\users\admin.py:86 .\users\views.py:34 .\users\views.py:162
+msgid "Xác nhận email!"
+msgstr "Email Verification!"
+
+#: .\users\forms.py:9 .\users\forms.py:70
 msgid "Tài khoản:"
 msgstr "Username:"
 
-#: .\users\forms.py:8 .\users\templates\users\login.html:25
+#: .\users\forms.py:9 .\users\forms.py:70 .\users\templates\users\login.html:25
 #: .\users\templates\users\login.html:26
 msgid "Tài khoản"
 msgstr "Username"
 
-#: .\users\forms.py:8
+#: .\users\forms.py:9 .\users\forms.py:70
 msgid "Xin hãy nhập tên tài khoản."
 msgstr "Please enter your username."
 
-#: .\users\forms.py:8
+#: .\users\forms.py:9
 msgid "Tên tài khoản phải có ít nhất 5 ký tự."
 msgstr "Username must have atleast 5 characters."
 
-#: .\users\forms.py:8
-msgid "Tên tài khoản chỉ dc tối đa 20 kí tự."
+#: .\users\forms.py:9
+#, fuzzy
+#| msgid "Tên tài khoản chỉ dc tối đa 20 kí tự."
+msgid "Tên tài khoản chỉ được tối đa 20 kí tự."
 msgstr "Username can only have 20 characters."
 
-#: .\users\forms.py:9
+#: .\users\forms.py:10
 msgid "Mật khẩu:"
 msgstr "Password:"
 
-#: .\users\forms.py:9 .\users\templates\users\login.html:29
+#: .\users\forms.py:10 .\users\templates\users\login.html:29
 #: .\users\templates\users\login.html:30
 msgid "Mật khẩu"
 msgstr "Password"
 
-#: .\users\forms.py:9 .\users\forms.py:10 .\users\forms.py:43
+#: .\users\forms.py:10 .\users\forms.py:11 .\users\forms.py:44
+#: .\users\forms.py:86
 msgid "Xin hãy nhập mật khẩu."
 msgstr "Please enter your password."
 
-#: .\users\forms.py:9 .\users\forms.py:43
+#: .\users\forms.py:10 .\users\forms.py:44 .\users\forms.py:86
 msgid "Mật khẩu phải có ít nhất 5 kí tự."
 msgstr "Password must have atleast 5 characters."
 
-#: .\users\forms.py:10 .\users\forms.py:44
+#: .\users\forms.py:10 .\users\forms.py:86
+#, fuzzy
+#| msgid "Tên tài khoản chỉ dc tối đa 20 kí tự."
+msgid "Mật khẩu chỉ được tối đa 20 kí tự."
+msgstr "Username can only have 20 characters."
+
+#: .\users\forms.py:11 .\users\forms.py:45 .\users\forms.py:87
 msgid "Xác nhận mật khẩu:"
 msgstr "Confirm password:"
 
-#: .\users\forms.py:10 .\users\forms.py:44
+#: .\users\forms.py:11 .\users\forms.py:45 .\users\forms.py:87
 msgid "Xác nhận mật khẩu"
 msgstr "Confirm password"
 
-#: .\users\forms.py:11 .\users\forms.py:33
+#: .\users\forms.py:12 .\users\forms.py:34
 msgid "Họ:"
 msgstr "Last name:"
 
-#: .\users\forms.py:11 .\users\forms.py:33
+#: .\users\forms.py:12 .\users\forms.py:34
 msgid "Họ"
 msgstr "Last name"
 
-#: .\users\forms.py:11 .\users\forms.py:33
+#: .\users\forms.py:12 .\users\forms.py:34
 msgid "Xin hãy nhập họ của bạn."
 msgstr "Please enter your last name."
 
-#: .\users\forms.py:12 .\users\forms.py:34
+#: .\users\forms.py:13 .\users\forms.py:35
 msgid "Tên:"
 msgstr "First name:"
 
-#: .\users\forms.py:12 .\users\forms.py:34
+#: .\users\forms.py:13 .\users\forms.py:35
 msgid "Tên"
 msgstr "First name"
 
-#: .\users\forms.py:12 .\users\forms.py:34
+#: .\users\forms.py:13 .\users\forms.py:35
 msgid "Xin hãy nhập tên của bạn."
 msgstr "Please enter your first name."
 
-#: .\users\forms.py:13 .\users\forms.py:56 .\users\forms.py:57
+#: .\users\forms.py:14 .\users\forms.py:57 .\users\forms.py:58
 msgid "Xin hãy nhập email."
 msgstr "Please enter your email."
 
-#: .\users\forms.py:13 .\users\forms.py:56 .\users\forms.py:57
+#: .\users\forms.py:14 .\users\forms.py:57 .\users\forms.py:58
 msgid "Xin hãy nhập email hợp lệ."
 msgstr "Please enter valid email."
 
-#: .\users\forms.py:14 .\users\forms.py:35
+#: .\users\forms.py:15 .\users\forms.py:36
 msgid "Xin hãy nhập số điện thoại hợp lệ."
 msgstr "Please enter valid phone number."
 
-#: .\users\forms.py:15 .\users\forms.py:36
+#: .\users\forms.py:16 .\users\forms.py:37
 msgid "Số điện thoại:"
 msgstr "Phone number:"
 
-#: .\users\forms.py:15 .\users\forms.py:36 .\users\models.py:27
+#: .\users\forms.py:16 .\users\forms.py:37 .\users\models.py:27
 msgid "Số điện thoại"
 msgstr "Phone no."
 
-#: .\users\forms.py:16 .\users\forms.py:37
+#: .\users\forms.py:17 .\users\forms.py:38
 msgid "Ngày sinh:"
 msgstr "Birthdate:"
 
-#: .\users\forms.py:16 .\users\forms.py:37
+#: .\users\forms.py:17 .\users\forms.py:38
 msgid "Xin hãy nhập ngày sinh."
 msgstr "Please enter your birthdate."
 
-#: .\users\forms.py:17 .\users\forms.py:38
+#: .\users\forms.py:18 .\users\forms.py:39
 msgid "Địa chỉ:"
 msgstr "Address:"
 
-#: .\users\forms.py:18 .\users\forms.py:39
+#: .\users\forms.py:19 .\users\forms.py:40
 msgid "Giáo xứ:"
 msgstr "Parish:"
 
-#: .\users\forms.py:18 .\users\forms.py:39 .\users\models.py:30
+#: .\users\forms.py:19 .\users\forms.py:40 .\users\models.py:30
 msgid "Giáo xứ"
 msgstr "Parish"
 
-#: .\users\forms.py:26
+#: .\users\forms.py:27
 #, python-brace-format
 msgid "Tên tài khoản {username} đã tồn tại."
 msgstr "Username {username} already exist."
 
-#: .\users\forms.py:29 .\users\forms.py:52
+#: .\users\forms.py:30 .\users\forms.py:53 .\users\forms.py:95
 msgid "Mật khẩu xác nhận ko trùng khớp."
 msgstr "Confirm password doesn't match."
 
-#: .\users\forms.py:42
+#: .\users\forms.py:43
 msgid "Mật khẩu cũ:"
 msgstr "Old Password:"
 
-#: .\users\forms.py:42
+#: .\users\forms.py:43
 msgid "Mật khẩu cũ"
 msgstr "Old Password"
 
-#: .\users\forms.py:43
+#: .\users\forms.py:44 .\users\forms.py:86
 msgid "Mật khẩu mới:"
 msgstr "New Password:"
 
-#: .\users\forms.py:43
+#: .\users\forms.py:44 .\users\forms.py:86
 msgid "Mật khẩu mới"
 msgstr "New Password"
 
-#: .\users\forms.py:57
+#: .\users\forms.py:58
 msgid "Xác nhận Email:"
 msgstr "Confirm Email:"
 
-#: .\users\forms.py:65
+#: .\users\forms.py:66
 msgid "Email không trùng khớp."
 msgstr "Email didn't match."
 
@@ -422,9 +437,19 @@ msgstr "Hello"
 msgid "Xin chân thành cảm ơn"
 msgstr "Best regards"
 
+#: .\users\templates\users\forgot_password.html:41
+msgid "Gửi Email"
+msgstr ""
+
 #: .\users\templates\users\login.html:35
 msgid "Chưa có tài khoản? Đăng ký"
 msgstr "Don't have an Account? Sign up"
+
+#: .\users\templates\users\login.html:37
+#, fuzzy
+#| msgid "Xin hãy nhập mật khẩu."
+msgid "Bạn đã quên mật khẩu?"
+msgstr "Please enter your password."
 
 #: .\users\templates\users\register.html:19
 msgid "Đăng ký tài khoản"
@@ -451,45 +476,49 @@ msgstr "Save"
 msgid "Xác nhận Email"
 msgstr "Email Verification"
 
-#: .\users\views.py:34 .\users\views.py:160
-msgid "Xác nhận email!"
-msgstr "Email Verification!"
-
-#: .\users\views.py:56 .\users\views.py:88 .\users\views.py:140
+#: .\users\views.py:58 .\users\views.py:90 .\users\views.py:142
 msgid "Xin vui lòng đăng nhập."
 msgstr "Please Login."
 
-#: .\users\views.py:70
+#: .\users\views.py:72
 msgid "Đã Lưu"
 msgstr "Saved"
 
-#: .\users\views.py:96
+#: .\users\views.py:98
 msgid "Mật khẩu cũ không chính xác."
 msgstr "Old password is not valid."
 
-#: .\users\views.py:101
+#: .\users\views.py:103
 msgid "Thay đổi mật khẩu thành công."
 msgstr "Change password Successfully."
 
-#: .\users\views.py:122
+#: .\users\views.py:124
 msgid ""
 "Tài khoản chưa xác nhận email. Bạn vui lòng xác nhận email để đăng nhập."
 msgstr "Your account didn't verify email. Please verify email to login."
 
-#: .\users\views.py:127
+#: .\users\views.py:129
 msgid "Tài khoản/Mật khẩu không chính xác!"
 msgstr "Invalid username/password!"
 
-#: .\users\views.py:170
+#: .\users\views.py:174
 msgid "Đã gửi mail xác nhận. Xin vui lòng kiểm tra email."
 msgstr "Verification mail has been sent. Please check your email."
 
-#: .\users\views.py:193
+#: .\users\views.py:198
 msgid "Hướng dẫn chuyển khoản mua vé."
 msgstr "Hướng dẫn chuyển khoản mua vé."
 
-#: .\users\views.py:201
+#: .\users\views.py:208
 msgid ""
 "Xác nhận email thành công, bạn có thể kiểm tra email hoặc đăng nhập xem "
 "hướng dẫn mua vé."
 msgstr "Email is Verified. You can check email or login to see the guide."
+
+#: .\users\views.py:222
+msgid "Xác nhận đổi mật khẩu!"
+msgstr "Confirm change password!"
+
+#: .\users\views.py:234
+msgid "Bạn vui lòng kiểm tra email để đặt lại mật khẩu."
+msgstr "Please check your email for reset password."

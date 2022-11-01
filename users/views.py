@@ -219,7 +219,7 @@ def forgot_password(request):
             user.userextend.key_expires = datetime.now() + timedelta(days=1)            
             user.userextend.save()
             # send mail reset password
-            subject =_('Reset Password!')
+            subject =_('Xác nhận đổi mật khẩu!')
             template ='users/forgot_password_template.html'
             verify_link = request.scheme + '://' + request.get_host() +'/u/reset-password/' + user.userextend.activation_key
             home_link = settings.DOMAIN_NAME
@@ -231,7 +231,7 @@ def forgot_password(request):
                 'home_link':home_link,
             }
             send_email(template,subject,to_emails,merge_data)
-            messages.success(request,_('Bạn vui lòng kiểm tra email để reset mật khẩu.'))
+            messages.success(request,_('Bạn vui lòng kiểm tra email để đặt lại mật khẩu.'))
             return HttpResponseRedirect(reverse('users:forgot_password'))
         else:
             return render(request,'users/forgot_password.html',{'form':form})
@@ -255,7 +255,7 @@ def reset_password(request,key):
             user_extend.user_id.set_password(new_password)
             user_extend.activation_key = ''
             user_extend.user_id.save()
-            messages.success(request,'Mật khẩu đã thay đổi, bạn có thể đăng nhập ngay.')
+            messages.success(request,'Mật khẩu đã được thay đổi, bạn có thể đăng nhập ngay.')
             return redirect('users:login')
         else:
             return render(request,'users/reset_password.html',{'form':form})

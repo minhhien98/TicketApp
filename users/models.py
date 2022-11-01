@@ -106,7 +106,7 @@ def send_mail_after_add_ws_ticket(sender,instance, *args, **kwargs):
             merge_data = {
             'fullname': instance.user_id.last_name + ' ' + instance.user_id.first_name,
             'link_home': settings.DOMAIN_NAME,
-            'link_guide': settings.DOMAIN_NAME + '/guide',         
+            'link_guide': 'https://gioitresaigon.net/huong-dan-mua-ve-dhgt-2022.html',         
             }
             send_email(template,subject,to_emails,merge_data)
             

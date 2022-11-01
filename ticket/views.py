@@ -66,7 +66,7 @@ def home(request):
 
         #if total tickets excess current available user's ticket
         if user.userextend.special_ticket < total_ticket:
-            messages.warning(request,_('Bạn không có đủ vé để đăng ký, xin vui lòng mua thêm vé.'))
+            messages.warning(request,_('Bạn vui lòng chuyển khoản theo hướng dẫn để được kích hoạt chức năng chọn vé.'))
             return HttpResponseRedirect(reverse('ticket:home'))
 
         #if workshops slot excess
