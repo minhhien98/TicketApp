@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib import messages
@@ -26,7 +26,7 @@ def register(request):
                                    birthdate = form.cleaned_data.get('birthdate'),
                                    address= form.cleaned_data.get('address'), parish = form.cleaned_data.get('parish'),
                                    activation_key = random_string_generator(length=15),
-                                   key_expires = datetime.now() + timedelta(minutes=30))
+                                   key_expires = datetime.now() + timedelta(days=1))
             user.save()
             userextend.save()
             #Send mail to verify email function
@@ -150,6 +150,13 @@ def verify_email(request):
     if request.method == 'POST':
         form = VerifyEmailForm(request.POST)
         if form.is_valid():
+            # Check if mail is sent recently (1 minute)
+            if user.userextend.key_expires is not None:
+                minutes_ago = datetime.now(timezone(timedelta(hours=+0))) - timedelta(minutes=1)
+                key_created_date = user.userextend.key_expires - timedelta(days=1)
+                if minutes_ago < key_created_date:
+                    messages.warning(request,_('Mail vừa được gửi mới đây, xin vui lòng chờ.'))
+                    return render(request,'users/verify_email.html',{'form':form})  
             email = form.cleaned_data.get('email') 
             user.email = email
             user.userextend.activation_key = random_string_generator(length=15)
@@ -213,8 +220,14 @@ def forgot_password(request):
         form = ForgotPasswordForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username') 
-            # get user
             user = User.objects.filter(username = username).first()
+            # Check if mail is sent recently (1 minute)
+            if user.userextend.key_expires is not None:
+                minutes_ago = datetime.now(timezone(timedelta(hours=+0))) - timedelta(minutes=1)
+                key_created_date = user.userextend.key_expires - timedelta(days=1)
+                if minutes_ago < key_created_date:
+                    messages.warning(request,_('Mail vừa được gửi mới đây, xin vui lòng chờ.'))
+                    return render(request,'users/forgot_password.html',{'form':form}) 
             user.userextend.activation_key = random_string_generator(length=15)
             user.userextend.key_expires = datetime.now() + timedelta(days=1)            
             user.userextend.save()
