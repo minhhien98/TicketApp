@@ -219,7 +219,7 @@ def forgot_password(request):
             user.userextend.key_expires = datetime.now() + timedelta(days=1)            
             user.userextend.save()
             # send mail reset password
-            subject =_('Xác nhận đổi mật khẩu!')
+            subject =_('Xác nhận đổi mật khẩu')
             template ='users/forgot_password_template.html'
             verify_link = request.scheme + '://' + request.get_host() +'/u/reset-password/' + user.userextend.activation_key
             home_link = settings.DOMAIN_NAME
