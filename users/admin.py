@@ -53,7 +53,7 @@ class CustomUserExtendAdmin(admin.ModelAdmin):
         return email
     get_email.short_description = 'email'
     def get_fullname(self, obj):
-        fullname = obj.user_id.last_name + obj.user_id.first_name
+        fullname = obj.user_id.last_name + ' ' + obj.user_id.first_name
         return fullname
     get_fullname.short_description = _('Họ tên')
 
