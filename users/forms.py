@@ -65,6 +65,9 @@ class VerifyEmailForm(forms.Form):
         data = super().clean()
         email = data.get('email')
         confirm_email = data.get('confirm_email')
+        # check if email is used
+        if User.objects.filter(email=email,userextend__is_email_verified = True).exists():
+            raise forms.ValidationError('Email đã được sử dụng.')
         #check email and confirm email
         if str(email) != str(confirm_email):
             raise forms.ValidationError(_('Email không trùng khớp.'))
