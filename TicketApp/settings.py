@@ -196,6 +196,12 @@ LOGGING = {
             'filename': './Log/admin_ticket_log/'+ datetime.now(timezone(timedelta(hours=+7))).strftime('%d_%m_%Y.log'),
             'formatter':'default',
         },
+        'error_log_file': {
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'filename': './Log/error_log/'+ datetime.now(timezone(timedelta(hours=+7))).strftime('%d_%m_%Y.log'),
+            'formatter':'default',
+        },
         'login_log_file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
@@ -237,6 +243,11 @@ LOGGING = {
         'django.db.backends': {
             'level': 'DEBUG',
             'handlers': ['backends_file']
+        },
+        'django.request':{
+            'handlers': ['error_log_file'],
+            'level': 'ERROR',
+            'propagate': True,
         }
     }
 }
