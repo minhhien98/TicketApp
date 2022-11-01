@@ -23,8 +23,12 @@ class RegisterForm(forms.Form):
         data = super().clean()
         #check username exist
         username = data.get('username')
+        email = data.get('email')
         if User.objects.filter(username=username).exists():
             self.add_error('username',_('Tên tài khoản {username} đã tồn tại.').format(username=username))
+        # if email exists
+        if User.objects.filter(email = email).exists():
+            self.add_error('email','Email đã được sử dụng.')
         #check password and confirm password
         if data.get('password') != data.get('confirm_password'):
             self.add_error('confirm_password',_('Mật khẩu xác nhận ko trùng khớp.'))
