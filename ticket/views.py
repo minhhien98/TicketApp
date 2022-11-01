@@ -100,14 +100,17 @@ def home(request):
                     #Send email function                   
                     subject =_('VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}').format(year=str(datetime.utcnow().year),last_name=user.last_name,first_name=user.first_name)
                     template = 'ticket/send_ticket_template.html'
+                    to_emails = []
+                    to_emails.append(user.email)
+                    bcc =[]
+                    bcc.append(settings.GMAIL_HOST_USER)
                     merge_data = {
                         'fullname': user.last_name + ' ' + user.first_name,
                         'workshop': workshop.name,  
                         'date':workshop.date,
                         'address':workshop.address               
                     }
-                    send_email_img(template,subject,user.email,merge_data,byte_ticket_img)
-
+                    send_email_img(template,subject,to_emails,merge_data,byte_ticket_img,bcc=bcc)
                     participant.save()
                     user.userextend.save()
                     # Logger

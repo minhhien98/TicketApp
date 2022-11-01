@@ -13,22 +13,25 @@ def random_string_generator(length):
 
     return ''.join(random.choices(uppercase_string + lowercase_string + digit_string, k=length))
 
-def send_email(template,subject,email,merge_data,connection=None):
+def send_email(template,subject,to_emails,merge_data,connection=None,bcc=None):
     html_content = render_to_string(template, merge_data)
     message = EmailMultiAlternatives(
         subject= subject,  
-        to = [email],
+        to = to_emails,
         connection=connection,
+        bcc=bcc,
     )
     message.attach_alternative(html_content,'text/html')
     message.send(fail_silently=False)
 
-def send_email_img(template,subject,email,merge_data,img,connection=None):
+def send_email_img(template,subject,to_emails,merge_data,img,connection=None,bcc=None):
     html_content = render_to_string(template, merge_data)
+    print(to_emails)
     message = EmailMultiAlternatives(
         subject= subject,  
-        to = [email],
+        to = to_emails,
         connection=connection,
+        bcc=bcc,
     )
     if img:
         mime_image = MIMEImage(img)

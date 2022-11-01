@@ -2,12 +2,13 @@ from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from django.forms import BaseModelFormSet
-from ticket.models import Workshop
+from django.core.mail import get_connection
+from users.methods import send_email
 from users.models import UserExtend
 from django.db.models import Sum, F
 from django.db.models.functions import Coalesce
 from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 import logging
 
 Logger = logging.getLogger("admin_ticket_log")
@@ -42,10 +43,15 @@ class CustomUserAdmin(BaseUserAdmin):
     search_fields =['username','first_name','last_name','email']
     save_on_top = True
 class CustomUserExtendAdmin(admin.ModelAdmin):
-    list_display=['user_id','get_fullname','phone_number','ticket','special_ticket','get_selected_ticket']
+    list_display=['user_id','get_fullname','get_email','is_email_verified','ticket','special_ticket','get_selected_ticket']
     search_fields=['user_id__username','user_id__last_name','user_id__first_name','phone_number','user_id__email']
     list_editable=['ticket','special_ticket']   
+    actions=['send_multi_verify_email']
 
+    def get_email(self,obj):
+        email = obj.user_id.email
+        return email
+    get_email.short_description = 'email'
     def get_fullname(self, obj):
         fullname = obj.user_id.last_name + obj.user_id.first_name
         return fullname
@@ -67,6 +73,29 @@ class CustomUserExtendAdmin(admin.ModelAdmin):
         if 'special_ticket' in form.changed_data:
             Logger.info('{user} changed {obj_username}\'s Workshop ticket from {old_ticket} to {new_ticket}.'.format(user = request.user, obj_username = obj.user_id.username ,old_ticket = form.initial.get('special_ticket'), new_ticket = obj.special_ticket))
         return 
+    
+    @admin.action(description='Gửi mail xác nhận cho nhiều Email')
+    def send_multi_verify_email(self,request,queryset):
+        for query in queryset:
+            if not query.is_email_verified:
+                #Send mail to verify email function
+                connection = get_connection(host=settings.GMAIL_HOST,port=settings.GMAIL_PORT,username=settings.GMAIL_HOST_USER, password=settings.GMAIL_HOST_PASSWORD,use_tls=settings.GMAIL_USE_TLS)
+                subject =_('Xác nhận email!')
+                template ='users/verify_email_template.html'
+                verify_link = request.scheme + '://' + request.get_host() +'/u/confirm-email/' + query.activation_key
+                home_link = settings.DOMAIN_NAME
+                to_emails=[]
+                to_emails.append(query.user_id.email)
+                merge_data = {
+                    'fullname':query.user_id.last_name + ' ' + query.user_id.first_name,
+                    'verify_link':verify_link,
+                    'home_link':home_link,
+                }
+                send_email(template,subject,to_emails,merge_data,connection)
+        self.message_user(request,'Đã gửi email.')
+        
+
+
         
     
 # Register your models

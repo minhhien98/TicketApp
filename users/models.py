@@ -75,13 +75,17 @@ def send_normal_ticket(sender,instance,*args, **kwargs):
         #Send email function                   
         subject =_('VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ {year} của {last_name} {first_name}').format(year=str(datetime.utcnow().year),last_name=instance.user_id.last_name,first_name=instance.user_id.first_name)
         template = 'ticket/send_ticket_template.html'
+        to_emails=[]
+        to_emails.append(instance.user_id.email)
+        bcc =[]
+        bcc.append(settings.GMAIL_HOST_USER)
         merge_data = {
             'fullname': instance.user_id.last_name + ' ' + instance.user_id.first_name,
             'workshop': normal_workshop.name,  
             'date':normal_workshop.date,
             'address':normal_workshop.address               
         }
-        send_email_img(template,subject,instance.user_id.email,merge_data,byte_ticket_img)            
+        send_email_img(template,subject,to_emails,merge_data,byte_ticket_img,bcc)            
 
         instance.ticket = 0
         instance.save()
@@ -97,12 +101,14 @@ def send_mail_after_add_ws_ticket(sender,instance, *args, **kwargs):
              #Send email function                   
             subject = 'Xác nhận chuyển khoản!'
             template = 'users/notify_after_added_ticket_template.html'
+            to_emails=[]
+            to_emails.append(instance.user_id.email)
             merge_data = {
             'fullname': instance.user_id.last_name + ' ' + instance.user_id.first_name,
             'link_home': settings.DOMAIN_NAME,
             'link_guide': settings.DOMAIN_NAME + '/guide',         
             }
-            send_email(template,subject,instance.user_id.email,merge_data)
+            send_email(template,subject,to_emails,merge_data)
             
 
 

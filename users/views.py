@@ -35,12 +35,14 @@ def register(request):
             template ='users/verify_email_template.html'
             verify_link = request.scheme + '://' + request.get_host() +'/u/confirm-email/' + user.userextend.activation_key
             home_link = settings.DOMAIN_NAME
+            to_emails=[]
+            to_emails.append(user.email)
             merge_data = {
                 'fullname':user.last_name + ' ' + user.first_name,
                 'verify_link':verify_link,
                 'home_link':home_link,
             }
-            send_email(template,subject,user.email,merge_data,connection)
+            send_email(template,subject,to_emails,merge_data,connection)
             return HttpResponseRedirect(reverse('users:register_success'))
         else:
             return render(request,'users/register.html',{'form':form})
@@ -161,12 +163,14 @@ def verify_email(request):
             template ='users/verify_email_template.html'
             verify_link = request.scheme + '://' + request.get_host() +'/u/confirm-email/' + user.userextend.activation_key
             home_link = settings.DOMAIN_NAME
+            to_emails=[]
+            to_emails.append(user.email)
             merge_data = {
                 'fullname':user.last_name + ' ' + user.first_name,
                 'verify_link':verify_link,
                 'home_link':home_link,
             }
-            send_email(template,subject,user.email,merge_data,connection)
+            send_email(template,subject,to_emails,merge_data,connection)
             messages.success(request,_('Đã gửi mail xác nhận. Xin vui lòng kiểm tra email.'))
             return HttpResponseRedirect(reverse('users:verify_email'))
         else:
@@ -193,12 +197,14 @@ def confirm_email(request,key):
     link_home = settings.DOMAIN_NAME
     subject =_('Hướng dẫn chuyển khoản mua vé.')
     template ='users/how_to_buy_ticket_template.html'
+    to_emails=[]
+    to_emails.append(user_extend.user_id.email)
     merge_data = {
          'fullname':user_extend.user_id.last_name + ' ' + user_extend.user_id.first_name,
          'link_home': link_home,
          'username': user_extend.user_id.username
     }  
-    send_email(template, subject, user_extend.user_id.email, merge_data)
+    send_email(template, subject,to_emails , merge_data)
     messages.success(request,_('Xác nhận email thành công, bạn có thể kiểm tra email hoặc đăng nhập xem hướng dẫn mua vé.'))
     return redirect('users:login')
 
@@ -217,12 +223,14 @@ def forgot_password(request):
             template ='users/forgot_password_template.html'
             verify_link = request.scheme + '://' + request.get_host() +'/u/reset-password/' + user.userextend.activation_key
             home_link = settings.DOMAIN_NAME
+            to_emails=[]
+            to_emails.append(user.email)
             merge_data = {
                 'fullname':user.last_name + ' ' + user.first_name,
                 'verify_link':verify_link,
                 'home_link':home_link,
             }
-            send_email(template,subject,user.email,merge_data)
+            send_email(template,subject,to_emails,merge_data)
             messages.success(request,_('Bạn vui lòng kiểm tra email để reset mật khẩu.'))
             return HttpResponseRedirect(reverse('users:forgot_password'))
         else:
