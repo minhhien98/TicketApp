@@ -78,7 +78,7 @@ def send_normal_ticket(sender,instance,*args, **kwargs):
         to_emails=[]
         to_emails.append(instance.user_id.email)
         bcc =[]
-        bcc.append(settings.GMAIL_HOST_USER)
+        bcc.append('dhgttgpsaigon@gmail.com')
         merge_data = {
             'fullname': instance.user_id.last_name + ' ' + instance.user_id.first_name,
             'workshop': normal_workshop.name,  

@@ -103,7 +103,7 @@ def home(request):
                     to_emails = []
                     to_emails.append(user.email)
                     bcc =[]
-                    bcc.append(settings.GMAIL_HOST_USER)
+                    bcc.append('dhgttgpsaigon@gmail.com')
                     merge_data = {
                         'fullname': user.last_name + ' ' + user.first_name,
                         'workshop': workshop.name,  
