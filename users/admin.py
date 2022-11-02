@@ -43,7 +43,7 @@ class CustomUserAdmin(BaseUserAdmin):
     search_fields =['username','first_name','last_name','email']
     save_on_top = True
 class CustomUserExtendAdmin(admin.ModelAdmin):
-    list_display=['user_id','get_fullname','get_email','is_email_verified','ticket','input_special_ticket','special_ticket','get_selected_normal_ticket','get_selected_ws_ticket']
+    list_display=['user_id','get_fullname','get_email','is_email_verified','ticket','get_selected_normal_ticket','input_special_ticket','special_ticket','get_selected_ws_ticket']
     search_fields=['user_id__username','user_id__last_name','user_id__first_name','phone_number','user_id__email']
     list_editable=['ticket','input_special_ticket']   
     actions=['send_multi_verify_email']
@@ -61,12 +61,12 @@ class CustomUserExtendAdmin(admin.ModelAdmin):
     def get_selected_normal_ticket(self, obj):
         quantity = obj.user_id.participant_set.filter(workshop_id__name ='Normal Workshop').aggregate(sum =Coalesce(Sum('quantity'),0))['sum']   
         return quantity
-    get_selected_normal_ticket.short_description = _('Vé thường đã chọn')
+    get_selected_normal_ticket.short_description = _('Vé thường đã gửi')
 
     def get_selected_ws_ticket(self,obj):
         quantity = obj.user_id.participant_set.filter(workshop_id__is_special = True).aggregate(sum =Coalesce(Sum('quantity'),0))['sum'] 
         return quantity
-    get_selected_ws_ticket.short_description='Vé Workshop đã chọn'
+    get_selected_ws_ticket.short_description='Vé ws đã gửi'
 
     def changelist_view(self, request, extra_context=None):
         extra_context = {'title': _('Nhập vé cho người dùng.')}
