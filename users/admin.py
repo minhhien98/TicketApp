@@ -43,35 +43,41 @@ class CustomUserAdmin(BaseUserAdmin):
     search_fields =['username','first_name','last_name','email']
     save_on_top = True
 class CustomUserExtendAdmin(admin.ModelAdmin):
-    list_display=['user_id','get_fullname','get_email','is_email_verified','ticket','special_ticket','get_selected_ticket']
+    list_display=['user_id','get_fullname','get_email','is_email_verified','ticket','input_special_ticket','special_ticket','get_selected_normal_ticket','get_selected_ws_ticket']
     search_fields=['user_id__username','user_id__last_name','user_id__first_name','phone_number','user_id__email']
-    list_editable=['ticket','special_ticket']   
+    list_editable=['ticket','input_special_ticket']   
     actions=['send_multi_verify_email']
 
     def get_email(self,obj):
         email = obj.user_id.email
         return email
     get_email.short_description = 'email'
+
     def get_fullname(self, obj):
         fullname = obj.user_id.last_name + ' ' + obj.user_id.first_name
         return fullname
     get_fullname.short_description = _('Họ tên')
 
-    def get_selected_ticket(self, obj):
-        quantity = obj.user_id.participant_set.aggregate(sum =Coalesce(Sum('quantity'),0))['sum']   
+    def get_selected_normal_ticket(self, obj):
+        quantity = obj.user_id.participant_set.filter(workshop_id__name ='Normal Workshop').aggregate(sum =Coalesce(Sum('quantity'),0))['sum']   
         return quantity
-    get_selected_ticket.short_description = _('Vé đã chọn')
+    get_selected_normal_ticket.short_description = _('Vé thường đã chọn')
+
+    def get_selected_ws_ticket(self,obj):
+        quantity = obj.user_id.participant_set.filter(workshop_id__is_special = True).aggregate(sum =Coalesce(Sum('quantity'),0))['sum'] 
+        return quantity
+    get_selected_ws_ticket.short_description='Vé Workshop đã chọn'
 
     def changelist_view(self, request, extra_context=None):
         extra_context = {'title': _('Nhập vé cho người dùng.')}
         return super(CustomUserExtendAdmin, self).changelist_view(request, extra_context=extra_context)
 
-    def save_model(self, request, obj, form, change):
-        super().save_model(request, obj, form, change)
+    def save_model(self, request, obj, form, change): 
+        super().save_model(request, obj, form, change)      
         if 'ticket' in form.changed_data:
             Logger.info('{user} added {ticket} normal ticket(s) to {obj_username} and exported to {obj_username}\'s email.'.format(user = request.user, obj_username = obj.user_id.username ,ticket = form.cleaned_data.get('ticket')))
-        if 'special_ticket' in form.changed_data:
-            Logger.info('{user} changed {obj_username}\'s Workshop ticket from {old_ticket} to {new_ticket}.'.format(user = request.user, obj_username = obj.user_id.username ,old_ticket = form.initial.get('special_ticket'), new_ticket = obj.special_ticket))
+        if 'input_special_ticket' in form.changed_data:
+            Logger.info('{user} added {input_special_ticket} Workshop ticket(s) to {obj_username}.'.format(user = request.user, obj_username = obj.user_id.username ,input_special_ticket = form.cleaned_data.get('input_special_ticket')))
         return 
     
     @admin.action(description='Gửi mail xác nhận cho nhiều Email')

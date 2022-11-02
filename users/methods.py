@@ -26,7 +26,6 @@ def send_email(template,subject,to_emails,merge_data,connection=None,bcc=None):
 
 def send_email_img(template,subject,to_emails,merge_data,img,connection=None,bcc=None):
     html_content = render_to_string(template, merge_data)
-    print(to_emails)
     message = EmailMultiAlternatives(
         subject= subject,  
         to = to_emails,

@@ -28,7 +28,8 @@ class UserExtend(models.Model):
     birthdate = models.DateField(verbose_name=_('Ngày sinh'), default= datetime.now)
     address = models.CharField(verbose_name=_('Địa chỉ'), blank=True, max_length=254)   
     parish = models.CharField(verbose_name=_('Giáo xứ'), blank=True, max_length=100)
-    ticket = models.IntegerField(verbose_name=_('Vé thường'),default=0)
+    ticket = models.IntegerField(verbose_name=_('Nhập vé thường'),default=0)
+    input_special_ticket = models.PositiveIntegerField(verbose_name="Nhập vé Workshop", default = 0)
     special_ticket = models.IntegerField(verbose_name=_('Vé Workshop'),default=0)
 
     is_email_verified = models.BooleanField(verbose_name=_('Đã xác nhận Email'),default= False)
@@ -51,6 +52,10 @@ class UserExtend(models.Model):
            #check if normal workshop slot still available
             if normal_workshop.available < self.ticket:
                 raise ValidationError(_('Bạn chỉ có thể thêm {available} vé thường.').format(available = str(normal_workshop.available)))
+
+        if self.input_special_ticket > 0:
+            if self.is_email_verified == False:
+                raise ValidationError(_('Tài khoản {username} chưa xác nhận email.').format(username = self.user_id.username))
             return super().clean()
             
 @receiver(post_save,sender = UserExtend)
@@ -64,7 +69,7 @@ def send_normal_ticket(sender,instance,*args, **kwargs):
         #add participant to normal workshop
         qrcode = generate_qrcode()
         participant = Participant(workshop_id = normal_workshop,user_id = instance.user_id,quantity = instance.ticket,qrcode = qrcode)
-        participant.save()   
+         
         # Send Ticket to Email
         fullname = instance.user_id.last_name + ' ' + instance.user_id.first_name
         shortcode = fullname + ' ' + str(participant.quantity)
@@ -85,20 +90,25 @@ def send_normal_ticket(sender,instance,*args, **kwargs):
             'date':normal_workshop.date,
             'address':normal_workshop.address               
         }
-        send_email_img(template,subject,to_emails,merge_data,byte_ticket_img,bcc)            
+        send_email_img(template,subject,to_emails,merge_data,byte_ticket_img,bcc=bcc)            
 
         instance.ticket = 0
+        participant.save()  
         instance.save()
 
         # Logger
         Logger.info(f'{instance.user_id.username} registered {normal_workshop.name} ticket. Quantity: {participant.quantity}')
     
-@receiver(pre_save, sender=UserExtend)
-def send_mail_after_add_ws_ticket(sender,instance, *args, **kwargs):
+@receiver(post_save, sender=UserExtend)
+def add_ws_ticket(sender,instance, *args, **kwargs):
     if instance.id:
-        old_user_extend = UserExtend.objects.get(id = instance.id)
-        if instance.special_ticket > old_user_extend.special_ticket:
-             #Send email function                   
+        if instance.input_special_ticket > 0:
+            # add special ticket
+            instance.special_ticket += instance.input_special_ticket
+            # minus all input to zero
+            instance.input_special_ticket = 0
+            instance.save()
+            #Send email function                   
             subject = 'Xác nhận chuyển khoản!'
             template = 'users/notify_after_added_ticket_template.html'
             to_emails=[]
@@ -108,9 +118,8 @@ def send_mail_after_add_ws_ticket(sender,instance, *args, **kwargs):
             'link_home': settings.DOMAIN_NAME,
             'link_guide': 'https://gioitresaigon.net/huong-dan-mua-ve-dhgt-2022.html',         
             }
-            send_email(template,subject,to_emails,merge_data)
+            send_email(template,subject,to_emails,merge_data)         
             
-
 
 @receiver(post_delete, sender = UserExtend)
 def post_delete_user(sender, instance, *args, **kwargs):
