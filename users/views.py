@@ -208,7 +208,7 @@ def confirm_email(request,key):
     to_emails.append(user_extend.user_id.email)
     merge_data = {
          'fullname':user_extend.user_id.last_name + ' ' + user_extend.user_id.first_name,
-         'link_home': link_home,
+         'home_link': link_home,
          'username': user_extend.user_id.username
     }  
     send_email(template, subject,to_emails , merge_data)
