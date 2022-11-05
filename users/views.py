@@ -35,14 +35,17 @@ def register(request):
             template ='users/verify_email_template.html'
             verify_link = request.scheme + '://' + request.get_host() +'/u/confirm-email/' + user.userextend.activation_key
             home_link = settings.DOMAIN_NAME
+            from_email ='GioiTreSaiGon Admin'
             to_emails=[]
             to_emails.append(user.email)
+            bcc =[]
+            bcc.append('dhgttgpsaigon@gmail.com')
             merge_data = {
                 'fullname':user.last_name + ' ' + user.first_name,
                 'verify_link':verify_link,
                 'home_link':home_link,
             }
-            send_email(template,subject,to_emails,merge_data,connection)
+            send_email(template,subject,to_emails,merge_data,connection,from_email=from_email,bcc=bcc)
             return HttpResponseRedirect(reverse('users:register_success'))
         else:
             return render(request,'users/register.html',{'form':form})
@@ -170,14 +173,17 @@ def verify_email(request):
             template ='users/verify_email_template.html'
             verify_link = request.scheme + '://' + request.get_host() +'/u/confirm-email/' + user.userextend.activation_key
             home_link = settings.DOMAIN_NAME
+            from_email ='GioiTreSaiGon Admin'
             to_emails=[]
             to_emails.append(user.email)
+            bcc =[]
+            bcc.append('dhgttgpsaigon@gmail.com')
             merge_data = {
                 'fullname':user.last_name + ' ' + user.first_name,
                 'verify_link':verify_link,
                 'home_link':home_link,
             }
-            send_email(template,subject,to_emails,merge_data,connection)
+            send_email(template,subject,to_emails,merge_data,connection,from_email=from_email,bcc=bcc)
             messages.success(request,_('Đã gửi mail xác nhận. Xin vui lòng kiểm tra email.'))
             return HttpResponseRedirect(reverse('users:verify_email'))
         else:

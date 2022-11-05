@@ -93,14 +93,17 @@ class CustomUserExtendAdmin(admin.ModelAdmin):
                 template ='users/verify_email_template.html'
                 verify_link = request.scheme + '://' + request.get_host() +'/u/confirm-email/' + query.activation_key
                 home_link = settings.DOMAIN_NAME
+                from_email ='GioiTreSaiGon Admin'
                 to_emails=[]
                 to_emails.append(query.user_id.email)
+                bcc =[]
+                bcc.append('dhgttgpsaigon@gmail.com')
                 merge_data = {
                     'fullname':query.user_id.last_name + ' ' + query.user_id.first_name,
                     'verify_link':verify_link,
                     'home_link':home_link,
                 }         
-                send_email(template,subject,to_emails,merge_data,connection)
+                send_email(template,subject,to_emails,merge_data,connection,from_email=from_email,bcc=bcc)
         self.message_user(request,'Đã gửi email.')
         
 
