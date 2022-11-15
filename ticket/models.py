@@ -30,7 +30,7 @@ class Workshop(models.Model):
 class Participant(models.Model):
     workshop_id = models.ForeignKey(Workshop, on_delete= models.CASCADE,verbose_name='Workshop')
     user_id = models.ForeignKey(User, on_delete= models.CASCADE,verbose_name=_('Người dùng'))
-    date = models.DateTimeField(verbose_name =_('Ngày tham gia'),default= datetime.utcnow)
+    date = models.DateTimeField(verbose_name =_('Ngày tham gia'),default= datetime.now())
     quantity = models.IntegerField(verbose_name=_('Số lượng đăng ký'),default= 1)
     qrcode = models.CharField(blank= True, max_length=254)
 
