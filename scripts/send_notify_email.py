@@ -28,7 +28,7 @@ if __name__ == '__main__':
     bytes_img = buffer.getvalue()
 
     #Send mail to notify email
-    subject = 'Thư nhắc nhở'
+    subject = '[ĐHGT TGP Sài Gòn 2022] Thư Nhắc Nhở'
     template ='users/notify_email_near_event_template.html'
     home_link = settings.DOMAIN_NAME
     from_email ='GioiTreSaiGon Admin'
