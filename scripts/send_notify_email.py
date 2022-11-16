@@ -33,6 +33,7 @@ if __name__ == '__main__':
     home_link = settings.DOMAIN_NAME
     from_email ='GioiTreSaiGon Admin'
     emails_exist= []
+    count = 0
     for user in users:
         if user.email not in emails_exist:
             to_emails=[]
@@ -43,3 +44,5 @@ if __name__ == '__main__':
                 'home_link':home_link,
             }
             send_email_img(template,subject,to_emails,merge_data,bytes_img)
+            count +=1
+    print('mail sent: ',count)
