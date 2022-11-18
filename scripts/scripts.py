@@ -34,6 +34,7 @@ if __name__ == '__main__':
         item_array.append(participant.user_id.userextend.parish)
         item_array.append(participant.user_id.userextend.address)
         item_array.append(participant.quantity)
+        item_array.append(0)
         item_list.append(item_array)
 
     scope = [
@@ -44,4 +45,4 @@ if __name__ == '__main__':
     # Get Spreadsheet
     sheet = gc.open_by_key(settings.SPREADSHEET_ID)
     participant_worksheet = sheet.worksheet('Participant')
-    participant_worksheet.update("A2:K"+str(count+1),item_list)
+    participant_worksheet.update("A2:L"+str(count+1),item_list)

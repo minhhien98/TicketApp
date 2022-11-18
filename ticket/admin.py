@@ -34,7 +34,7 @@ class CustomParticipantAdmin(admin.ModelAdmin):
         response.write(u'\ufeff'.encode('utf8'))
         writer = csv.writer(response)
         # write header in csv
-        writer.writerow(['timestamp','FullName','Birthday','PhoneNo','Email','QRCode','Workshop','CheckInStatus','Parish','Address','Group'])
+        writer.writerow(['timestamp','FullName','Birthday','PhoneNo','Email','QRCode','Workshop','CheckInStatus','Parish','Address','Group','ScanLimit'])
         # get all participants data
         participants = Participant.objects.all()
         for participant in participants:
@@ -50,6 +50,7 @@ class CustomParticipantAdmin(admin.ModelAdmin):
             item_array.append(participant.user_id.userextend.parish)
             item_array.append(participant.user_id.userextend.address)
             item_array.append(participant.quantity)
+            item_array.append(0)
             # write data to csv
             writer.writerow(item_array)    
         return response
@@ -73,6 +74,7 @@ class CustomParticipantAdmin(admin.ModelAdmin):
             item_array.append(participant.user_id.userextend.parish)
             item_array.append(participant.user_id.userextend.address)
             item_array.append(participant.quantity)
+            item_array.append(0)
             item_list.append(item_array)
 
         scope = [
@@ -83,7 +85,7 @@ class CustomParticipantAdmin(admin.ModelAdmin):
         # Get Spreadsheet
         sheet = gc.open_by_key(settings.SPREADSHEET_ID)
         participant_worksheet = sheet.worksheet('Participant')
-        participant_worksheet.update("A2:K"+str(count+1),item_list)
+        participant_worksheet.update("A2:L"+str(count+1),item_list)
         self.message_user(request,'Đã đã xuất dữ liệu lên google sheets.')
 
 # Register your models here.
