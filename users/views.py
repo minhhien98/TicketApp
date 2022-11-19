@@ -132,6 +132,7 @@ def login(request):
             messages.warning(request,_('Tài khoản/Mật khẩu không chính xác!'))
             return render(request,'users/login.html')
     else:
+        messages.warning(request,'Hiện chúng tôi đã đóng link đăng ký. Nếu bạn chưa chọn vé workshop, bạn vẫn có thể đăng nhập để chọn vé.')
         return render(request,'users/login.html')
 
 def logout(request):
